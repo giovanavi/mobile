@@ -4,15 +4,34 @@
         <item>Paciente</item>
         <item>Médico</item>
     </string-array>
-    <string name="title_activity_teste">TESTE</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string-array name="especialidades_array">
+        <item>Oftalmologia</item>
+        <item>Ginecologista</item>
+        <item>Dermatologista</item>
+        <item>Clinico Geral</item>
+        <item>Cardiologista</item>
+        <item>Dentista</item>
+        <item>Ortopedista</item>
+        <item>Neurologista</item>
+        <item>Psiquiatra</item>
+        <item>Psicologo</item>
+        <item>Nutricionista</item>
+        <item>Obstetra</item>
+    </string-array>
+
+    <string-array name="pagamento_array">
+        <item>Particular</item>
+        <item>Convênio</item>
+    </string-array>
+
+    <string-array name="convenio_array">
+        <item>Convenio 1</item>
+        <item>Convenio 2</item>
+        <item>Convenio 3</item>
+        <item>Convenio 4</item>
+        <item>Convenio 5</item>
+        <item>Convenio 6</item>
+    </string-array>
+
 </resources>

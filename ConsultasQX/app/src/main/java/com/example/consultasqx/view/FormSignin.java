@@ -29,7 +29,7 @@ public class FormSignin extends AppCompatActivity {
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextSenha = findViewById(R.id.editTextPassword);
         perfil = findViewById(R.id.spinnerPerfil);
-        //populando o spinner (MédicoPaciente)
+        //populando o spinner (Médico/Paciente)
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.pefil_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

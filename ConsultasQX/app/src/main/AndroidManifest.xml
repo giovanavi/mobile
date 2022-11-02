@@ -13,6 +13,22 @@
         android:theme="@style/Theme.ConsultasQX"
         tools:targetApi="31">
         <activity
+            android:name=".MarcarConsulta"
+            android:exported="false"
+            android:label="@string/title_activity_marcar_consulta"
+            android:theme="@style/Theme.ConsultasQX.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Home"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".TESTE"
             android:exported="false"
             android:label="@string/title_activity_teste"
