@@ -15,4 +15,16 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="senha">Senha</string>
+    <string name="e_mail">E-mail</string>
+    <string name="consultasqx">ConsultasQX</string>
+    <string name="nome">Nome</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="confirme_sua_senha">Confirme sua senha</string>
+    <string name="e_mailLogin">E-mail</string>
+    <string name="consultasqxLogin">ConsultasQX</string>
+    <string name="senhaLogin">Senha</string>
+    <string name="acessar">Acessar</string>
+    <string name="cadastre_se">Cadastre-se</string>
+    <string name="voltar">Voltar</string>
 </resources>

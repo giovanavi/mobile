@@ -41,10 +41,16 @@ import java.util.ArrayList;
 //Tocar um som
 
 
-public class MainActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
+public class MainActivity extends AppCompatActivity /*implements CompoundButton.OnCheckedChangeListener*/ {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
 
 
-    ArrayList<Pessoa> listaPessoas;
+    /*ArrayList<Pessoa> listaPessoas;
     ArrayAdapter adapterPessoas;
     ArrayAdapter adapterPaises;
     ArrayAdapter adapterGenero;
@@ -304,5 +310,5 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                 String result = "Botão toggle está Off";
                 Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
             }
-        }
+        }*/
 }
