@@ -20,39 +20,29 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MarcarConsulta"
+            android:name=".view.MarcarConsulta"
             android:exported="false"
-            android:label="@string/title_activity_marcar_consulta"
             android:theme="@style/Theme.ConsultasQX.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
-                android:value="" />
+                android:value="false" />
         </activity>
         <activity
             android:name=".CadastroActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
-                android:value="" />
+                android:value="false" />
         </activity>
         <activity
-            android:name=".Home"
+            android:name=".view.Home"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".TESTE"
-            android:exported="false"
-            android:label="@string/title_activity_teste"
-            android:theme="@style/Theme.ConsultasQX.NoActionBar">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".FormSignupMedico"
+            android:name=".view.FormSignupMedico"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
