@@ -5,7 +5,6 @@
         <item>Médico</item>
     </string-array>
 
-<<<<<<< HEAD
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
@@ -21,7 +20,7 @@
     <string name="acessar">Acessar</string>
     <string name="cadastre_se">Cadastre-se</string>
     <string name="voltar">Voltar</string>
-=======
+
     <string-array name="especialidades_array">
         <item>Oftalmologia</item>
         <item>Ginecologista</item>
@@ -50,6 +49,4 @@
         <item>Convenio 5</item>
         <item>Convenio 6</item>
     </string-array>
-
->>>>>>> b37db421bb9a18016bc047d19ece9bf4671becfb
 </resources>

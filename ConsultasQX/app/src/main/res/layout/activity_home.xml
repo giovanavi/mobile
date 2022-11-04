@@ -4,8 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
-    tools:context=".HomeActivity">
+    tools:context=".view.Home">
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="deslogar"
+        android:text="Sair"
+        tools:layout_editor_absoluteX="53dp"
+        tools:layout_editor_absoluteY="40dp" />
 
     <Button
         android:id="@+id/button"
@@ -15,8 +23,6 @@
         android:text="Sair"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="7dp" />
-=======
-    tools:context=".view.Home">
 
     <TextView
         android:id="@+id/textView2"
@@ -72,5 +78,4 @@
         tools:layout_editor_absoluteX="237dp"
         tools:layout_editor_absoluteY="359dp" />
 
->>>>>>> b37db421bb9a18016bc047d19ece9bf4671becfb
 </androidx.constraintlayout.widget.ConstraintLayout>
