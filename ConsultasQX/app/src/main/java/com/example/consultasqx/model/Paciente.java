@@ -1,6 +1,6 @@
 package com.example.consultasqx.model;
 
-public class Paciente {
+public class Paciente extends Usuario{
 
     private int id;
     private String nome;

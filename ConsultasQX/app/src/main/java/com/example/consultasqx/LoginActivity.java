@@ -12,15 +12,18 @@ import android.widget.Toast;
 
 import com.example.consultasqx.Util.ConfiguraBD;
 import com.example.consultasqx.model.Usuario;
+import com.example.consultasqx.view.Home;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+//import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+//import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -64,12 +67,15 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+
+                    //completarInfo(usuario);
+
                     abrirHome();
                 }else{
-                    String excecao = "";
+                    String excecao;
 
                     try{
-                        throw task.getException();
+                        throw Objects.requireNonNull(task.getException());
                     }catch(FirebaseAuthInvalidUserException e){
                         excecao = "Usuário não cadastrado";
                     }catch(FirebaseAuthInvalidCredentialsException e){
@@ -84,8 +90,16 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /*private void completarInfo(Usuario usuario){
+        if(usuario.getEmail().equals("gabriel0603cavalcanti@gmail.com")){
+
+        }else if(usuario.getEmail().equals("giovana.gvi02@gmail.com")){
+
+        }
+    }*/
+
     private void abrirHome() {
-        Intent intent = new Intent(this, HomeActivity.class);
+        Intent intent = new Intent(this, Home.class);
         startActivity(intent);
     }
 
