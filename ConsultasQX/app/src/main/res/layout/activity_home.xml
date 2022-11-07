@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".view.Home">
 
+<<<<<<< HEAD
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
@@ -14,16 +15,32 @@
         android:text="Sair"
         tools:layout_editor_absoluteX="250dp"
         tools:layout_editor_absoluteY="454dp" />
+=======
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="UselessParent">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ConsultasQX"
-        android:textSize="40dp"
-        tools:layout_editor_absoluteX="90dp"
-        tools:layout_editor_absoluteY="34dp" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="50dp"
+            android:paddingBottom="50dp"
+            android:text="@string/home"
+            android:textAlignment="center"
+            android:textColor="#FF0000"
+            android:textSize="40sp"/>
+>>>>>>> ee15d4555534dde917fef03b0c1eccb201d502b0
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+<<<<<<< HEAD
     <TextView
         android:id="@+id/textView4"
         android:layout_width="181dp"
@@ -41,25 +58,42 @@
         android:textSize="25dp"
         tools:layout_editor_absoluteX="211dp"
         tools:layout_editor_absoluteY="333dp" />
+=======
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_weight="1"
+                android:backgroundTint="#FF0000"
+                android:text="@string/marcar_consulta"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                tools:ignore="InefficientWeight" />
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="90dp"
-        android:layout_height="77dp"
-        android:text="Editar Perfil"
-        android:textSize="25dp"
-        tools:layout_editor_absoluteX="68dp"
-        tools:layout_editor_absoluteY="359dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+>>>>>>> ee15d4555534dde917fef03b0c1eccb201d502b0
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="149dp"
-        android:layout_height="91dp"
-        android:text="FootBar"
-        tools:layout_editor_absoluteX="131dp"
-        tools:layout_editor_absoluteY="571dp"
-        android:textSize="40dp"/>
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_weight="1"
+                android:backgroundTint="#FF0000"
+                android:text="@string/hist_rico_de_consultas"
+                android:textSize="20sp"
+                tools:ignore="InefficientWeight" />
 
+        </LinearLayout>
+
+<<<<<<< HEAD
     <TextView
         android:id="@+id/textView11"
         android:layout_width="153dp"
@@ -69,5 +103,44 @@
         tools:layout_editor_absoluteX="211dp"
         tools:layout_editor_absoluteY="163dp" />
 
+=======
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+>>>>>>> ee15d4555534dde917fef03b0c1eccb201d502b0
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/buttonMapa"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:backgroundTint="#FF0000"
+                android:onClick="abrirMapa"
+                android:text="@string/mapa"
+                android:textSize="20sp"
+                tools:ignore="UsingOnClickInXml" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginLeft="70dp"
+                android:layout_marginRight="70dp"
+                android:backgroundTint="#FF0000"
+                android:onClick="deslogar"
+                android:text="@string/sair"
+                android:textSize="20sp"
+                tools:ignore="UsingOnClickInXml" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

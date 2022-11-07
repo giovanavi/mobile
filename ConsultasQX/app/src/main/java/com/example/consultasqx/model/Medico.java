@@ -1,8 +1,12 @@
 package com.example.consultasqx.model;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 
 public class Medico {
+=======
+public class Medico extends Usuario{
+>>>>>>> ee15d4555534dde917fef03b0c1eccb201d502b0
 
     private static int CONTADOR=0;
 

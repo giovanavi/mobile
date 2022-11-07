@@ -54,6 +54,7 @@
         <item>Convenio 5</item>
         <item>Convenio 6</item>
     </string-array>
+<<<<<<< HEAD
     <string name="title_activity_agendar_consulta">AgendarConsulta</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
@@ -144,4 +145,18 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+=======
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="todo">TODO</string>
+    <string name="Selecione" />
+    <string name="selecione">Selecione</string>
+    <string name="cpf">CPF</string>
+    <string name="telefone">Telefone</string>
+    <string name="informe_endere_o_cidade_ou_zip_code">Informe Endereço, Cidade ou Zip Code</string>
+    <string name="home">Home</string>
+    <string name="marcar_consulta">Marcar consulta</string>
+    <string name="hist_rico_de_consultas">Histórico de Consultas</string>
+    <string name="mapa">Mapa</string>
+    <string name="sair">Sair</string>
+>>>>>>> ee15d4555534dde917fef03b0c1eccb201d502b0
 </resources>
