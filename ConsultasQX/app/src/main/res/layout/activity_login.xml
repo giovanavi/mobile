@@ -33,13 +33,13 @@
         android:drawablePadding="6dp"
         android:ems="10"
         android:hint="@string/e_mailLogin"
+        android:importantForAutofill="no"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
         android:padding="10dp"
         android:textColor="@color/white"
         android:textColorHint="#F6F0F2"
-        tools:ignore="TextContrastCheck"
-        android:importantForAutofill="no" />
+        tools:ignore="TextContrastCheck" />
 
     <EditText
         android:id="@+id/editTextSenhaLogin"
