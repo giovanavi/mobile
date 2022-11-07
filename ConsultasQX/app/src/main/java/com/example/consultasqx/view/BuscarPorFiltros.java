@@ -5,10 +5,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.ListView;
 
 import com.example.consultasqx.R;
 import com.example.consultasqx.model.Medico;
@@ -16,10 +16,11 @@ import com.example.consultasqx.view.adapter.MedicoAdapter;
 
 import java.util.ArrayList;
 
-public class MarcarConsulta extends AppCompatActivity {
+public class BuscarPorFiltros extends AppCompatActivity {
 
     RecyclerView recyclerView;
     MedicoAdapter adapter;
+    ArrayList<Medico> listaMedicos = new ArrayList<>();
 
     ArrayAdapter adapterEspecialidades;
     ArrayAdapter adapterConvenio;
@@ -37,14 +38,14 @@ public class MarcarConsulta extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_marcar_consulta);
+        setContentView(R.layout.activity_buscar_por_filtros);
 
         recyclerView = findViewById(R.id.recyclerViewMedicos);
 
-        ArrayList<Medico> lista = getList();
+        Medico medico = new Medico();
+        listaMedicos = medico.getList();
 
-        adapter = new MedicoAdapter(lista);
-
+        adapter = new MedicoAdapter(listaMedicos);
 
         initAutoCompletes();
         initRecyclerView();
@@ -54,7 +55,15 @@ public class MarcarConsulta extends AppCompatActivity {
     //fazer funcionalidade para tornar o campo CONVENIO enabled se a opção de pagamento particular for marcada
 
     public void pesquisar(){
-        //filtrar a pesquisa dos médicos pela Especialidada, Convenio
+        btnPesquisa = findViewById(R.id.btnPesquisar);
+
+        btnPesquisa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
     }
 
     public void initRecyclerView(){
@@ -64,32 +73,6 @@ public class MarcarConsulta extends AppCompatActivity {
 
     }
 
-    public ArrayList<Medico> getList(){
-        ArrayList lista = new ArrayList<Medico>();
-        Medico m1 = new Medico("José", "9876", "Pediatra");
-        Medico m2 = new Medico("Maria", "2134", "Psicologa");
-        Medico m3 = new Medico("Jão", "4324", "Medica");
-        Medico m4 = new Medico("Carolina", "2356", "Ortopedista");
-        Medico m5 = new Medico("Arthur", "2518", "Clinico Geral");
-        Medico m6 = new Medico("Manuel", "9841", "Psiquiatra");
-        Medico m7 = new Medico("Manuel", "9841", "Psiquiatra");
-        Medico m8 = new Medico("Manuel", "9841", "Psiquiatra");
-        Medico m9 = new Medico("Manuel", "9841", "Psiquiatra");
-        Medico m10 = new Medico("Manuel", "9841", "Psiquiatra");
-
-        lista.add(m1);
-        lista.add(m2);
-        lista.add(m3);
-        lista.add(m4);
-        lista.add(m5);
-        lista.add(m6);
-        lista.add(m7);
-        lista.add(m8);
-        lista.add(m9);
-        lista.add(m10);
-
-        return lista;
-    }
 
     private void initAutoCompletes(){
         //ArrayAdapter Especialidades / Para encher o autoComplete

@@ -11,7 +11,11 @@ public class Paciente {
     private String cidade;
     private String convenio;
 
-    public Paciente(String email, String senha){}
+
+
+    public Paciente(String nome){
+        this.nome = nome;
+    }
 
     public Paciente(String nome, String cpf, String email, String senha, String telefone, String cidade, String convenio) {
         this.nome = nome;

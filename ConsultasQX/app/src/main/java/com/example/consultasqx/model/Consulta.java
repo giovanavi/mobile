@@ -1,8 +1,11 @@
 package com.example.consultasqx.model;
 
 import java.sql.Time;
+import java.util.ArrayList;
 
 public class Consulta {
+
+    private static int CONTADOR=0;
 
     private int id;
     private Medico medico;
@@ -11,7 +14,10 @@ public class Consulta {
     private String local;
     private String convenio;
 
+    public Consulta(){}
+
     public Consulta(Medico medico, Paciente paciente, Time horario, String local, String convenio) {
+        this.id = CONTADOR++;
         this.medico = medico;
         this.paciente = paciente;
         this.horario = horario;
@@ -24,6 +30,27 @@ public class Consulta {
         this.paciente = paciente;
         this.horario = horario;
         this.local = local;
+    }
+
+    public Consulta(Medico medico, Paciente paciente) {
+        this.medico = medico;
+        this.paciente = paciente;
+    }
+
+    public ArrayList<Consulta> getList(){
+
+        Medico medico = new Medico();
+        ArrayList<Medico> lista = medico.getList();
+
+        ArrayList<Consulta> listaConsulta = new ArrayList<>();
+
+        for (int i=0; i<10; i++){
+            medico = lista.get(i);
+            String nome = "Paciente" + i;
+            listaConsulta.add(new Consulta(medico, new Paciente(nome)));
+        }
+
+        return listaConsulta;
     }
 
     public Medico getMedico() {
@@ -65,4 +92,9 @@ public class Consulta {
     public void setConvenio(String convenio) {
         this.convenio = convenio;
     }
+
+    public int getId(){
+        return id;
+    }
+
 }

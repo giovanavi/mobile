@@ -12,17 +12,8 @@
         android:layout_height="wrap_content"
         android:onClick="deslogar"
         android:text="Sair"
-        tools:layout_editor_absoluteX="53dp"
-        tools:layout_editor_absoluteY="40dp" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="deslogar"
-        android:text="Sair"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="7dp" />
+        tools:layout_editor_absoluteX="250dp"
+        tools:layout_editor_absoluteY="454dp" />
 
     <TextView
         android:id="@+id/textView2"
@@ -35,12 +26,12 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="113dp"
-        android:layout_height="94dp"
-        android:text="Marcar Consulta"
+        android:layout_width="181dp"
+        android:layout_height="106dp"
+        android:text="Filtrar por especialidade"
         android:textSize="25dp"
-        tools:layout_editor_absoluteX="56dp"
-        tools:layout_editor_absoluteY="174dp" />
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="163dp" />
 
     <TextView
         android:id="@+id/textView5"
@@ -48,8 +39,8 @@
         android:layout_height="65dp"
         android:text="Historico de Consultas"
         android:textSize="25dp"
-        tools:layout_editor_absoluteX="204dp"
-        tools:layout_editor_absoluteY="203dp" />
+        tools:layout_editor_absoluteX="211dp"
+        tools:layout_editor_absoluteY="333dp" />
 
     <TextView
         android:id="@+id/textView6"
@@ -70,12 +61,13 @@
         android:textSize="40dp"/>
 
     <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sair"
+        android:id="@+id/textView11"
+        android:layout_width="153dp"
+        android:layout_height="100dp"
+        android:text="Pesquisar por medico"
         android:textSize="25dp"
-        tools:layout_editor_absoluteX="237dp"
-        tools:layout_editor_absoluteY="359dp" />
+        tools:layout_editor_absoluteX="211dp"
+        tools:layout_editor_absoluteY="163dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
