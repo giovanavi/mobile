@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     tools:context=".view.Home">
 
-<<<<<<< HEAD
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
@@ -15,7 +14,6 @@
         android:text="Sair"
         tools:layout_editor_absoluteX="250dp"
         tools:layout_editor_absoluteY="454dp" />
-=======
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -33,14 +31,12 @@
             android:textAlignment="center"
             android:textColor="#FF0000"
             android:textSize="40sp"/>
->>>>>>> ee15d4555534dde917fef03b0c1eccb201d502b0
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-<<<<<<< HEAD
     <TextView
         android:id="@+id/textView4"
         android:layout_width="181dp"
@@ -58,7 +54,7 @@
         android:textSize="25dp"
         tools:layout_editor_absoluteX="211dp"
         tools:layout_editor_absoluteY="333dp" />
-=======
+
             <Button
                 android:id="@+id/button3"
                 android:layout_width="match_parent"
@@ -77,7 +73,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
->>>>>>> ee15d4555534dde917fef03b0c1eccb201d502b0
 
             <Button
                 android:id="@+id/button4"
@@ -93,7 +88,6 @@
 
         </LinearLayout>
 
-<<<<<<< HEAD
     <TextView
         android:id="@+id/textView11"
         android:layout_width="153dp"
@@ -108,7 +102,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
->>>>>>> ee15d4555534dde917fef03b0c1eccb201d502b0
 
             <Button
                 android:id="@+id/buttonMapa"
