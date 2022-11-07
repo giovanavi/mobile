@@ -15,6 +15,7 @@ public class Medico extends Usuario{
     private String especialidade;
 
     public Medico(){}
+
     public Medico(String nome, String crm, String especialidade){
         this.id = CONTADOR++;
         this.nome = nome;
