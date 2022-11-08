@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.consultasqx.R;
 import com.example.consultasqx.model.Consulta;
+import com.example.consultasqx.view.AgendarConsulta;
 import com.example.consultasqx.view.MedicoPerfil;
 
 import java.util.ArrayList;
@@ -55,8 +56,8 @@ public class ConsultaAdapter extends RecyclerView.Adapter<ConsultaAdapter.ViewHo
     public void onBindViewHolder(@NonNull ConsultaAdapter.ViewHolder holder, int position) {
         String name = consultaList.get(position).getMedico().getNome();
         String especialidade = consultaList.get(position).getMedico().getEspecialidade();
-        String tipo_consulta = "Particular";
-        String convenio = "HapVida";
+        String tipo_consulta = "Convenio: ";
+        String convenio = "Hapvida";
         int id = consultaList.get(position).getId();
 
         holder.nome.setText(name);
@@ -68,21 +69,21 @@ public class ConsultaAdapter extends RecyclerView.Adapter<ConsultaAdapter.ViewHo
             holder.convenio.setText("");
         }
 
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Context context = view.getContext();
-//                Intent intent = new Intent(context, MedicoPerfil.class);
-//
-//                intent.putExtra("id", id);
-//                intent.putExtra("nome", name);
-//                intent.putExtra("especialidade", especialidade);
-//                intent.putExtra("tipo_consulta", tipo_consulta);
-//                intent.putExtra("convenio", convenio);
-//
-//                context.startActivity(intent);
-//            }
-//        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = view.getContext();
+                Intent intent = new Intent(context, AgendarConsulta.class);
+
+                intent.putExtra("id", id);
+                intent.putExtra("nome", name);
+                intent.putExtra("especialidade", especialidade);
+                intent.putExtra("tipo_consulta", tipo_consulta);
+                intent.putExtra("convenio", convenio);
+
+                context.startActivity(intent);
+            }
+        });
 
     }
 

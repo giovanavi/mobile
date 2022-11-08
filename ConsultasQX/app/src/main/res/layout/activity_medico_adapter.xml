@@ -24,7 +24,6 @@
 
     </androidx.cardview.widget.CardView>
 
-
     <TextView
         android:id="@+id/nome"
         android:layout_width="0dp"

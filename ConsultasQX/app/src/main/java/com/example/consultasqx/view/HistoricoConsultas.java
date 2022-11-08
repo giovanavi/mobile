@@ -31,6 +31,12 @@ public class HistoricoConsultas extends AppCompatActivity {
         listaConsultas = consulta.getList();
         adapter = new ConsultaAdapter(listaConsultas);
 
+        for (Consulta c: listaConsultas) {
+            System.out.println("Medico " + c.getMedico().getNome());
+            System.out.println(c.getPaciente().getNome());
+            System.out.println("Convenio " + c.getConvenio());
+        }
+
         initRecyclerView();
 
     }

@@ -46,7 +46,7 @@ public class Consulta {
 
         for (int i=0; i<10; i++){
             medico = lista.get(i);
-            String nome = "Paciente" + i;
+            String nome = "Paciente " + i;
             listaConsulta.add(new Consulta(medico, new Paciente(nome)));
         }
 
