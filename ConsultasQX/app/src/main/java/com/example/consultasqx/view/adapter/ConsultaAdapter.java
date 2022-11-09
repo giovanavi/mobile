@@ -56,9 +56,12 @@ public class ConsultaAdapter extends RecyclerView.Adapter<ConsultaAdapter.ViewHo
     public void onBindViewHolder(@NonNull ConsultaAdapter.ViewHolder holder, int position) {
         String name = consultaList.get(position).getMedico().getNome();
         String especialidade = consultaList.get(position).getMedico().getEspecialidade();
-        String tipo_consulta = "Convenio: ";
-        String convenio = "Hapvida";
+        String tipo_consulta = "Convenio: ";//consultasList.get(position).getTipo_consulta();
+        String convenio = "Hapvida";//consultas.List.get(position).getPaciente().getConvenio();
         int id = consultaList.get(position).getId();
+        int id_medico = consultaList.get(position).getMedico().getId();
+        int id_paciente = consultaList.get(position).getPaciente().getId();
+
 
         holder.nome.setText(name);
         holder.especialidade.setText(especialidade);
@@ -75,11 +78,9 @@ public class ConsultaAdapter extends RecyclerView.Adapter<ConsultaAdapter.ViewHo
                 Context context = view.getContext();
                 Intent intent = new Intent(context, AgendarConsulta.class);
 
-                intent.putExtra("id", id);
-                intent.putExtra("nome", name);
-                intent.putExtra("especialidade", especialidade);
-                intent.putExtra("tipo_consulta", tipo_consulta);
-                intent.putExtra("convenio", convenio);
+                intent.putExtra("id", id); // id da consulta
+                intent.putExtra("id_medico", id_medico);
+                intent.putExtra("id_paciente", id_paciente);
 
                 context.startActivity(intent);
             }

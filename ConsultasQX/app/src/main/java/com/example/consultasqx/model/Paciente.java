@@ -11,8 +11,6 @@ public class Paciente extends Usuario{
     private String cidade;
     private String convenio;
 
-
-
     public Paciente(String nome){
         this.nome = nome;
     }

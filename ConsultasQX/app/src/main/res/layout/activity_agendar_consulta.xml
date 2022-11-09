@@ -45,29 +45,132 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/info2" />
 
-
         <TextView
             android:id="@+id/info3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
             android:text="Horários Disponíveis"
             android:textSize="30dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.139"
+            app:layout_constraintHorizontal_bias="0.198"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/calendarView" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupHorarios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info3">
+
+            <RadioButton
+                android:id="@+id/radioButtonHorario1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:text="111" />
+
+            <RadioButton
+                android:id="@+id/radioButtonHorario2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="222" />
+
+            <RadioButton
+                android:id="@+id/radioButtonHorario3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="333" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/info4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Convênios"
+            android:textSize="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.091"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/radioGroupHorarios" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupConvenios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info4">
+
+            <RadioButton
+                android:id="@+id/radioButtonConvenios1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Convenio 1" />
+
+            <RadioButton
+                android:id="@+id/radioButtonConvenios2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Convenio 2" />
+
+            <RadioButton
+                android:id="@+id/radioButtonConvenios3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Convenio 3" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/info5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Especialiadades"
+            android:textSize="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.131"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/radioGroupConvenios" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupEspecialidades"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info5">
+
+            <RadioButton
+                android:id="@+id/radioButtonEspecialidade1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Especialidade 1" />
+
+            <RadioButton
+                android:id="@+id/radioButtonEspecialidade2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Especialidade 2" />
+
+            <RadioButton
+                android:id="@+id/radioButtonEspecialidade3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Especialidade 3" />
+        </RadioGroup>
 
         <Button
             android:id="@+id/btn_marcar_consulta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="212dp"
+            android:layout_marginTop="30dp"
+            android:onClick="marcarConsulta"
             android:text="Marcar Conculta"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/info3" />
+            app:layout_constraintTop_toBottomOf="@+id/radioGroupEspecialidades" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
