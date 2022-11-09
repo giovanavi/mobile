@@ -14,8 +14,6 @@ public class Medico extends Usuario{
     private String convenio;
     private String especialidade;
 
-    public Medico(){}
-
     public Medico(String nome, String crm, String especialidade){
         this.id = CONTADOR++;
         this.nome = nome;
@@ -23,19 +21,14 @@ public class Medico extends Usuario{
         this.especialidade = especialidade;
     }
 
-    public Medico(String crm, String nome, String cpf, String telefone, String convenio) {
+    public Medico(String crm, String nome, String cpf, String telefone, String convenio, String especialidade) {
+        this.id = CONTADOR++;
         this.crm = crm;
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
         this.convenio = convenio;
-    }
-
-    public Medico(String crm, String nome, String cpf, String telefone) {
-        this.crm = crm;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.telefone = telefone;
+        this.especialidade = especialidade;
     }
 
     public ArrayList<Medico> getList(){

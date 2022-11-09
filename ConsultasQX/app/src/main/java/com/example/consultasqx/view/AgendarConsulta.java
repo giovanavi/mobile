@@ -21,6 +21,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import com.example.consultasqx.R;
+
 public class AgendarConsulta extends AppCompatActivity {
 
     CalendarView calendarView;

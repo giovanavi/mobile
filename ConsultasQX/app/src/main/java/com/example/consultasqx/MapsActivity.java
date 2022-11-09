@@ -25,12 +25,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 //import com.example.consultasqx.model.PlaceInfo;
-//import com.google.android.gms.common.ConnectionResult;
-//import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-//import com.google.android.gms.common.GooglePlayServicesRepairableException;
+//import com.google.android.gms.common.ConnectionResult; //
+//import com.google.android.gms.common.GooglePlayServicesNotAvailableException; //
+//import com.google.android.gms.common.GooglePlayServicesRepairableException; //
 //import com.google.android.gms.common.api.GoogleApiClient;
-//import com.google.android.gms.common.api.PendingResult;
-//import com.google.android.gms.common.api.ResultCallback;
+//import com.google.android.gms.common.api.PendingResult; //
+//import com.google.android.gms.common.api.ResultCallback; //
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 //import com.google.android.gms.location.places.AutocompletePrediction;
@@ -43,8 +43,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-//import com.google.android.gms.maps.model.LatLngBounds;
-//import com.google.android.gms.maps.model.Marker;
+//import com.google.android.gms.maps.model.LatLngBounds; //
+//import com.google.android.gms.maps.model.Marker; //
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.consultasqx.databinding.ActivityMapsBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -131,6 +131,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             init();
         }
+
+        /*
+
+        */
 
         Log.d(TAG, "onMapReady: Mapa pronto");
         Toast.makeText(this, "O mapa está pronto", Toast.LENGTH_SHORT).show();

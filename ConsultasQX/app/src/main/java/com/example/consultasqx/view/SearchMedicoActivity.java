@@ -16,6 +16,8 @@ import com.example.consultasqx.model.Medico;
 
 import java.util.ArrayList;
 
+import com.example.consultasqx.R;
+
 public class SearchMedicoActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;

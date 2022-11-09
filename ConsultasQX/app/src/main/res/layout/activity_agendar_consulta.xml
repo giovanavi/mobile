@@ -8,6 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+
         android:layout_height="match_parent">
 
         <TextView
@@ -132,6 +133,7 @@
             app:layout_constraintHorizontal_bias="0.131"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/radioGroupConvenios" />
+
 
         <RadioGroup
             android:id="@+id/radioGroupEspecialidades"

@@ -46,37 +46,38 @@ public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.ViewHolder
 
     @Override
     public Filter getFilter() {
-         Filter filter = new Filter() {
-             @Override
-             protected FilterResults performFiltering(CharSequence charSequence) {
-                 FilterResults filterResults = new FilterResults();
 
-                 if(charSequence == null || charSequence.length() == 0){
+        Filter filter = new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                FilterResults filterResults = new FilterResults();
+
+                if(charSequence == null || charSequence.length() == 0){
                     filterResults.values = medicosListFilter;
                     filterResults.count = medicosListFilter.size();
-                 }else{
-                     String search = charSequence.toString().toLowerCase();
-                     ArrayList<Medico> medicos = new ArrayList<>();
+                }else{
+                    String search = charSequence.toString().toLowerCase();
+                    ArrayList<Medico> medicos = new ArrayList<>();
 
-                     for (Medico medico: medicosListFilter) {
-                         if(medico.getNome().toLowerCase().contains(search) || medico.getEspecialidade().toLowerCase().contains(search) ){
-                             medicos.add(medico);
-                         }
-                     }
+                    for (Medico medico: medicosListFilter) {
+                        if(medico.getNome().toLowerCase().contains(search) || medico.getEspecialidade().toLowerCase().contains(search) ){
+                            medicos.add(medico);
+                        }
+                    }
 
-                     filterResults.values = medicos;
-                     filterResults.count = medicos.size();
-                 }
+                    filterResults.values = medicos;
+                    filterResults.count = medicos.size();
+                }
 
-                 return filterResults;
-             }
+                return filterResults;
+            }
 
-             @Override
-             protected void publishResults(CharSequence charSequence, FilterResults results) {
-                 medicosListFull = (ArrayList<Medico>) results.values;
-                 notifyDataSetChanged();
-             }
-         };
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults results) {
+                medicosListFull = (ArrayList<Medico>) results.values;
+                notifyDataSetChanged();
+            }
+        };
 
         return filter;
     }

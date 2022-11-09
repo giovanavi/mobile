@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.example.consultasqx.R;
 
+import com.example.consultasqx.R;
+
 public class MedicoPerfil extends AppCompatActivity {
 
 //    private ImageView img_perfil;
