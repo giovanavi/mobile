@@ -11,8 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MapsActivity"
-        tools:layout="@layout/activity_maps"
-        tools:ignore="FragmentTagUsage,RedundantNamespace" />
+        tools:layout="@layout/activity_maps"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

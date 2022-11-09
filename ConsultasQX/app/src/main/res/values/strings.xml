@@ -62,4 +62,31 @@
     <string name="hist_rico_de_consultas">Histórico de Consultas</string>
     <string name="mapa">Mapa</string>
     <string name="sair">Sair</string>
+    <string name="especialidades" />
+    <string name="tipo_pagamento" />
+    <string name="convenio" />
+    <string name="title_activity_apagar">ApagarActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="navigation_drawer_open" />
+    <string name="navigation_drawer_close" />
+    <string name="p_gina_de_usu_rio">Página de usuário</string>
+    <string name="tel_cl_nica">Tel. Clínica</string>
+    <string name="crm">CRM</string>
+    <string name="especialidade">Especialidade</string>
+    <string name="Editar" />
+    <string name="nome1">Nome</string>
+    <string name="n_mero_de_telefone_associado">Número de telefone associado</string>
+    <string name="senhaProfile">Senha</string>
+    <string name="nome_do_usu_rio">Nome do usuário</string>
+    <string name="email">Email</string>
+    <string name="todoProfile">TODO</string>
+    <string name="todoProfile2">TODO</string>
+    <string name="editar1">Editar</string>
 </resources>

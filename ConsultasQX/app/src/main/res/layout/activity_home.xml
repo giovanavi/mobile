@@ -4,11 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".view.Home">
+    tools:context=".view.Home"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start"
+    android:backgroundTint="#000">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#FF0000"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="UselessParent">
@@ -17,16 +21,17 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#FF0000"
             android:paddingTop="50dp"
             android:paddingBottom="50dp"
             android:text="@string/home"
             android:textAlignment="center"
-            android:textColor="#FF0000"
-            android:textSize="40sp"/>
+            android:textColor="#FFFFFF"
+            android:textSize="50sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="112dp"
             android:orientation="vertical">
 
             <Button
@@ -36,16 +41,17 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_weight="1"
-                android:backgroundTint="#FF0000"
+                android:backgroundTint="#FFFFFF"
                 android:text="@string/marcar_consulta"
                 android:textAlignment="center"
-                android:textSize="20sp"
+                android:textColor="#FF0000"
+                android:textSize="24sp"
                 tools:ignore="InefficientWeight" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="112dp"
             android:orientation="vertical">
 
             <Button
@@ -55,9 +61,10 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_weight="1"
-                android:backgroundTint="#FF0000"
+                android:backgroundTint="#FFFFFF"
                 android:text="@string/hist_rico_de_consultas"
-                android:textSize="20sp"
+                android:textColor="#FF1100"
+                android:textSize="23sp"
                 tools:ignore="InefficientWeight" />
 
         </LinearLayout>
@@ -70,13 +77,33 @@
             <Button
                 android:id="@+id/buttonMapa"
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
+                android:layout_height="112dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:backgroundTint="#FF0000"
+                android:backgroundTint="#FFFFFF"
                 android:onClick="abrirMapa"
                 android:text="@string/mapa"
-                android:textSize="20sp"
+                android:textColor="#FF0000"
+                android:textSize="24sp"
+                tools:ignore="UsingOnClickInXml" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="112dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/buttonProfile"
+                android:layout_width="match_parent"
+                android:layout_height="112dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:backgroundTint="#FFFFFF"
+                android:onClick="abrirPerfil"
+                android:text="@string/p_gina_de_usu_rio"
+                android:textColor="#FF0000"
+                android:textSize="24sp"
                 tools:ignore="UsingOnClickInXml" />
         </LinearLayout>
 
@@ -91,10 +118,11 @@
                 android:layout_height="75dp"
                 android:layout_marginLeft="70dp"
                 android:layout_marginRight="70dp"
-                android:backgroundTint="#FF0000"
+                android:backgroundTint="#FFFFFF"
                 android:onClick="deslogar"
                 android:text="@string/sair"
-                android:textSize="20sp"
+                android:textColor="#FF0000"
+                android:textSize="24sp"
                 tools:ignore="UsingOnClickInXml" />
         </LinearLayout>
 

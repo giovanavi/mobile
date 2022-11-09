@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.consultasqx.Util.ConfiguraBD;
 import com.example.consultasqx.model.Usuario;
+import com.example.consultasqx.view.Home;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -29,7 +32,7 @@ public class CadastroActivity extends AppCompatActivity {
 
     Usuario usuario;
     FirebaseAuth autenticacao;
-    EditText campoNome, campoPhone, campoCpf, campoEmail, campoSenha, campoConfSenha;
+    EditText campoNome, campoPhone, campoPhoneCli, campoCrm, campoEspec, campoCpf, campoEmail, campoSenha, campoConfSenha;
     Button botaoCadastrar, botaoVoltarCadastro;
 
     String[] items = {"Paciente", "Médico"};
@@ -37,6 +40,7 @@ public class CadastroActivity extends AppCompatActivity {
     ArrayAdapter<String> adapterItems;
 
     String item;
+    String[] colorArray = {"#44FFFFFF","#88FFFFFF"};
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -45,7 +49,10 @@ public class CadastroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cadastro);
 
         campoNome =(EditText) findViewById(R.id.editTextNome);
-        campoPhone =(EditText) findViewById(R.id.editTextPhone);
+        campoPhone =(EditText) findViewById(R.id.editTextPhonePaciente);
+        campoPhoneCli =(EditText) findViewById(R.id.editTextPhoneMedico);
+        campoCrm =(EditText) findViewById(R.id.editTextCrm);
+        campoEspec =(EditText) findViewById(R.id.editTextEspec);
         campoCpf =(EditText) findViewById(R.id.editTextCpf);
         campoEmail =(EditText) findViewById(R.id.editTextE_mail);
         campoSenha =(EditText) findViewById(R.id.editTextSenha);
@@ -63,8 +70,34 @@ public class CadastroActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
                 item = parent.getItemAtPosition(position).toString();
                 Toast.makeText(getApplicationContext(), "Escolha: "+item, Toast.LENGTH_SHORT).show();
+
+                habOuDesab(item);
             }
         });
+    }
+
+    private void habOuDesab(String item){
+        if(item.equals("Paciente")){
+            campoPhoneCli.setEnabled(false);
+            campoCrm.setEnabled(false);
+            campoEspec.setEnabled(false);
+            campoPhoneCli.setBackgroundColor(Color.parseColor(colorArray[1]));
+            campoCrm.setBackgroundColor(Color.parseColor(colorArray[1]));
+            campoEspec.setBackgroundColor(Color.parseColor(colorArray[1]));
+
+            campoPhone.setEnabled(true);
+            campoPhone.setBackgroundColor(Color.parseColor(colorArray[0]));
+        }else if(item.equals("Médico")){
+            campoPhone.setEnabled(false);
+            campoPhone.setBackgroundColor(Color.parseColor(colorArray[1]));
+
+            campoPhoneCli.setEnabled(true);
+            campoCrm.setEnabled(true);
+            campoEspec.setEnabled(true);
+            campoPhoneCli.setBackgroundColor(Color.parseColor(colorArray[0]));
+            campoCrm.setBackgroundColor(Color.parseColor(colorArray[0]));
+            campoEspec.setBackgroundColor(Color.parseColor(colorArray[0]));
+        }
     }
 
     public void validarCampos(View v){
@@ -77,10 +110,10 @@ public class CadastroActivity extends AppCompatActivity {
 
         if(!nome.isEmpty()){
             if(!item.isEmpty()){
-                if(!phone.isEmpty()){
-                    if(!cpf.isEmpty() && cpf.length() == 14 && verNums(cpf)){
+                if(phone.length() == 11 && verTele(phone)){
+                    if(cpf.length() == 14 && verNums(cpf)){
                         if(!email.isEmpty()){
-                            if(!senha.isEmpty()){
+                            if(senha.length() >= 8){
                                 if(!confSenha.equals(senha) || confSenha.isEmpty()){
                                     Toast.makeText(this, "Preencha o campo Confirme sua senha corretamente", Toast.LENGTH_SHORT).show();
                                 }else{
@@ -94,7 +127,7 @@ public class CadastroActivity extends AppCompatActivity {
                                     cadastrarUsuario();
                                 }
                             }else{
-                                Toast.makeText(this, "Preencha o campo Senha", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this, "Preencha o campo Senha com no mínimo 8 dígitos e no máximo 16", Toast.LENGTH_SHORT).show();
                             }
                         }else{
                             Toast.makeText(this, "Preencha o campo E-mail", Toast.LENGTH_SHORT).show();
@@ -103,7 +136,7 @@ public class CadastroActivity extends AppCompatActivity {
                         Toast.makeText(this, "Preencha o campo CPF corretamente", Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    Toast.makeText(this, "Preencha o campo Telefone", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Preencha o campo Telefone segundo o modelo DDXXXXXXXXX", Toast.LENGTH_SHORT).show();
                 }
             }else{
                 Toast.makeText(this, "Selecione um tipo de usuário", Toast.LENGTH_SHORT).show();
@@ -113,11 +146,25 @@ public class CadastroActivity extends AppCompatActivity {
         }
     }
 
+    private boolean verTele(String phone){
+        for (int i = 0; i < phone.length(); ++i) {
+            char ch = phone.charAt (i);
+
+            if(i == 0 && ch != '8'){
+                return false;
+            }else if (!((ch >= '0' && ch <= '9'))) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     private boolean verNums(String cpf){
         for (int i = 0; i < cpf.length(); ++i) {
             char ch = cpf.charAt (i);
 
-            if (!((ch >= '0' && ch <= '9') || ch == '.' || ch == '/')) {
+            if (!((ch >= '0' && ch <= '9') || ch == '.' || ch == '-')) {
                 return false;
             }
         }
@@ -135,6 +182,7 @@ public class CadastroActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(CadastroActivity.this, "Sucesso ao cadastrar o usuário", Toast.LENGTH_SHORT).show();
+                    abrirHome();
                 }else{
                     String excecao;
 
@@ -156,6 +204,14 @@ public class CadastroActivity extends AppCompatActivity {
         });
     }
 
+    private void abrirHome() {
+        Intent intent = new Intent(this, Home.class);
+        startActivity(intent);
+    }
+
+    public void voltarCadastro(View v){
+        finish();
+    }
     /*public void Sign_in(View view){
         Intent intent = new Intent(this, FormSignin.class);
         startActivity(intent);

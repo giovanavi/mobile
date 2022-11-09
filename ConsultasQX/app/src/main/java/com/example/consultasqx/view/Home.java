@@ -4,17 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.consultasqx.MapsActivity;
 import com.example.consultasqx.R;
+import com.example.consultasqx.UserProfileActivity;
 import com.example.consultasqx.Util.ConfiguraBD;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class Home extends AppCompatActivity {
+public class Home extends AppCompatActivity{
     private FirebaseAuth auth;
 
-    //private static final String TAG = "HomeActivity";
+    private static final String TAG = "HomeActivity";
     //private static final int ERROR_DIALOG_REQUEST = 9001;
 
     @Override
@@ -29,7 +34,7 @@ public class Home extends AppCompatActivity {
         }*/
     }
 
-    /*private boolean servicoAtivo() {
+    private boolean servicoAtivo() {
         Log.d(TAG, "servicoAtivo: Verificando versão do google services");
         int disponivel = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
 
@@ -42,7 +47,7 @@ public class Home extends AppCompatActivity {
             Toast.makeText(this, "Não é possível fazer requisitos de mapa", Toast.LENGTH_SHORT).show();
         }
         return false;
-    }*/
+    }
 
     public void deslogar(View v){
         try{
@@ -55,6 +60,11 @@ public class Home extends AppCompatActivity {
 
     public void abrirMapa(View v) {
         Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
+    }
+
+    public void abrirPerfil(View v) {
+        Intent intent = new Intent(this, UserProfileActivity.class);
         startActivity(intent);
     }
 }

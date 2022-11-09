@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.example.consultasqx.R;
+
 public class AgendarConsulta extends AppCompatActivity {
 
     @Override

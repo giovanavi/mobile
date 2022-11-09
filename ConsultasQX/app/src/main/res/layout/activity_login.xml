@@ -68,18 +68,19 @@
         android:onClick="validarAutenticacao"
         android:text="@string/acessar"
         android:textColor="#FFFFFF"
-        app:strokeColor="#FFFFFF" />
+        app:strokeColor="#FFFFFF"
+        tools:ignore="UsingOnClickInXml" />
 
     <Button
         android:id="@+id/buttonCadastre_se"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="@drawable/bck_button_cadastre_se"
-        android:backgroundTint="#FFFFFF"
+        android:background="@drawable/bck_botao"
         android:onClick="cadastrar"
         android:text="@string/cadastre_se"
         android:textColor="#FFFFFF"
-        app:strokeColor="#FFFFFF" />
+        app:strokeColor="#FFFFFF"
+        tools:ignore="UsingOnClickInXml" />
 
 </LinearLayout>
