@@ -1,9 +1,13 @@
 package com.example.consultasqx.model;
 
-import android.provider.ContactsContract;
+import android.widget.Toast;
 
-import java.sql.Date;
+import com.example.consultasqx.view.adapter.ConsultaAdapter;
+
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ArrayList;
 
 public class Consulta {
@@ -16,52 +20,80 @@ public class Consulta {
     private Date data;
     private Time horario;
     private String local;
-    private String tipo_consulta; //particular ou convenio
     private String convenio;
+    private String especialidade;
+
+    ArrayList<Consulta> consultaArrayList = new ArrayList<>();
 
     public Consulta(){}
 
-    public Consulta(Medico medico, Paciente paciente, Time horario, String local, String convenio) {
-        this.id = CONTADOR++;
+    public Consulta(Medico medico, Paciente paciente, Date data, Time horario, String convenio, String especialidade) {
         this.medico = medico;
         this.paciente = paciente;
         this.horario = horario;
-        this.local = local;
+        this.data = data;
         this.convenio = convenio;
-    }
-
-    public Consulta(Medico medico, Paciente paciente, Time horario, String local) {
-        this.medico = medico;
-        this.paciente = paciente;
-        this.horario = horario;
-        this.local = local;
-    }
-
-    public Consulta(Medico medico, Paciente paciente) {
-        this.medico = medico;
-        this.paciente = paciente;
+        this.especialidade = especialidade;
+        this.id = CONTADOR ++;
     }
 
     public ArrayList<Consulta> getList(){
-
         Medico medico = new Medico();
         ArrayList<Medico> lista = medico.getList();
+        Paciente paciente = new Paciente();
+        ArrayList<Paciente> listaPaciente = paciente.getList();
 
-        ArrayList<Consulta> listaConsulta = new ArrayList<>();
+        String hora1 = "12:00";
+        String hora2 = "17:00";
 
-        for (int i=0; i<10; i++){
-            medico = lista.get(i);
-            String nome = "Paciente " + i;
-            listaConsulta.add(new Consulta(medico, new Paciente(nome)));
-        }
+        String data1 = "16/11/2022";
+        String data2 = "21/11/2022";
 
-        return listaConsulta;
+        ArrayList<Consulta> consultaArrayList = new ArrayList<>();
+        consultaArrayList.add(new Consulta(lista.get(1), listaPaciente.get(0), stringToDate(data1), stringToTime(hora1), listaPaciente.get(0).getConvenio(), lista.get(1).getEspecialidade()));
+        consultaArrayList.add(new Consulta(lista.get(2), listaPaciente.get(0), stringToDate(data2), stringToTime(hora2), listaPaciente.get(0).getConvenio(), lista.get(2).getEspecialidade()));
+        consultaArrayList.add(new Consulta(lista.get(2), listaPaciente.get(0), stringToDate(data1), stringToTime(hora2), listaPaciente.get(0).getConvenio(), lista.get(2).getEspecialidade()));
+        consultaArrayList.add(new Consulta(lista.get(0), listaPaciente.get(0), stringToDate(data2), stringToTime(hora1), listaPaciente.get(0).getConvenio(), lista.get(0).getEspecialidade()));
+
+        return consultaArrayList;
+
     }
 
-    public void marcarConsulta(Medico medico, Paciente paciente, Time horario, Date data){
-        //código para criar a consulta
-        Consulta consulta = new Consulta();
-        //return true or false para poder informar ao Paciente
+    public Time stringToTime(String horario){
+        SimpleDateFormat formatador = new SimpleDateFormat("HH:mm");
+        Time time = null;
+        try {
+            Date data = formatador.parse(horario);
+            time = new Time(data.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return time;
+    }
+
+    public Date stringToDate(String horario){
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Time date = null;
+        try {
+            Date data = formatter.parse(horario);
+            date = new Time(data.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+
+    public Consulta addConsulta(Medico medico, Paciente paciente, Time horario, Date data, String especialidade){
+//        Medico medico1 = null;
+//        medico1.findMedico(medico);
+//
+//        Paciente paciente1 = null;
+//        paciente1.findPaciente(paciente);
+        Consulta consulta = new Consulta(medico, paciente, data, horario, paciente.getConvenio(), especialidade);
+
+        consultaArrayList.add(consulta);
+
+        return consulta;
     }
 
     public Medico getMedico() {
@@ -104,14 +136,6 @@ public class Consulta {
         this.local = local;
     }
 
-    public String getTipo_consulta() {
-        return tipo_consulta;
-    }
-
-    public void setTipo_consulta(String tipo) {
-        this.tipo_consulta = tipo;
-    }
-
     public String getConvenio() {
         return convenio;
     }
@@ -120,8 +144,21 @@ public class Consulta {
         this.convenio = convenio;
     }
 
+    public String getEspecialidade() {
+        return especialidade;
+    }
+
+    public void setEspecialidade(String especialidade) {
+        this.especialidade = especialidade;
+    }
+
     public int getId(){
         return id;
     }
 
+    @Override
+    public String toString() {
+        return medico.getNome() + " - " + paciente.getNome() + " - " + data + " - " + horario + " - "
+                + paciente.getConvenio() + " - " + medico.getEspecialidade();
+    }
 }

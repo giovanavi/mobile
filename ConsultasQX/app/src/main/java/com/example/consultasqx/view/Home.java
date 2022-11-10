@@ -2,7 +2,9 @@ package com.example.consultasqx.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +24,8 @@ public class Home extends AppCompatActivity{
     private static final String TAG = "HomeActivity";
     //private static final int ERROR_DIALOG_REQUEST = 9001;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +36,7 @@ public class Home extends AppCompatActivity{
         /*if(servicoAtivo()){
 
         }*/
+
     }
 
     private boolean servicoAtivo() {
@@ -65,6 +70,16 @@ public class Home extends AppCompatActivity{
 
     public void abrirPerfil(View v) {
         Intent intent = new Intent(this, UserProfileActivity.class);
+        startActivity(intent);
+    }
+
+    public void abrirMarcarConsulta(View v){
+        Intent intent = new Intent(this, SearchMedicoActivity.class);
+        startActivity(intent);
+    }
+
+    public void abrirHistorico(View v){
+        Intent intent = new Intent(this, HistoricoConsultas.class);
         startActivity(intent);
     }
 }

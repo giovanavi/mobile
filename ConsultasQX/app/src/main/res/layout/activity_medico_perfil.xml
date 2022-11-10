@@ -94,9 +94,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="verHorarios"
-        android:background="@drawable/bck_botao"
         android:text="@string/agendar_consulta"
+        android:background="@drawable/bck_botao"
         android:textColor="@color/purple_200"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -125,11 +126,11 @@
         app:layout_constraintTop_toBottomOf="@+id/verHorarios" />
 
     <TextView
-        android:id="@+id/TextView4"
+        android:id="@+id/txtEspecialidade"
         android:layout_width="200dp"
         android:layout_height="25dp"
         android:layout_marginTop="4dp"
-        android:text="- Dermatilogista Clínico"
+        android:text=""
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.075"
@@ -141,12 +142,12 @@
         android:layout_width="200dp"
         android:layout_height="25dp"
         android:layout_marginTop="4dp"
-        android:text="- Dermatilogista Infantil"
+        android:text=""
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextView4" />
+        app:layout_constraintTop_toBottomOf="@+id/txtEspecialidade" />
 
 
     <ImageView
@@ -172,11 +173,11 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <TextView
-        android:id="@+id/TextView8"
+        android:id="@+id/txtConvenio"
         android:layout_width="200dp"
         android:layout_height="25dp"
         android:layout_marginTop="4dp"
-        android:text=" ISSEC"
+        android:text=""
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.075"
@@ -188,19 +189,19 @@
         android:layout_width="200dp"
         android:layout_height="25dp"
         android:layout_marginTop="4dp"
-        android:text="UNIMED"
+        android:text=""
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextView8" />
+        app:layout_constraintTop_toBottomOf="@+id/txtConvenio" />
 
     <TextView
         android:id="@+id/TextView10"
         android:layout_width="200dp"
         android:layout_height="25dp"
         android:layout_marginTop="4dp"
-        android:text="HAPVIDA"
+        android:text=""
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.075"

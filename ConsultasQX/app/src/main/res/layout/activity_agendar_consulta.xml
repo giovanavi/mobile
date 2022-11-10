@@ -8,7 +8,6 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-
         android:layout_height="match_parent">
 
         <TextView
@@ -70,57 +69,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
-                android:text="111" />
+                android:text="12:00" />
 
             <RadioButton
                 android:id="@+id/radioButtonHorario2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="222" />
+                android:text="15:00" />
 
             <RadioButton
                 android:id="@+id/radioButtonHorario3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="333" />
-        </RadioGroup>
-
-        <TextView
-            android:id="@+id/info4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Convênios"
-            android:textSize="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.091"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/radioGroupHorarios" />
-
-        <RadioGroup
-            android:id="@+id/radioGroupConvenios"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/info4">
-
-            <RadioButton
-                android:id="@+id/radioButtonConvenios1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Convenio 1" />
-
-            <RadioButton
-                android:id="@+id/radioButtonConvenios2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Convenio 2" />
-
-            <RadioButton
-                android:id="@+id/radioButtonConvenios3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Convenio 3" />
+                android:text="20:00" />
         </RadioGroup>
 
         <TextView
@@ -132,8 +93,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.131"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/radioGroupConvenios" />
-
+            app:layout_constraintTop_toBottomOf="@id/radioGroupHorarios" />
 
         <RadioGroup
             android:id="@+id/radioGroupEspecialidades"

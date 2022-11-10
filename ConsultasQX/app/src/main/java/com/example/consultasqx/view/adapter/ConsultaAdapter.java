@@ -9,11 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.consultasqx.R;
 import com.example.consultasqx.model.Consulta;
 import com.example.consultasqx.view.AgendarConsulta;
-import com.example.consultasqx.view.MedicoPerfil;
 
 import java.util.ArrayList;
 
@@ -54,19 +54,20 @@ public class ConsultaAdapter extends RecyclerView.Adapter<ConsultaAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ConsultaAdapter.ViewHolder holder, int position) {
-        String name = consultaList.get(position).getMedico().getNome();
-        String especialidade = consultaList.get(position).getMedico().getEspecialidade();
-        String tipo_consulta = "Convenio: ";//consultasList.get(position).getTipo_consulta();
-        String convenio = "Hapvida";//consultas.List.get(position).getPaciente().getConvenio();
-        int id = consultaList.get(position).getId();
-        int id_medico = consultaList.get(position).getMedico().getId();
-        int id_paciente = consultaList.get(position).getPaciente().getId();
+//        new Consulta(medico, paciente, data, horario, paciente.getConvenio(), especialidade;
 
+        String name = consultaList.get(position).getMedico().getNome();
+        String especialidade = consultaList.get(position).getEspecialidade();
+        String tipo_consulta = "Convenio: ";//consultasList.get(position).getTipo_consulta();
+        String convenio = consultaList.get(position).getPaciente().getConvenio();
+        int id = consultaList.get(position).getId();
+//        int id_medico = consultaList.get(position).getMedico().getId();
+//        int id_paciente = consultaList.get(position).getPaciente().getId();
 
         holder.nome.setText(name);
         holder.especialidade.setText(especialidade);
         holder.tipo_consulta.setText(tipo_consulta);
-        if(tipo_consulta.equals("Convenio")) {
+        if(tipo_consulta.equals("Convenio: ")) {
             holder.convenio.setText(convenio);
         }else{
             holder.convenio.setText("");
@@ -75,14 +76,14 @@ public class ConsultaAdapter extends RecyclerView.Adapter<ConsultaAdapter.ViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Context context = view.getContext();
-                Intent intent = new Intent(context, AgendarConsulta.class);
+//                Context context = view.getContext();
+//                Intent intent = new Intent(context, Consulta.class);
 
-                intent.putExtra("id", id); // id da consulta
-                intent.putExtra("id_medico", id_medico);
-                intent.putExtra("id_paciente", id_paciente);
+//                intent.putExtra("id", id); // id da consulta
+//                intent.putExtra("id_medico", id_medico);
+//                intent.putExtra("id_paciente", id_paciente);
 
-                context.startActivity(intent);
+//                context.startActivity(intent);
             }
         });
 
