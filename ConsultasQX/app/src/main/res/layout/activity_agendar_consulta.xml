@@ -17,6 +17,7 @@
             android:layout_marginTop="24dp"
             android:text="Agendamento"
             android:textSize="30dp"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -29,6 +30,7 @@
             android:gravity="center"
             android:text="Escolha a data para sua consulta"
             android:textSize="20dp"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.23"
             app:layout_constraintStart_toStartOf="parent"
@@ -49,8 +51,9 @@
             android:id="@+id/info3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Horários Disponíveis"
+            android:text="Selecionar horário "
             android:textSize="30dp"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.198"
             app:layout_constraintStart_toStartOf="parent"
@@ -69,7 +72,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
-                android:text="12:00" />
+                android:text="12:00"
+                />
 
             <RadioButton
                 android:id="@+id/radioButtonHorario2"
@@ -88,8 +92,9 @@
             android:id="@+id/info5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Especialiadades"
+            android:text="Selecionar especialidade"
             android:textSize="30dp"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.131"
             app:layout_constraintStart_toStartOf="parent"
@@ -126,11 +131,13 @@
             android:id="@+id/btn_marcar_consulta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/bck_botao"
             android:onClick="marcarConsulta"
-            android:text="Marcar Conculta"
+            android:text="Marcar Consulta"
+            android:textColor="@color/purple_700"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/radioGroupEspecialidades" />
 

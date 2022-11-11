@@ -15,7 +15,13 @@ import com.example.consultasqx.R;
 import com.example.consultasqx.model.Consulta;
 import com.example.consultasqx.view.AgendarConsulta;
 
+import org.w3c.dom.Text;
+
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ConsultaAdapter extends RecyclerView.Adapter<ConsultaAdapter.ViewHolder> {
 
@@ -31,6 +37,7 @@ public class ConsultaAdapter extends RecyclerView.Adapter<ConsultaAdapter.ViewHo
         private TextView especialidade;
         private TextView tipo_consulta;
         private TextView convenio;
+        private TextView horario;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -39,7 +46,7 @@ public class ConsultaAdapter extends RecyclerView.Adapter<ConsultaAdapter.ViewHo
             especialidade = itemView.findViewById(R.id.especialidade);
             tipo_consulta = itemView.findViewById(R.id.tipo_consulta);
             convenio = itemView.findViewById(R.id.convenio);
-
+            horario = itemView.findViewById(R.id.horario);
         }
     }
 
@@ -52,6 +59,18 @@ public class ConsultaAdapter extends RecyclerView.Adapter<ConsultaAdapter.ViewHo
         return new ConsultaAdapter.ViewHolder(itemView);
     }
 
+    public Time stringToTime(String horario){
+        SimpleDateFormat formatador = new SimpleDateFormat("HH:mm");
+        Time time = null;
+        try {
+            Date data = formatador.parse(horario);
+            time = new Time(data.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return time;
+    }
+
     @Override
     public void onBindViewHolder(@NonNull ConsultaAdapter.ViewHolder holder, int position) {
 //        new Consulta(medico, paciente, data, horario, paciente.getConvenio(), especialidade;
@@ -60,6 +79,7 @@ public class ConsultaAdapter extends RecyclerView.Adapter<ConsultaAdapter.ViewHo
         String especialidade = consultaList.get(position).getEspecialidade();
         String tipo_consulta = "Convenio: ";//consultasList.get(position).getTipo_consulta();
         String convenio = consultaList.get(position).getPaciente().getConvenio();
+        Time hora = consultaList.get(position).getHorario();
         int id = consultaList.get(position).getId();
 //        int id_medico = consultaList.get(position).getMedico().getId();
 //        int id_paciente = consultaList.get(position).getPaciente().getId();
@@ -67,6 +87,7 @@ public class ConsultaAdapter extends RecyclerView.Adapter<ConsultaAdapter.ViewHo
         holder.nome.setText(name);
         holder.especialidade.setText(especialidade);
         holder.tipo_consulta.setText(tipo_consulta);
+        holder.horario.setText(hora.toString());
         if(tipo_consulta.equals("Convenio: ")) {
             holder.convenio.setText(convenio);
         }else{

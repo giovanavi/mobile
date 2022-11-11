@@ -14,27 +14,26 @@
         android:layout_marginTop="25dp"
         android:gravity="center"
         android:text="Perfil do Profissional"
-        android:textColor="@color/purple_200"
+        android:textColor="#FF0000"
         android:textSize="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_width="87dp"
+        android:layout_height="84dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
         app:cardCornerRadius="35dp"
-        app:cardBackgroundColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/perfil">
 
         <ImageView
             android:id="@+id/image_perfil"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:src="@drawable/ic_launcher_background" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_baseline_person" />
 
     </androidx.cardview.widget.CardView>
 
@@ -44,11 +43,13 @@
         android:layout_width="0dp"
         android:layout_height="25dp"
         android:layout_marginStart="14dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="16dp"
         android:text="Nome"
+        android:textColor="@color/black"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@+id/perfil" />
 
@@ -60,6 +61,7 @@
         android:layout_marginEnd="16dp"
         android:text="Especialidades"
         android:textSize="13dp"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@+id/nome" />
@@ -72,6 +74,7 @@
         android:layout_marginEnd="16dp"
         android:text="CRM"
         android:textSize="12dp"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@+id/especialidade" />
 
@@ -83,6 +86,7 @@
         android:layout_marginEnd="16dp"
         android:text="CRM"
         android:textSize="12dp"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/TextView3"
         app:layout_constraintTop_toBottomOf="@+id/especialidade"
@@ -96,7 +100,7 @@
         android:onClick="verHorarios"
         android:text="@string/agendar_consulta"
         android:background="@drawable/bck_botao"
-        android:textColor="@color/purple_200"
+        android:textColor="#FF0000"
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -120,6 +124,7 @@
         android:layout_marginTop="60dp"
         android:text="Especialidades Atendidas"
         android:textSize="20dp"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.144"
         app:layout_constraintStart_toStartOf="parent"
@@ -131,6 +136,7 @@
         android:layout_height="25dp"
         android:layout_marginTop="4dp"
         android:text=""
+        android:textColor="@color/black"
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.075"
@@ -167,6 +173,7 @@
         android:layout_marginTop="32dp"
         android:text="Convênios Aceitos"
         android:textSize="20dp"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.144"
         app:layout_constraintStart_toStartOf="parent"
@@ -178,6 +185,7 @@
         android:layout_height="25dp"
         android:layout_marginTop="4dp"
         android:text=""
+        android:textColor="@color/black"
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.075"
