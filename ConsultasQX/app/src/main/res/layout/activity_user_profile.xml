@@ -42,6 +42,7 @@
                 android:contentDescription="@string/todoProfile2" />
 
             <TextView
+                android:id="@+id/textView_NomeProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -68,11 +69,33 @@
                 android:hint="@string/nome">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextNome"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_profile2"
                     android:drawablePadding="10dp"
+                    android:maxLength="40"
                     android:text="@string/nome1"
+                    android:textColor="#fff"
+                    tools:ignore="TextContrastCheck" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editText_cpf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="@string/nome">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextCpf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_cpf_verm"
+                    android:drawablePadding="10dp"
+                    android:maxLength="14"
+                    android:text="@string/cpf"
                     android:textColor="#fff"
                     tools:ignore="TextContrastCheck" />
 
@@ -86,10 +109,12 @@
                 android:hint="@string/e_mail">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_email1"
                     android:drawablePadding="10dp"
+                    android:maxLength="35"
                     android:text="@string/email"
                     android:textColor="#fff"
                     tools:ignore="TextContrastCheck,TextContrastCheck" />
@@ -104,10 +129,12 @@
                 android:hint="@string/telefone">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextTelefone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_phone1"
                     android:drawablePadding="10dp"
+                    android:maxLength="11"
                     android:text="@string/n_mero_de_telefone_associado"
                     android:textColor="#fff" />
 
@@ -121,10 +148,12 @@
                 android:hint="@string/senha">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextSenha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_senha"
                     android:drawablePadding="10dp"
+                    android:maxLength="16"
                     android:text="@string/senhaProfile"
                     android:textColor="#fff"
                     tools:ignore="TextContrastCheck" />
@@ -132,11 +161,23 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/button_editar"
+                android:id="@+id/button_atualizar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#FF0000"
-                android:text="@string/editar1"
+                android:onClick="update"
+                android:text="@string/atualizar_dados"
+                android:textColor="#fff"
+                android:textColorHint="#F6F0F2"
+                tools:ignore="TextContrastCheck,UsingOnClickInXml" />
+
+            <Button
+                android:id="@+id/button_apagar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#FF0000"
+                android:onClick="delete"
+                android:text="@string/apagar_conta"
                 android:textColor="#fff"
                 android:textColorHint="#F6F0F2"
                 tools:ignore="TextContrastCheck,UsingOnClickInXml" />

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -15,6 +16,7 @@ import com.example.consultasqx.model.Medico;
 import com.example.consultasqx.view.adapter.MedicoAdapter;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class BuscarPorFiltros extends AppCompatActivity {
 
@@ -39,6 +41,8 @@ public class BuscarPorFiltros extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buscar_por_filtros);
+
+        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.white)));
 
         recyclerView = findViewById(R.id.recyclerViewMedicos);
 

@@ -6,6 +6,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.widget.Filter;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import com.example.consultasqx.R;
 import com.example.consultasqx.model.Medico;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import com.example.consultasqx.R;
 
@@ -29,6 +31,8 @@ public class SearchMedicoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_medico);
+
+        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.white)));
 
         Medico medico = new Medico();
         listaMedicos = medico.getList();

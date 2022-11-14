@@ -5,6 +5,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import com.example.consultasqx.R;
@@ -14,6 +15,7 @@ import com.example.consultasqx.view.adapter.ConsultaAdapter;
 import com.example.consultasqx.view.adapter.MedicoAdapter;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class HistoricoConsultas extends AppCompatActivity {
 
@@ -26,6 +28,8 @@ public class HistoricoConsultas extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historico_consultas);
+
+        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.white)));
 
         Consulta consulta = new Consulta();
         listaConsultas = consulta.getList();

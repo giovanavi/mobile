@@ -3,6 +3,7 @@ package com.example.consultasqx.view;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +16,8 @@ import com.example.consultasqx.Util.ConfiguraBD;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Objects;
 
 public class Home extends AppCompatActivity{
     private FirebaseAuth auth;
@@ -29,12 +32,14 @@ public class Home extends AppCompatActivity{
 
         auth = ConfiguraBD.FirebaseAutenticacao();
 
+        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.white)));
+
         /*if(servicoAtivo()){
 
         }*/
     }
 
-    private boolean servicoAtivo() {
+    /*private boolean servicoAtivo() {
         Log.d(TAG, "servicoAtivo: Verificando versão do google services");
         int disponivel = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
 
@@ -47,7 +52,7 @@ public class Home extends AppCompatActivity{
             Toast.makeText(this, "Não é possível fazer requisitos de mapa", Toast.LENGTH_SHORT).show();
         }
         return false;
-    }
+    }*/
 
     public void deslogar(View v){
         try{
