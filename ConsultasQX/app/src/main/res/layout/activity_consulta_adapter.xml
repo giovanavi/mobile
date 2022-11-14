@@ -20,20 +20,20 @@
             android:id="@+id/image_perfil"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:src="@drawable/ic_launcher_background" />
+            android:src="@drawable/ic_baseline_person" />
 
     </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/nome"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="25dp"
         android:layout_marginStart="14dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
         android:text="Nome"
         android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/cardViewConsultas"
         app:layout_constraintTop_toTopOf="@+id/cardViewConsultas"
         app:layout_editor_absoluteX="100dp"
@@ -41,40 +41,54 @@
 
     <TextView
         android:id="@+id/especialidade"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginStart="14dp"
         android:layout_marginEnd="16dp"
         android:text="Especialidades"
         android:textSize="13dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/cardViewConsultas"
         app:layout_constraintTop_toBottomOf="@+id/nome" />
 
     <TextView
         android:id="@+id/tipo_consulta"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginStart="14dp"
         android:layout_marginEnd="16dp"
         android:text="TIPO"
         android:textSize="12dp"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/cardViewConsultas"
         app:layout_constraintTop_toBottomOf="@+id/especialidade" />
 
     <TextView
         android:id="@+id/convenio"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginStart="2dp"
         android:layout_marginEnd="16dp"
         android:text="CONVENIO"
         android:textSize="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/tipo_consulta"
         app:layout_constraintTop_toBottomOf="@+id/especialidade"
         app:layout_editor_absoluteX="150dp"
         app:layout_editor_absoluteY="300dp" />
+
+
+    <TextView
+        android:id="@+id/horario"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="128dp"
+        android:text="Horario"
+        android:textColor="@color/black"
+        android:textSize="13dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:layout_width="match_parent"

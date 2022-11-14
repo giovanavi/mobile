@@ -7,8 +7,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.drawable.ColorDrawable;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Filter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.consultasqx.view.adapter.MedicoAdapter;
@@ -27,7 +30,6 @@ public class SearchMedicoActivity extends AppCompatActivity {
     SearchView searchView;
     ArrayList<Medico> listaMedicos = new ArrayList<>();
 
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_medico);
@@ -40,7 +42,6 @@ public class SearchMedicoActivity extends AppCompatActivity {
 
         initRecyclerView();
         initSearchView();
-
     }
 
     public void initSearchView(){
@@ -64,9 +65,12 @@ public class SearchMedicoActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-
+        
     }
 
+    public void voltarHomePage(View view){
+        finish();
+    }
 
 }
 

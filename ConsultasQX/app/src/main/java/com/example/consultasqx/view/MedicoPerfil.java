@@ -14,6 +14,9 @@ import android.widget.TextView;
 import com.example.consultasqx.R;
 
 import com.example.consultasqx.R;
+import com.example.consultasqx.model.Medico;
+
+import java.util.ArrayList;
 
 import java.util.Objects;
 
@@ -25,7 +28,11 @@ public class MedicoPerfil extends AppCompatActivity {
     private TextView txtCrm;
     private Button btn_horarios;
 
+    private TextView txtEspecialidades;
+    private TextView txtConvenios;
+
     int id;
+    Medico medico = new Medico();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +45,10 @@ public class MedicoPerfil extends AppCompatActivity {
 
         id = (int) getIntent().getExtras().get("id");
 
+        ArrayList<Medico> lista = medico.getList();
+        medico = lista.get(id); //xxxxx
+
+        initComponentes();
     }
 
     public void verHorarios(View view){
@@ -49,7 +60,7 @@ public class MedicoPerfil extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), AgendarConsulta.class);
 
-                intent.putExtra("id", id);
+                intent.putExtra("id_medico", id);
                 startActivity(intent);
 
             }
@@ -63,16 +74,24 @@ public class MedicoPerfil extends AppCompatActivity {
         txtEspecialidade = findViewById(R.id.especialidade);
         txtCrm = findViewById(R.id.crm);
 
-        if (getIntent() != null){
+        txtEspecialidades = findViewById(R.id.txtEspecialidade);
+        txtConvenios = findViewById(R.id.txtConvenio);
 
-            String nome = (String) getIntent().getExtras().get("nome");
-            String especialidade = (String) getIntent().getExtras().get("especialidade");
-            String crm = (String) getIntent().getExtras().get("crm");
 
-            txtNome.setText(nome);
-            txtEspecialidade.setText(especialidade);
-            txtCrm.setText(crm);
+        txtNome.setText(medico.getNome());
+        txtEspecialidade.setText(medico.getEspecialidade());
+        txtCrm.setText(medico.getCrm());
+        txtEspecialidades.setText(medico.getEspecialidade());
+        txtConvenios.setText(medico.getConvenio());
 
-        }
+//        if (getIntent() != null){
+//            String nome = (String) getIntent().getExtras().get("nome");
+//            String especialidade = (String) getIntent().getExtras().get("especialidade");
+//            String crm = (String) getIntent().getExtras().get("crm");
+//
+//            txtNome.setText(nome);
+//            txtEspecialidade.setText(especialidade);
+//            txtCrm.setText(crm);
+//        }
     }
 }

@@ -157,6 +157,10 @@
     <string name="hist_rico_de_consultas">Histórico de Consultas</string>
     <string name="mapa">Mapa</string>
     <string name="sair">Sair</string>
+
+    <!--    <string name="especialidades" />-->
+    <!--    <string name="tipo_pagamento" />-->
+    <!--    <string name="convenio" />-->
     <string name="title_activity_apagar">ApagarActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>

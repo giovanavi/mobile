@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -97,6 +98,8 @@ public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.ViewHolder
         String crm = medicosListFull.get(position).getCrm();
         int id = medicosListFull.get(position).getId();
 
+//        int i = position;
+
         holder.nome.setText(name);
         holder.especialidade.setText(especialidade);
         holder.crm.setText(crm);
@@ -104,13 +107,16 @@ public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.ViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                int medico = medicosListFull.get(i).getId();
+//                String str = medico+"";
+//                Toast.makeText(view.getContext(), str, Toast.LENGTH_SHORT).show();
+
                 Context context = view.getContext();
                 Intent intent = new Intent(context, MedicoPerfil.class);
 
+
+                Toast.makeText(context, id+"", Toast.LENGTH_SHORT).show();
                 intent.putExtra("id", id);
-                intent.putExtra("nome", name);
-                intent.putExtra("especialidade", especialidade);
-                intent.putExtra("crm", crm);
 
                 context.startActivity(intent);
             }

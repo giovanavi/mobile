@@ -1,6 +1,10 @@
 package com.example.consultasqx.model;
 
+import java.util.ArrayList;
+
 public class Paciente extends Usuario{
+
+    private static int CONTADOR = 0;
 
     private int id;
     private String nome;
@@ -8,30 +12,35 @@ public class Paciente extends Usuario{
     private String email;
     private String senha;
     private String telefone;
-    private String cidade;
     private String convenio;
 
-    public Paciente(String nome){
-        this.nome = nome;
-    }
+    ArrayList<Paciente> pacienteArrayList = new ArrayList<>();
 
-    public Paciente(String nome, String cpf, String email, String senha, String telefone, String cidade, String convenio) {
+    public Paciente(){}
+
+    public Paciente(String nome, String cpf, String email, String senha, String telefone, String convenio) {
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
         this.senha = senha;
         this.telefone = telefone;
-        this.cidade = cidade;
         this.convenio = convenio;
+        this.id = CONTADOR ++;
     }
 
-    public Paciente(String nome, String cpf, String email, String senha, String telefone, String cidade) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.email = email;
-        this.senha = senha;
-        this.telefone = telefone;
-        this.cidade = cidade;
+    public ArrayList<Paciente> getList(){
+        pacienteArrayList = new ArrayList<>();
+
+        pacienteArrayList.add(new Paciente("Matias", "00000000000", "matias@email.com", "senha01", "09876543213", "HapVida"));
+
+        return pacienteArrayList;
+    }
+
+    public Paciente findPaciente(int id){
+        Paciente paciente = new Paciente();
+        pacienteArrayList = paciente.getList();
+        paciente = pacienteArrayList.get(id);
+        return paciente;
     }
 
     public int getId() {
@@ -74,19 +83,24 @@ public class Paciente extends Usuario{
         this.senha = senha;
     }
 
-    public String getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
     public String getConvenio() {
         return convenio;
     }
 
     public void setConvenio(String convenio) {
         this.convenio = convenio;
+    }
+
+    @Override
+    public String toString() {
+        return "Paciente{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", email='" + email + '\'' +
+                ", senha='" + senha + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", convenio='" + convenio + '\'' +
+                '}';
     }
 }

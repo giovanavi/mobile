@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.consultasqx.R;
 import com.example.consultasqx.model.Consulta;
@@ -35,12 +36,6 @@ public class HistoricoConsultas extends AppCompatActivity {
         listaConsultas = consulta.getList();
         adapter = new ConsultaAdapter(listaConsultas);
 
-        for (Consulta c: listaConsultas) {
-            System.out.println("Medico " + c.getMedico().getNome());
-            System.out.println(c.getPaciente().getNome());
-            System.out.println("Convenio " + c.getConvenio());
-        }
-
         initRecyclerView();
 
     }
@@ -52,4 +47,7 @@ public class HistoricoConsultas extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    public void voltarHomePage(View v){
+        finish();
+    }
 }
