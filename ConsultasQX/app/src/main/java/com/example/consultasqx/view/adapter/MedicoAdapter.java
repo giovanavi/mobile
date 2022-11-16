@@ -97,7 +97,7 @@ public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.ViewHolder
         String especialidade = medicosListFull.get(position).getEspecialidade();
         String crm = medicosListFull.get(position).getCrm();
         int id = medicosListFull.get(position).getId();
-
+        //id saiu daqui
 //        int i = position;
 
         holder.nome.setText(name);

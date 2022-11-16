@@ -187,4 +187,13 @@
     <string name="editar1">Editar</string>
     <string name="atualizar_dados">Atualizar dados</string>
     <string name="apagar_conta">Apagar conta</string>
+    <string name="local_da_clinica">Local da Clinica</string>
+    <string name="title_activity_maps2">MapsActivity2</string>
+    <string name="conv_nios_aceitos">Convênios Aceitos</string>
+    <string name="nomeMedico">Nome</string>
+    <string name="especialidades_atendidas">Especialidades Atendidas</string>
+    <string name="crmMedico">CRM</string>
+    <string name="especialidadesMedico">Especialidades</string>
+    <string name="crmMedicoValor">CRM</string>
+    <string name="perfil_do_profissional">Perfil do Profissional</string>
 </resources>

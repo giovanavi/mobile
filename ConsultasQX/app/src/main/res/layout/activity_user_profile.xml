@@ -74,10 +74,11 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_profile2"
                     android:drawablePadding="10dp"
+                    android:inputType="textPersonName"
                     android:maxLength="40"
                     android:text="@string/nome1"
                     android:textColor="#fff"
-                    tools:ignore="TextContrastCheck" />
+                    tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -94,10 +95,11 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_cpf_verm"
                     android:drawablePadding="10dp"
+                    android:inputType="text"
                     android:maxLength="14"
                     android:text="@string/cpf"
                     android:textColor="#fff"
-                    tools:ignore="TextContrastCheck" />
+                    tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -114,10 +116,11 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_email1"
                     android:drawablePadding="10dp"
+                    android:inputType="textEmailAddress"
                     android:maxLength="35"
                     android:text="@string/email"
                     android:textColor="#fff"
-                    tools:ignore="TextContrastCheck,TextContrastCheck" />
+                    tools:ignore="TextContrastCheck,TextContrastCheck,TouchTargetSizeCheck" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -134,9 +137,11 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_phone1"
                     android:drawablePadding="10dp"
+                    android:inputType="phone"
                     android:maxLength="11"
                     android:text="@string/n_mero_de_telefone_associado"
-                    android:textColor="#fff" />
+                    android:textColor="#fff"
+                    tools:ignore="TouchTargetSizeCheck" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -153,10 +158,11 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_senha"
                     android:drawablePadding="10dp"
+                    android:inputType="textVisiblePassword|phone"
                     android:maxLength="16"
                     android:text="@string/senhaProfile"
                     android:textColor="#fff"
-                    tools:ignore="TextContrastCheck" />
+                    tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

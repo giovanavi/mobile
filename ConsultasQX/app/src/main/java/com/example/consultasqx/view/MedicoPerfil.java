@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.consultasqx.MapsActivity;
 import com.example.consultasqx.R;
 
 import com.example.consultasqx.R;
@@ -93,5 +94,16 @@ public class MedicoPerfil extends AppCompatActivity {
 //            txtEspecialidade.setText(especialidade);
 //            txtCrm.setText(crm);
 //        }
+    }
+
+    public void abrirLocal(View view){
+        Intent intent = new Intent(view.getContext(), MapsActivity.class);
+        intent.putExtra("id", id);
+
+        startActivity(intent);
+    }
+
+    public void voltarMedicoPerfil(View view){
+        finish();
     }
 }

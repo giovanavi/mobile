@@ -42,6 +42,7 @@ public class CadastroActivity extends AppCompatActivity {
 
     DAOUsuario dao;
     SharedPreferences sp;
+    UserProfileActivity userProfileActivity;
 
     String nome, email, phone, cpf, senha, confSenha;
 

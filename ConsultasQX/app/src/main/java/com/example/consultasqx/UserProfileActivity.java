@@ -20,6 +20,7 @@ import com.example.consultasqx.Util.ConfiguraBD;
 import com.example.consultasqx.model.Usuario;
 import com.example.consultasqx.view.Home;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -55,8 +56,6 @@ public class UserProfileActivity extends AppCompatActivity {
     SharedPreferences sp;
     TextView campoNomeProfile;
     TextInputEditText campoNome, campoCpf, campoEmail, campoTelefone, campoSenha;
-    //TextInputLayout campoNome, campoCpf, campoEmail, campoTelefone, campoSenha;
-    //Home home;
 
     static boolean valido;
 
@@ -179,7 +178,7 @@ public class UserProfileActivity extends AppCompatActivity {
         this.usuario = usuario;
     }*/
 
-    public void adicionar2() {
+    //public void adicionar2() {
         /*campoNomeProfile.setText(usuario.getNome().toString());
         campoNome.setText(usuario.getNome().toString());
         campoCpf.setText(usuario.getCpf().toString());
@@ -201,30 +200,16 @@ public class UserProfileActivity extends AppCompatActivity {
             ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,array);
             mListView.setAdapter(adapter);
         }*/
-    }
+    //}
 
     public void update(View v) {
-        nome = campoNome.getText().toString();
-        cpf = campoCpf.getText().toString();
-        email = campoEmail.getText().toString();
-        telefone = campoTelefone.getText().toString();
-        senha = campoSenha.getText().toString();
+        nome = Objects.requireNonNull(campoNome.getText()).toString();
+        cpf = Objects.requireNonNull(campoCpf.getText()).toString();
+        email = Objects.requireNonNull(campoEmail.getText()).toString();
+        telefone = Objects.requireNonNull(campoTelefone.getText()).toString();
+        senha = Objects.requireNonNull(campoSenha.getText()).toString();
 
-        Log.d(TAG, "1- Nome: " + nome);
-        Log.d(TAG, "1- Nome: " + nome);
-        Log.d(TAG, "1- Nome: " + nome);
-        Log.d(TAG, "1- Nome: " + nome);
-        Log.d(TAG, "1- Nome: " + nome);
-
-        Log.d(TAG, "Resultado 1: " + verNome());
-        Log.d(TAG, "Resultado 2: " + verNums());
-        Log.d(TAG, "Resultado 3: " + verTele());
-        Log.d(TAG, "Resultado 4: " + senha.length());
-        Log.d(TAG, "Resultado 5: " + verEmail());
-
-        if (verNome() && verNums() && verTele() && (senha.length() >= 8) && /*!email.isEmpty()*/ verEmail()) {
-
-            Log.d(TAG, "Entrou no if de update");
+        if (verNome() && verNums() && verTele() && (senha.length() >= 8) && verEmail()) {
 
             HashMap<String, Object> hashMap = new HashMap<>();
             //hashMap.put("nomeProfile", campoNomeProfile.getText().toString());
@@ -234,20 +219,15 @@ public class UserProfileActivity extends AppCompatActivity {
             hashMap.put("telefone", telefone);
             hashMap.put("senha", senha);
 
-            Log.d(TAG, "2- Nome: " + nome);
-            Log.d(TAG, "2- Nome: " + nome);
-            Log.d(TAG, "2- Nome: " + nome);
-            Log.d(TAG, "2- Nome: " + nome);
-
             /*hashMap.put("nome", campoNome.getEditText().toString());
             hashMap.put("cpf", campoCpf.getEditText().toString());
             hashMap.put("email", campoEmail.getEditText().toString());
             hashMap.put("telefone", campoTelefone.getEditText().toString());
             hashMap.put("senha", campoSenha.getEditText().toString());*/
 
-            Log.d(TAG, "3- UID do usuário: " + autenticacao.getUid());
+            Log.d(TAG, "UID do usuário: " + autenticacao.getUid());
 
-            dao.update(autenticacao.getUid(), hashMap).addOnSuccessListener(suc -> {
+            dao.update(autenticacao.getCurrentUser().getUid(), hashMap).addOnSuccessListener(suc -> {
                 Toast.makeText(this, "Atualizado", Toast.LENGTH_SHORT).show();
 
                 SharedPreferences.Editor editor = sp.edit();
@@ -263,6 +243,9 @@ public class UserProfileActivity extends AppCompatActivity {
 
                 campoNomeProfile.setText(nome);
 
+                autenticacao.getCurrentUser().updateEmail(email);
+                Log.d(TAG, "Email atual: "+autenticacao.getCurrentUser().getEmail());
+
             }).addOnFailureListener(er -> {
                 Toast.makeText(this, "" + er.getMessage(), Toast.LENGTH_SHORT).show();
             });
@@ -271,18 +254,18 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     public void delete(View v) {
-        //home = new Home();
+        Log.d(TAG, "Chamou o delete");
 
-        Log.d(TAG, "Dentro do delete");
+        dao.remove(autenticacao.getCurrentUser().getUid()).addOnSuccessListener(suc -> {
+            Log.d(TAG, "Entrou em dao.remove");
 
-        dao.remove(autenticacao.getUid()).addOnSuccessListener(suc -> {
             Toast.makeText(this, "Conta removida", Toast.LENGTH_SHORT).show();
-
-            Log.d(TAG, "Dentro do dao.remove(autenticacao.getUid()).addOnSuccessListener(suc -> ");
 
             SharedPreferences.Editor editor = sp.edit();
             editor.clear();
             editor.commit();
+
+            Log.d(TAG, "Depois de ter limpado o editor com editor.clear()");
 
             campoNomeProfile.setText("");
             campoNome.setText("");
@@ -291,14 +274,42 @@ public class UserProfileActivity extends AppCompatActivity {
             campoTelefone.setText("");
             campoSenha.setText("");
 
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
+            Log.d(TAG, "Antes de FirebaseDatabase");
+
+            FirebaseDatabase
+                    .getInstance()
+                    .getReference()
+                    .child("Usuario")
+                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    .setValue(null)
+                    .addOnSuccessListener(new OnSuccessListener<Void>(){
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Log.d(TAG, "Entrou em onSuccess");
+
+                            FirebaseAuth.getInstance().getCurrentUser().delete()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            Log.d(TAG, "Entrou em onComplete");
+                                            if(task.isSuccessful()){
+                                                Log.d(TAG, "Entrou em task.isSuccessful");
+                                                Intent intent= new Intent(UserProfileActivity.this, LoginActivity.class);
+                                                startActivity(intent);
+                                            }else{
+                                                Log.d(TAG, "Entrou no else");
+                                            }
+                                        }
+                                    });
+                        }
+                    });
 
             finish();
 
         }).addOnFailureListener(er -> {
             Toast.makeText(this, "" + er.getMessage(), Toast.LENGTH_SHORT).show();
             Log.d(TAG, "" + er.getMessage());
+            Log.d(TAG, "Entrou em addOnFailureListener");
         });
 
         //home.verApg();
@@ -307,17 +318,32 @@ public class UserProfileActivity extends AppCompatActivity {
     private boolean verEmail() {
         //int valido;
 
+        Log.d(TAG, "Entrou em verEmail()");
+
         email = campoEmail.getText().toString();
         senha = campoSenha.getText().toString();
 
+        //autenticacao.getCurrentUser().updateEmail(email);
+
+        Log.d(TAG, "Email: "+email+" Senha: "+senha);
+
         if (autenticacao.getCurrentUser().getEmail().equals(email)) {
-            Log.d(TAG, "Entrou em getCurrentUser().getEmail().equals(email)");
-            return true;
+            Log.d(TAG, autenticacao.getCurrentUser().getEmail()+" igual a"+email);
+            valido = true;
         } else {
-            Log.d(TAG, "Vai criar outro usuário");
-            autenticacao.createUserWithEmailAndPassword(
-                    email, senha
-            ).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            Log.d(TAG, "Entrou no else");
+            if(conteudoEmail()){
+                Log.d(TAG, "Entrou no conteudoEmail(): "+conteudoEmail());
+                //autenticacao.getCurrentUser().updateEmail(email);
+                Log.d(TAG, "Email atual: "+autenticacao.getCurrentUser().getEmail());
+                Toast.makeText(UserProfileActivity.this, "Sucesso em atualizar o usuário", Toast.LENGTH_SHORT).show();
+                valido = true;
+            }else{
+                Log.d(TAG, "Entrou no else: "+conteudoEmail());
+                Toast.makeText(UserProfileActivity.this, "Erro em validar o Email", Toast.LENGTH_SHORT).show();
+                valido = false;
+            }
+            /*autenticacao.signInWithEmailAndPassword(email, senha).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
@@ -346,11 +372,57 @@ public class UserProfileActivity extends AppCompatActivity {
                         valido = false;
                     }
                 }
-            });
+            });*/
         }
 
-        Log.d(TAG, "Antes de retornar valido[0], valor de valido[0] = " + valido);
         return valido;
+    }
+
+    private boolean conteudoEmail(){
+        int numTiposContas = 0;
+
+        if(email.contains("@gmail.com")){
+            ++numTiposContas;
+        }
+
+        if(email.contains("@alu.ufc.br")){
+            ++numTiposContas;
+        }
+
+        if(email.contains("@hotmail.com")){
+            ++numTiposContas;
+        }
+
+        if(numTiposContas > 1 || email.contains(" ")){
+            return false;
+        }else{
+            String ultimasLetras = "";
+
+            for(int i = email.length() - 12; i < email.length(); ++i){
+                char ch = email.charAt(i);
+                ultimasLetras += ch;
+            }
+
+            /*ultimasLetras += " ";
+
+            for(int i = email.length() - 11; i < email.length(); ++i){
+                char ch = email.charAt(i);
+                ultimasLetras += ch;
+            }
+
+            ultimasLetras += " ";
+
+            for(int i = email.length() - 12; i < email.length(); ++i){
+                char ch = email.charAt(i);
+                ultimasLetras += ch;
+            }*/
+
+            if(!ultimasLetras.contains("@gmail.com") && !ultimasLetras.contains("@alu.ufc.br") && !ultimasLetras.contains("@hotmail.com")){
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private boolean verTele() {
@@ -397,7 +469,7 @@ public class UserProfileActivity extends AppCompatActivity {
             for (int i = 0; i < nome.length(); ++i) {
                 char ch = nome.charAt(i);
 
-                if (!((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || ch == ' ') || ((i == 0 || i == nome.length()-1) && ch == ' ')) {
+                if (!((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= 'á' && ch <= 'ú') || (ch >= 'Á' && ch <= 'Ú') || ch == 'ã' || ch == 'õ' || ch == ' ') || ((i == 0 || i == nome.length()-1) && ch == ' ')) {
                     Toast.makeText(this, "Preencha o campo Nome apropriadamente (Verifique espaços indesejados)", Toast.LENGTH_SHORT).show();
                     return false;
                 }

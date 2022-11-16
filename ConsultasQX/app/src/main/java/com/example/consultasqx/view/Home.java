@@ -2,21 +2,21 @@ package com.example.consultasqx.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
+//import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.content.SharedPreferences;
+//import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
+//import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
+//import android.widget.Toast;
 
-import com.example.consultasqx.MapsActivity;
+//import com.example.consultasqx.MapsActivity;
 import com.example.consultasqx.R;
 import com.example.consultasqx.UserProfileActivity;
 import com.example.consultasqx.Util.ConfiguraBD;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
+//import com.google.android.gms.common.ConnectionResult;
+//import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
@@ -26,8 +26,6 @@ public class Home extends AppCompatActivity{
 
     private static final String TAG = "HomeActivity";
     //private static final int ERROR_DIALOG_REQUEST = 9001;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,11 +64,6 @@ public class Home extends AppCompatActivity{
         }catch(Exception e){
             e.printStackTrace();
         }
-    }
-
-    public void abrirMapa(View v) {
-        Intent intent = new Intent(this, MapsActivity.class);
-        startActivity(intent);
     }
 
     public void abrirPerfil(View v) {

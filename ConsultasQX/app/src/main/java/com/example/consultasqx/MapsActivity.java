@@ -78,6 +78,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private EditText mSearchText;
     private ImageView mGps; /*, mInfo, mPlacePicker;*/
 
+    int id;
+
     /*private GoogleApiClient mGoogleApiClient;
     private PlaceInfo mPlace;
     private Marker mMarker;*/
@@ -100,6 +102,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         /*mInfo = (ImageView) findViewById(R.id.place_info);
         mPlacePicker = (ImageView) findViewById(R.id.place_picker);*/
+
+        id = (int) getIntent().getExtras().get("id");
 
         getLocationPermission();
     }
@@ -130,18 +134,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
 
             init();
+
+            LatLng clinica;
+
+            if(id == 0 || id == 1){
+                clinica = new LatLng(-4.970519, -39.017490);
+                mMap.addMarker(new MarkerOptions().position(clinica).title("J. Holanda, Clínica Integrada"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(clinica));
+            }else if(id == 2 || id == 2){
+                clinica = new LatLng(-4.969518, -39.015515);
+                mMap.addMarker(new MarkerOptions().position(clinica).title("Clínica São Rafael Quixadá - Unidade II"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(clinica));
+            }else if(id == 4 || id == 5){
+                clinica = new LatLng(-4.970257, -39.019324);
+                mMap.addMarker(new MarkerOptions().position(clinica).title("Clínica São Lucas"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(clinica));
+            }else if(id == 6 || id == 7){
+                clinica = new LatLng(-4.970344, -39.021809);
+                mMap.addMarker(new MarkerOptions().position(clinica).title("Clínica CIAME"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(clinica));
+            }else if(id == 8 || id == 9){
+                clinica = new LatLng(-4.971524, -39.016235);
+                mMap.addMarker(new MarkerOptions().position(clinica).title("Clínica Clareira - Psicologia e Saúde"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(clinica));
+            }
         }
 
-        /*
-
-        */
-
-        Log.d(TAG, "onMapReady: Mapa pronto");
         Toast.makeText(this, "O mapa está pronto", Toast.LENGTH_SHORT).show();
     }
 
-    private void init(){
-        Log.d(TAG, "init: Inicializando");
+    private void init() {
 
         /*mGoogleApiClient = new GoogleApiClient
                 .Builder(this)
@@ -160,10 +182,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if(actionId == EditorInfo.IME_ACTION_SEARCH
+                if (actionId == EditorInfo.IME_ACTION_SEARCH
                         || actionId == EditorInfo.IME_ACTION_DONE
                         || keyEvent.getAction() == KeyEvent.ACTION_DOWN
-                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER){
+                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER) {
 
                     geoLocate();
                 }
@@ -175,7 +197,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mGps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "onClick: Ícone do GPS clicado");
                 getDeviceLocation();
             }
         });
@@ -231,20 +252,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }*/
 
-    private void geoLocate(){
-        Log.d(TAG, "geoLocate: Geolocalizando");
-
+    private void geoLocate() {
         String searchString = mSearchText.getText().toString();
 
         Geocoder geocoder = new Geocoder(MapsActivity.this);
         List<Address> list = new ArrayList<>();
-        try{
+        try {
             list = geocoder.getFromLocationName(searchString, 1);
-        }catch (IOException e){
-            Log.e(TAG, "geoLocate: IOException: " + e.getMessage() );
+        } catch (IOException e) {
+            Log.e(TAG, "geoLocate: IOException: " + e.getMessage());
         }
 
-        if(list.size() > 0){
+        if (list.size() > 0) {
             Address address = list.get(0);
 
             Log.d(TAG, "geoLocate: Local encontrado: " + address.toString());
@@ -254,46 +273,44 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    private void getDeviceLocation(){
-        Log.d(TAG, "getDeviceLocation: Obtendo a localização atual do aparelho");
-
+    private void getDeviceLocation() {
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
-        try{
-            if(mLocationPermissionsGranted){
+        try {
+            if (mLocationPermissionsGranted) {
 
                 final Task location = mFusedLocationProviderClient.getLastLocation();
                 location.addOnCompleteListener(new OnCompleteListener() {
                     @Override
                     public void onComplete(@NonNull Task task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             Log.d(TAG, "onComplete: Localização encontrada!");
                             Location currentLocation = (Location) task.getResult();
 
                             moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
                                     DEFAULT_ZOOM, "Minha localização");
 
-                        }else{
+                        } else {
                             Log.d(TAG, "onComplete: Localização atual nula");
                             Toast.makeText(MapsActivity.this, "incapaz de obter localização atual", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
             }
-        }catch (SecurityException e){
-            Log.e(TAG, "getDeviceLocation: SecurityException: " + e.getMessage() );
+        } catch (SecurityException e) {
+            Log.e(TAG, "getDeviceLocation: SecurityException: " + e.getMessage());
         }
     }
 
-    private void hideSoftKeyboard(){
+    private void hideSoftKeyboard() {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
-    private void moveCamera(LatLng latLng, float zoom, String title /*PlaceInfo placeInfo*/){
-        Log.d(TAG, "moveCamera: Movendo a câmera para: lat: " + latLng.latitude + ", long: " + latLng.longitude );
+    private void moveCamera(LatLng latLng, float zoom, String title /*PlaceInfo placeInfo*/) {
+        Log.d(TAG, "moveCamera: Movendo a câmera para: lat: " + latLng.latitude + ", long: " + latLng.longitude);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
 
-        if(!title.equals("Minha localização")){
+        if (!title.equals("Minha localização")) {
             MarkerOptions options = new MarkerOptions()
                     .position(latLng)
                     .title(title);
@@ -327,31 +344,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         hideSoftKeyboard();
     }
 
-    private void initMap(){
-        Log.d(TAG, "initMap: Inicializando Mapa");
+    private void initMap() {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         assert mapFragment != null;
         mapFragment.getMapAsync(this);
     }
 
-    private void getLocationPermission(){
-        Log.d(TAG, "getLocationPermission: Obtendo permissão de localização");
+    private void getLocationPermission() {
         String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION};
 
-        if(ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-            if(ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                    COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                    COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 mLocationPermissionsGranted = true;
                 initMap();
-            }else{
+            } else {
                 ActivityCompat.requestPermissions(this,
                         permissions,
                         LOCATION_PERMISSION_REQUEST_CODE);
             }
-        }else{
+        } else {
             ActivityCompat.requestPermissions(this,
                     permissions,
                     LOCATION_PERMISSION_REQUEST_CODE);
@@ -361,7 +376,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        Log.d(TAG, "onRequestPermissionsResult: Chamado");
         mLocationPermissionsGranted = false;
 
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
