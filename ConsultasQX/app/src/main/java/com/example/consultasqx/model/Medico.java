@@ -14,13 +14,6 @@ public class Medico extends Usuario{
     private String convenio;
     private String especialidade;
 
-    public Medico(String nome, String crm, String especialidade){
-        this.id = CONTADOR++;
-        this.nome = nome;
-        this.crm = crm;
-        this.especialidade = especialidade;
-    }
-
     ArrayList<Medico> listaMedicos = new ArrayList<>();
 
     public Medico(){}

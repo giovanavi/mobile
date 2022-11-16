@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class Consulta {
 
-    private static int CONTADOR=0;
+    private static int CONTADOR = 0;
 
     private int id;
     private Medico medico;

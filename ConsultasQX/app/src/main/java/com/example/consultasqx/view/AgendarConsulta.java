@@ -53,7 +53,7 @@ public class AgendarConsulta extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agendar_consulta);
 
-        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.white)));
+//        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.white)));
 
         Consulta consulta = new Consulta();
         listaConsultas = consulta.getList();
@@ -169,11 +169,8 @@ public class AgendarConsulta extends AppCompatActivity {
     }
 
     public void marcarConsulta(View view){
-        Intent intent = new Intent(view.getContext(), Home.class);
-
         Toast.makeText(this, "Consulta Marcada", Toast.LENGTH_SHORT).show();
-
-        startActivity(intent);
+        finish();
     }
 
 //    public void marcarConsulta(View view){
