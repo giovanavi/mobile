@@ -3,8 +3,6 @@ package com.example.consultasqx.view;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.drawable.ColorDrawable;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,19 +13,12 @@ import android.widget.Toast;
 
 import com.example.consultasqx.R;
 import com.example.consultasqx.model.Consulta;
-import com.example.consultasqx.model.Medico;
-import com.example.consultasqx.view.Home;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.sql.Time;
-import java.util.List;
-import java.util.Objects;
 
-
-import com.example.consultasqx.model.Paciente;
 import com.example.consultasqx.view.adapter.ConsultaAdapter;
 
 public class AgendarConsulta extends AppCompatActivity {
@@ -35,8 +26,8 @@ public class AgendarConsulta extends AppCompatActivity {
     CalendarView calendarView;
     Button btn_marcar_consulta;
 
-    int id_medico;
-    int id_paciente = 0;
+//    int id_medico;
+//    int id_paciente = 0;
 
     RadioGroup radioGroupHorarios;
     RadioGroup radioGroupEspecialidades;
@@ -70,7 +61,7 @@ public class AgendarConsulta extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                Toast.makeText(AgendarConsulta.this, date, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(AgendarConsulta.this, date, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -81,7 +72,7 @@ public class AgendarConsulta extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 radioButton = radioGroup.findViewById(radioGroup.getCheckedRadioButtonId());
                 String marcado = (String) radioButton.getText();
-                Toast.makeText(AgendarConsulta.this, marcado, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(AgendarConsulta.this, marcado, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -93,7 +84,7 @@ public class AgendarConsulta extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 radioButton = radioGroup.findViewById(radioGroup.getCheckedRadioButtonId());
                 String marcado = (String) radioButton.getText();
-                Toast.makeText(AgendarConsulta.this, marcado, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(AgendarConsulta.this, marcado, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -108,6 +99,10 @@ public class AgendarConsulta extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void voltar(View view){
+        finish();
     }
 
     public boolean checkRadioButtonHoarios(){
@@ -133,7 +128,7 @@ public class AgendarConsulta extends AppCompatActivity {
         return true;
     }
 
-    public void initRadioGroup(){
+//    public void initRadioGroup(){
 //        Medico medico = findMedico(int id);
 //        List<Time> horarios = medico.getHorarios();
 //
@@ -153,24 +148,36 @@ public class AgendarConsulta extends AppCompatActivity {
 //        rb1.setText(convenios.get(0));
 //        rb2.setText(convenios.get(1));
 //        rb3.setText(convenios.get(2));
+//    }
 
-    }
-
-    public Time stringToTime(String horario){
-        SimpleDateFormat formatador = new SimpleDateFormat("HH:mm");
-        Time time = null;
-        try {
-            Date data = formatador.parse(horario);
-            time = new Time(data.getTime());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return time;
-    }
+//    public Time stringToTime(String horario){
+//        SimpleDateFormat formatador = new SimpleDateFormat("HH:mm");
+//        Time time = null;
+//        try {
+//            Date data = formatador.parse(horario);
+//            time = new Time(data.getTime());
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        return time;
+//    }
 
     public void marcarConsulta(View view){
-        Toast.makeText(this, "Consulta Marcada", Toast.LENGTH_SHORT).show();
-        finish();
+        if(checkDate()) {
+            if (checkRadioButtonHoarios() && checkRadioButtonEspecialidades()) {
+
+                Toast.makeText(this, "Consulta Marcada", Toast.LENGTH_SHORT).show();
+                finish();
+
+            }else if (!checkRadioButtonHoarios() || !checkRadioButtonEspecialidades()){
+                System.out.println("selecione um horario ou especialidade");
+                Toast.makeText(AgendarConsulta.this, "Selecione um horario e uma especialidade", Toast.LENGTH_SHORT).show();
+            }
+        }else if (!checkDate()){
+            System.out.println("Selecione uma data");
+            Toast.makeText(AgendarConsulta.this, "Selecione uma data", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 //    public void marcarConsulta(View view){

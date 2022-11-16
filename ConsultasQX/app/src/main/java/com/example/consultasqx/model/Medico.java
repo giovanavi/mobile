@@ -34,7 +34,7 @@ public class Medico extends Usuario{
 
         listaMedicos.add(new Medico("José", "9876","11111111111", "11111111111", "Dentista", "HapVida"));
         listaMedicos.add(new Medico("Maria", "2134", "22222222222", "22222222222", "Dentista", "ISSEC"));
-        listaMedicos.add(new Medico("Jão", "4324", "33333333333", "33333333333","Radiologista", "UNIMED"));
+        listaMedicos.add(new Medico("João", "4324", "33333333333", "33333333333","Radiologista", "UNIMED"));
         listaMedicos.add(new Medico("Carolina", "2356", "44444444444", "44444444444","Cardiologista", "UNIMED"));
         listaMedicos.add(new Medico("Arthur", "2518", "5555555555", "5555555555","Odontologista", "ISSEC"));
         listaMedicos.add(new Medico("Manuel", "9841", "66666666666", "66666666666","Oftalmologista", "HapVida"));

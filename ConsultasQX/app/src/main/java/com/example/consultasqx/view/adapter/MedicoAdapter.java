@@ -97,8 +97,6 @@ public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.ViewHolder
         String especialidade = medicosListFull.get(position).getEspecialidade();
         String crm = medicosListFull.get(position).getCrm();
         int id = medicosListFull.get(position).getId();
-        //id saiu daqui
-//        int i = position;
 
         holder.nome.setText(name);
         holder.especialidade.setText(especialidade);
@@ -107,15 +105,11 @@ public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.ViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                int medico = medicosListFull.get(i).getId();
-//                String str = medico+"";
-//                Toast.makeText(view.getContext(), str, Toast.LENGTH_SHORT).show();
-
                 Context context = view.getContext();
                 Intent intent = new Intent(context, MedicoPerfil.class);
 
 
-                Toast.makeText(context, id+"", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, id+"", Toast.LENGTH_SHORT).show();
                 intent.putExtra("id", id);
 
                 context.startActivity(intent);
