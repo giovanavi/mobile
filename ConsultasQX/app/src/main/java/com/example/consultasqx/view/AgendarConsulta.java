@@ -53,7 +53,7 @@ public class AgendarConsulta extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agendar_consulta);
 
-        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.white)));
+        //Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.white)));
 
         Consulta consulta = new Consulta();
         listaConsultas = consulta.getList();

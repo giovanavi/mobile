@@ -118,7 +118,7 @@
         android:background="@color/white"
         android:onClick="verHorarios"
         android:text="@string/agendar_consulta"
-        android:textColor="#FF0000"
+        android:textColor="@color/purple_700"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
