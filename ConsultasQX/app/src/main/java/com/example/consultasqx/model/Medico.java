@@ -18,8 +18,7 @@ public class Medico extends Usuario{
 
     public Medico(){}
 
-    public Medico(String nome, String crm, String cpf, String telefone, String especialidade, String convenio) {
-        this.id = CONTADOR++;
+    public Medico(int id, String nome, String crm, String cpf, String telefone, String especialidade, String convenio) {
         this.crm = crm;
         this.nome = nome;
         this.cpf = cpf;
@@ -32,16 +31,16 @@ public class Medico extends Usuario{
 
         listaMedicos = new ArrayList<>();
 
-        listaMedicos.add(new Medico("José", "9876","11111111111", "11111111111", "Dentista", "HapVida"));
-        listaMedicos.add(new Medico("Maria", "2134", "22222222222", "22222222222", "Dentista", "ISSEC"));
-        listaMedicos.add(new Medico("João", "4324", "33333333333", "33333333333","Radiologista", "UNIMED"));
-        listaMedicos.add(new Medico("Carolina", "2356", "44444444444", "44444444444","Cardiologista", "UNIMED"));
-        listaMedicos.add(new Medico("Arthur", "2518", "5555555555", "5555555555","Odontologista", "ISSEC"));
-        listaMedicos.add(new Medico("Manuel", "9841", "66666666666", "66666666666","Oftalmologista", "HapVida"));
-        listaMedicos.add(new Medico("Adriana", "3231", "77777777777", "77777777777","Nutricionista", "Bradesco Seguros"));
-        listaMedicos.add(new Medico("Karine", "8121", "88888888888", "88888888888","Cirurgiã Dentista", "UNIMED"));
-        listaMedicos.add(new Medico("Matheus", "4871", "99999999999", "99999999999","Psicólogo", "BB Seguros"));
-        listaMedicos.add(new Medico("Anderson", "2345", "00000000000", "00000000000","Psicólogo`","HapVida"));
+        listaMedicos.add(new Medico(0,"José", "9876","11111111111", "11111111111", "Dentista", "HapVida"));
+        listaMedicos.add(new Medico(1,"Maria", "2134", "22222222222", "22222222222", "Dentista", "ISSEC"));
+        listaMedicos.add(new Medico(2, "João", "4324", "33333333333", "33333333333","Radiologista", "UNIMED"));
+        listaMedicos.add(new Medico(2,"Carolina", "2356", "44444444444", "44444444444","Cardiologista", "UNIMED"));
+        listaMedicos.add(new Medico(4,"Arthur", "2518", "5555555555", "5555555555","Odontologista", "ISSEC"));
+        listaMedicos.add(new Medico(5,"Manuel", "9841", "66666666666", "66666666666","Oftalmologista", "HapVida"));
+        listaMedicos.add(new Medico(6,"Adriana", "3231", "77777777777", "77777777777","Nutricionista", "Bradesco Seguros"));
+        listaMedicos.add(new Medico(7,"Karine", "8121", "88888888888", "88888888888","Cirurgiã Dentista", "UNIMED"));
+        listaMedicos.add(new Medico(8,"Matheus", "4871", "99999999999", "99999999999","Psicólogo", "BB Seguros"));
+        listaMedicos.add(new Medico(9,"Anderson", "2345", "00000000000", "00000000000","Psicólogo`","HapVida"));
 
         return listaMedicos;
     }

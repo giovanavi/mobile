@@ -1,9 +1,5 @@
 package com.example.consultasqx.model;
 
-import android.widget.Toast;
-
-import com.example.consultasqx.view.adapter.ConsultaAdapter;
-
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -51,7 +47,7 @@ public class Consulta {
 
         ArrayList<Consulta> consultaArrayList = new ArrayList<>();
         consultaArrayList.add(new Consulta(lista.get(1), listaPaciente.get(0), stringToDate(data1), stringToTime(hora1), listaPaciente.get(0).getConvenio(), lista.get(1).getEspecialidade()));
-        consultaArrayList.add(new Consulta(lista.get(2), listaPaciente.get(0), stringToDate(data2), stringToTime(hora2), listaPaciente.get(0).getConvenio(), lista.get(2).getEspecialidade()));
+        consultaArrayList.add(new Consulta(lista.get(3), listaPaciente.get(0), stringToDate(data2), stringToTime(hora2), listaPaciente.get(0).getConvenio(), lista.get(3).getEspecialidade()));
         consultaArrayList.add(new Consulta(lista.get(2), listaPaciente.get(0), stringToDate(data1), stringToTime(hora2), listaPaciente.get(0).getConvenio(), lista.get(2).getEspecialidade()));
         consultaArrayList.add(new Consulta(lista.get(0), listaPaciente.get(0), stringToDate(data2), stringToTime(hora1), listaPaciente.get(0).getConvenio(), lista.get(0).getEspecialidade()));
 

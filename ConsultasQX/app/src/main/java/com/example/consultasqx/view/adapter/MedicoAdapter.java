@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,11 +20,11 @@ import java.util.ArrayList;
 
 public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.ViewHolder> implements Filterable{
 
-    ArrayList<Medico> medicosListFull;
+    ArrayList<Medico> medicosList;
     ArrayList<Medico> medicosListFilter;
 
     public MedicoAdapter(ArrayList<Medico> dados){
-        this.medicosListFull = dados;
+        this.medicosList = dados;
         this.medicosListFilter = dados;
     }
 
@@ -75,7 +74,7 @@ public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.ViewHolder
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults results) {
-                medicosListFull = (ArrayList<Medico>) results.values;
+                medicosList = (ArrayList<Medico>) results.values;
                 notifyDataSetChanged();
             }
         };
@@ -93,10 +92,10 @@ public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.ViewHolder
 
     //exibe as insformações na linha (card)
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String name = medicosListFull.get(position).getNome();
-        String especialidade = medicosListFull.get(position).getEspecialidade();
-        String crm = medicosListFull.get(position).getCrm();
-        int id = medicosListFull.get(position).getId();
+        String name = medicosList.get(position).getNome();
+        String especialidade = medicosList.get(position).getEspecialidade();
+        String crm = medicosList.get(position).getCrm();
+        int id = medicosList.get(position).getId();
 
         holder.nome.setText(name);
         holder.especialidade.setText(especialidade);
@@ -119,7 +118,7 @@ public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.ViewHolder
     }
 
     public int getItemCount() {
-        return medicosListFull.size();
+        return medicosList.size();
     }
 
 

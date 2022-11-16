@@ -11,9 +11,8 @@ import android.view.View;
 
 import com.example.consultasqx.R;
 import com.example.consultasqx.model.Consulta;
-import com.example.consultasqx.model.Medico;
 import com.example.consultasqx.view.adapter.ConsultaAdapter;
-import com.example.consultasqx.view.adapter.MedicoAdapter;
+
 
 import java.util.ArrayList;
 import java.util.Objects;

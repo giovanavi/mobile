@@ -7,12 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.drawable.ColorDrawable;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Filter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.consultasqx.view.adapter.MedicoAdapter;
 import com.example.consultasqx.R;
@@ -20,8 +16,6 @@ import com.example.consultasqx.model.Medico;
 
 import java.util.ArrayList;
 import java.util.Objects;
-
-import com.example.consultasqx.R;
 
 public class SearchMedicoActivity extends AppCompatActivity {
 

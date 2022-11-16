@@ -2,18 +2,14 @@ package com.example.consultasqx.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.consultasqx.MapsActivity;
-import com.example.consultasqx.R;
-
 import com.example.consultasqx.R;
 import com.example.consultasqx.model.Medico;
 
