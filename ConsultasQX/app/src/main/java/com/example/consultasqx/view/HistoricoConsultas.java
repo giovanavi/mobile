@@ -37,7 +37,23 @@ public class HistoricoConsultas extends AppCompatActivity {
         adapter = new ConsultaAdapter(listaConsultas);
 
         initRecyclerView();
+        initSearchView();
+    }
 
+    public void initSearchView(){
+        searchView = findViewById(R.id.search_view_consulta);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return true;
+            }
+        });
     }
 
     public void initRecyclerView(){

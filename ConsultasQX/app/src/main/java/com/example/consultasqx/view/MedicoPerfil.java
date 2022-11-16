@@ -46,7 +46,8 @@ public class MedicoPerfil extends AppCompatActivity {
 
         id = (int) getIntent().getExtras().get("id");
 
-        ArrayList<Medico> lista = medico.getList();
+        ArrayList<Medico> lista = null;
+        lista = medico.getList();
         medico = lista.get(id); //xxxxx
 
         initComponentes();
