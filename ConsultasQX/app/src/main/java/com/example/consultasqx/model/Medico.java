@@ -19,6 +19,7 @@ public class Medico extends Usuario{
     public Medico(){}
 
     public Medico(int id, String nome, String crm, String cpf, String telefone, String especialidade, String convenio) {
+        this.id = id;
         this.crm = crm;
         this.nome = nome;
         this.cpf = cpf;
