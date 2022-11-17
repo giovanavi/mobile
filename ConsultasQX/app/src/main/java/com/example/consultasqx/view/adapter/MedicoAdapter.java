@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -109,7 +110,7 @@ public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.ViewHolder
                 Intent intent = new Intent(context, MedicoPerfil.class);
 
 
-//                Toast.makeText(context, id+"", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, id+"", Toast.LENGTH_SHORT).show();
                 intent.putExtra("id", id);
 
                 context.startActivity(intent);
