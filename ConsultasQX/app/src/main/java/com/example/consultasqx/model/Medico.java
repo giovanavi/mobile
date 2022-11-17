@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Medico extends Usuario{
 
-    private static int CONTADOR = 0;
+    //private static int CONTADOR = 0;
 
     private int id;
     private String crm;

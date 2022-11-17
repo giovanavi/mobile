@@ -31,18 +31,13 @@ public class CadastroActivity extends AppCompatActivity {
     FirebaseAuth autenticacao;
     EditText campoNome, campoPhone, campoCpf, campoEmail, campoSenha, campoConfSenha;
 
-    String[] items = {"Paciente", "Médico"};
     //AutoCompleteTextView autoCompleteTxt;
     //ArrayAdapter<String> adapterItems;
 
     DAOUsuario dao;
     SharedPreferences sp;
-    UserProfileActivity userProfileActivity;
 
     String nome, email, phone, cpf, senha, confSenha;
-
-    String item;
-    String[] colorArray = {"#44FFFFFF","#88FFFFFF"};
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -86,7 +81,7 @@ public class CadastroActivity extends AppCompatActivity {
                 if(cpf.length() == 14 && verNums(cpf)){
                     if(!email.isEmpty()){
                         if(senha.length() >= 8){
-                            if(!confSenha.equals(senha) || confSenha.isEmpty()){
+                            if(!confSenha.equals(senha)){
                                 Toast.makeText(this, "Preencha o campo Confirme sua senha corretamente", Toast.LENGTH_SHORT).show();
                             }else{
                                 usuario = new Usuario();

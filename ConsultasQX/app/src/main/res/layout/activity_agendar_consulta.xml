@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".view.AgendarConsulta">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,9 +35,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Agendamento"
+            android:text="@string/agendamento"
             android:textColor="@color/black"
-            android:textSize="30dp"
+            android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
@@ -47,8 +48,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:gravity="center"
-            android:text="Escolha a data para sua consulta"
-            android:textSize="20dp"
+            android:text="@string/escolha_a_data_para_sua_consulta"
+            android:textSize="20sp"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.23"
@@ -70,8 +71,8 @@
             android:id="@+id/info3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Selecionar horário "
-            android:textSize="30dp"
+            android:text="@string/selecionar_hor_rio"
+            android:textSize="30sp"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.198"
@@ -90,29 +91,29 @@
                 android:id="@+id/radioButtonHorario1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:text="12:00"
-                />
+                android:layout_marginEnd="5dp"
+                android:text="@string/_12_00"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <RadioButton
                 android:id="@+id/radioButtonHorario2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="15:00" />
+                android:text="@string/_15_00" />
 
             <RadioButton
                 android:id="@+id/radioButtonHorario3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="20:00" />
+                android:text="@string/_20_00" />
         </RadioGroup>
 
         <TextView
             android:id="@+id/info5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Selecionar especialidade"
-            android:textSize="30dp"
+            android:text="@string/selecionar_especialidade"
+            android:textSize="30sp"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.131"
@@ -131,30 +132,32 @@
                 android:id="@+id/radioButtonEspecialidade1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Especialidade 1" />
+                android:text="@string/especialidade_1" />
 
             <RadioButton
                 android:id="@+id/radioButtonEspecialidade2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Especialidade 2" />
+                android:text="@string/especialidade_2" />
 
             <RadioButton
                 android:id="@+id/radioButtonEspecialidade3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Especialidade 3" />
+                android:text="@string/especialidade_3" />
         </RadioGroup>
 
         <Button
             android:id="@+id/btn_marcar_consulta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
             android:layout_marginTop="15dp"
-            android:background="@drawable/bck_botao"
+            android:layout_marginRight="50dp"
+            android:background="@color/purple_700"
             android:onClick="marcarConsulta"
-            android:text="Marcar Consulta"
-            android:textColor="@color/purple_700"
+            android:text="@string/marcar_consulta_de_agendar_consulta"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"

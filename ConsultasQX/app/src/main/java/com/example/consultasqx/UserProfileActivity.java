@@ -14,13 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.consultasqx.Util.ConfiguraBD;
-import com.example.consultasqx.model.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
@@ -30,10 +28,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private static final String TAG = "ViewDatabase";
 
-    private Usuario usuario;
     private DAOUsuario dao;
-    private DatabaseReference dados;
-    private FirebaseDatabase refUsuario;
     private static final String USUARIO = "Usuario";
     private String nome, cpf, email, telefone, senha;
 
@@ -213,7 +208,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
             Log.d(TAG, "UID do usuário: " + autenticacao.getUid());
 
-            dao.update(autenticacao.getCurrentUser().getUid(), hashMap).addOnSuccessListener(suc -> {
+            dao.update(Objects.requireNonNull(autenticacao.getCurrentUser()).getUid(), hashMap).addOnSuccessListener(suc -> {
                 Toast.makeText(this, "Atualizado", Toast.LENGTH_SHORT).show();
 
                 SharedPreferences.Editor editor = sp.edit();
@@ -230,6 +225,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 campoNomeProfile.setText(nome);
 
                 autenticacao.getCurrentUser().updateEmail(email);
+                autenticacao.getCurrentUser().updatePassword(senha);
                 Log.d(TAG, "Email atual: "+autenticacao.getCurrentUser().getEmail());
 
             }).addOnFailureListener(er -> {
@@ -242,7 +238,7 @@ public class UserProfileActivity extends AppCompatActivity {
     public void delete(View v) {
         Log.d(TAG, "Chamou o delete");
 
-        dao.remove(autenticacao.getCurrentUser().getUid()).addOnSuccessListener(suc -> {
+        dao.remove(Objects.requireNonNull(autenticacao.getCurrentUser()).getUid()).addOnSuccessListener(suc -> {
             Log.d(TAG, "Entrou em dao.remove");
 
             Toast.makeText(this, "Conta removida", Toast.LENGTH_SHORT).show();
@@ -266,7 +262,7 @@ public class UserProfileActivity extends AppCompatActivity {
                     .getInstance()
                     .getReference()
                     .child("Usuario")
-                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
                     .setValue(null)
                     .addOnSuccessListener(new OnSuccessListener<Void>(){
                         @Override
@@ -280,11 +276,13 @@ public class UserProfileActivity extends AppCompatActivity {
                                             Log.d(TAG, "Entrou em onComplete");
                                             if(task.isSuccessful()){
                                                 Log.d(TAG, "Entrou em task.isSuccessful");
-                                                Intent intent= new Intent(UserProfileActivity.this, LoginActivity.class);
-                                                startActivity(intent);
+                                                /*Intent intent= new Intent(UserProfileActivity.this, LoginActivity.class);
+                                                startActivity(intent);*/
                                             }else{
                                                 Log.d(TAG, "Entrou no else");
                                             }
+                                            Intent intent= new Intent(UserProfileActivity.this, LoginActivity.class);
+                                            startActivity(intent);
                                         }
                                     });
                         }
@@ -306,14 +304,14 @@ public class UserProfileActivity extends AppCompatActivity {
 
         Log.d(TAG, "Entrou em verEmail()");
 
-        email = campoEmail.getText().toString();
-        senha = campoSenha.getText().toString();
+        email = Objects.requireNonNull(campoEmail.getText()).toString();
+        senha = Objects.requireNonNull(campoSenha.getText()).toString();
 
         //autenticacao.getCurrentUser().updateEmail(email);
 
         Log.d(TAG, "Email: "+email+" Senha: "+senha);
 
-        if (autenticacao.getCurrentUser().getEmail().equals(email)) {
+        if (Objects.requireNonNull(Objects.requireNonNull(autenticacao.getCurrentUser()).getEmail()).equals(email)) {
             Log.d(TAG, autenticacao.getCurrentUser().getEmail()+" igual a"+email);
             valido = true;
         } else {
@@ -382,11 +380,11 @@ public class UserProfileActivity extends AppCompatActivity {
         if(numTiposContas > 1 || email.contains(" ")){
             return false;
         }else{
-            String ultimasLetras = "";
+            StringBuilder ultimasLetras = new StringBuilder();
 
             for(int i = email.length() - 12; i < email.length(); ++i){
                 char ch = email.charAt(i);
-                ultimasLetras += ch;
+                ultimasLetras.append(ch);
             }
 
             /*ultimasLetras += " ";
@@ -403,12 +401,8 @@ public class UserProfileActivity extends AppCompatActivity {
                 ultimasLetras += ch;
             }*/
 
-            if(!ultimasLetras.contains("@gmail.com") && !ultimasLetras.contains("@alu.ufc.br") && !ultimasLetras.contains("@hotmail.com")){
-                return false;
-            }
+            return ultimasLetras.toString().contains("@gmail.com") || ultimasLetras.toString().contains("@alu.ufc.br") || ultimasLetras.toString().contains("@hotmail.com");
         }
-
-        return true;
     }
 
     private boolean verTele() {

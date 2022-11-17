@@ -1,5 +1,6 @@
 package com.example.consultasqx.view.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -28,7 +29,7 @@ public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.ViewHolder
         this.medicosListFilter = dados;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         //    private ImageView img_perfil;
         private TextView nome;
         private TextView especialidade;
@@ -47,7 +48,7 @@ public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.ViewHolder
     @Override
     public Filter getFilter() {
 
-        Filter filter = new Filter() {
+        return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
                 FilterResults filterResults = new FilterResults();
@@ -72,17 +73,17 @@ public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.ViewHolder
                 return filterResults;
             }
 
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults results) {
                 medicosList = (ArrayList<Medico>) results.values;
                 notifyDataSetChanged();
             }
         };
-
-        return filter;
     }
 
     //cria o layout de cada linha (card)
+    @NonNull
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.activity_medico_adapter, parent, false);

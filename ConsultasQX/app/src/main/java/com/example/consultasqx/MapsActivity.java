@@ -46,7 +46,6 @@ import com.google.android.gms.maps.model.LatLng;
 //import com.google.android.gms.maps.model.LatLngBounds; //
 //import com.google.android.gms.maps.model.Marker; //
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.example.consultasqx.databinding.ActivityMapsBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -70,7 +69,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private Boolean mLocationPermissionsGranted = false;
 
-    private FusedLocationProviderClient mFusedLocationProviderClient;
     //private PlaceAutocompleteAdapter mPlaceAutocompleteAdapter;
     //private static final int PLACE_PICKER_REQUEST = 1;
 
@@ -97,8 +95,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         /*binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());*/
 
-        mSearchText = /*(AutoCompleteTextView)*/(EditText) findViewById(R.id.input_search);
-        mGps = (ImageView) findViewById(R.id.ic_gps);
+        mSearchText = /*(AutoCompleteTextView)*/ findViewById(R.id.input_search);
+        mGps = findViewById(R.id.ic_gps);
 
         /*mInfo = (ImageView) findViewById(R.id.place_info);
         mPlacePicker = (ImageView) findViewById(R.id.place_picker);*/
@@ -142,7 +140,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.addMarker(new MarkerOptions().position(clinica).title("J. Holanda, Clínica Integrada"));
                 //mMap.moveCamera(CameraUpdateFactory.newLatLng(clinica));
                 moveCamera(clinica, DEFAULT_ZOOM, "J. Holanda, Clínica Integrada");
-            }else if(id == 2 || id == 2){
+            }else if(id == 2 || id == 3){
                 clinica = new LatLng(-4.969518, -39.015515);
                 mMap.addMarker(new MarkerOptions().position(clinica).title("Clínica São Rafael Quixadá - Unidade II"));
                 //mMap.moveCamera(CameraUpdateFactory.newLatLng(clinica));
@@ -279,7 +277,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void getDeviceLocation() {
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        FusedLocationProviderClient mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         try {
             if (mLocationPermissionsGranted) {
@@ -385,8 +383,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0) {
-                for (int i = 0; i < grantResults.length; i++) {
-                    if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                for (int grantResult : grantResults) {
+                    if (grantResult != PackageManager.PERMISSION_GRANTED) {
                         mLocationPermissionsGranted = false;
                         Log.d(TAG, "onRequestPermissionsResult: Permissão negada");
                         return;

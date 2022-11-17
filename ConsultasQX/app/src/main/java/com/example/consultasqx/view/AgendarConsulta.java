@@ -71,7 +71,7 @@ public class AgendarConsulta extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 radioButton = radioGroup.findViewById(radioGroup.getCheckedRadioButtonId());
-                String marcado = (String) radioButton.getText();
+                //String marcado = (String) radioButton.getText();
 //                Toast.makeText(AgendarConsulta.this, marcado, Toast.LENGTH_SHORT).show();
             }
         });
@@ -83,7 +83,7 @@ public class AgendarConsulta extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 radioButton = radioGroup.findViewById(radioGroup.getCheckedRadioButtonId());
-                String marcado = (String) radioButton.getText();
+                //String marcado = (String) radioButton.getText();
 //                Toast.makeText(AgendarConsulta.this, marcado, Toast.LENGTH_SHORT).show();
             }
         });
@@ -107,25 +107,31 @@ public class AgendarConsulta extends AppCompatActivity {
 
     public boolean checkRadioButtonHoarios(){
         radioButton = radioGroupHorarios.findViewById(radioGroupHorarios.getCheckedRadioButtonId());
-        if(radioButton == null ){
+        return radioButton != null;
+
+        /*if(radioButton == null ){
             return false;
         }
-        return true;
+        return true;*/
     }
 
     public boolean checkRadioButtonEspecialidades(){
         radioButton1 = radioGroupEspecialidades.findViewById(radioGroupEspecialidades.getCheckedRadioButtonId());
-        if(radioButton1 == null ){
+        return radioButton1 != null;
+
+        /*if(radioButton1 == null ){
             return false;
         }
-        return true;
+        return true;*/
     }
 
     public boolean checkDate(){
-        if (data == null){
+        return data != null;
+
+        /*if(data == null ){
             return false;
         }
-        return true;
+        return true;*/
     }
 
 //    public void initRadioGroup(){

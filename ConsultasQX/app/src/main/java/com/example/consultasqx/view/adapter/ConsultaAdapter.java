@@ -29,7 +29,7 @@ public class ConsultaAdapter extends RecyclerView.Adapter<ConsultaAdapter.ViewHo
         this.consultasListFilter = consultaList;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView nome;
         private TextView especialidade;
@@ -92,7 +92,7 @@ public class ConsultaAdapter extends RecyclerView.Adapter<ConsultaAdapter.ViewHo
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.activity_consulta_adapter, parent, false);
 
-        return new ConsultaAdapter.ViewHolder(itemView);
+        return new ViewHolder(itemView);
     }
 
     public Time stringToTime(String horario){

@@ -19,7 +19,7 @@ import java.util.Objects;
 
 public class MedicoPerfil extends AppCompatActivity {
 
-//    private ImageView img_perfil;
+    //    private ImageView img_perfil;
     private TextView txtNome;
     private TextView txtEspecialidade;
     private TextView txtCrm;
@@ -42,7 +42,7 @@ public class MedicoPerfil extends AppCompatActivity {
 
         id = (int) getIntent().getExtras().get("id");
 
-        ArrayList<Medico> lista = null;
+        ArrayList<Medico> lista;// = null;
         lista = medico.getList();
         medico = lista.get(id); //xxxxx
 

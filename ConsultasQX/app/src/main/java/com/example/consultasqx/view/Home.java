@@ -24,7 +24,7 @@ import java.util.Objects;
 public class Home extends AppCompatActivity{
     private FirebaseAuth auth;
 
-    private static final String TAG = "HomeActivity";
+    //private static final String TAG = "HomeActivity";
     //private static final int ERROR_DIALOG_REQUEST = 9001;
 
     @Override
