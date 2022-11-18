@@ -387,20 +387,6 @@ public class UserProfileActivity extends AppCompatActivity {
                 ultimasLetras.append(ch);
             }
 
-            /*ultimasLetras += " ";
-
-            for(int i = email.length() - 11; i < email.length(); ++i){
-                char ch = email.charAt(i);
-                ultimasLetras += ch;
-            }
-
-            ultimasLetras += " ";
-
-            for(int i = email.length() - 12; i < email.length(); ++i){
-                char ch = email.charAt(i);
-                ultimasLetras += ch;
-            }*/
-
             return ultimasLetras.toString().contains("@gmail.com") || ultimasLetras.toString().contains("@alu.ufc.br") || ultimasLetras.toString().contains("@hotmail.com");
         }
     }

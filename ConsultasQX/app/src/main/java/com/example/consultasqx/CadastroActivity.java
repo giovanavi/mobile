@@ -190,11 +190,13 @@ public class CadastroActivity extends AppCompatActivity {
                         editor.putString("senha", senha);
                         editor.commit();
 
+                        abrirHome();
+
                     }).addOnFailureListener(er -> {
                         Toast.makeText(CadastroActivity.this, ""+er.getMessage(), Toast.LENGTH_SHORT).show();
                     });
 
-                    abrirHome();
+
                 }else{
                     String excecao;
 
