@@ -127,20 +127,6 @@ public class ConsultaAdapter extends RecyclerView.Adapter<ConsultaAdapter.ViewHo
             holder.convenio.setText("");
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Context context = view.getContext();
-//                Intent intent = new Intent(context, Consulta.class);
-
-//                intent.putExtra("id", id); // id da consulta
-//                intent.putExtra("id_medico", id_medico);
-//                intent.putExtra("id_paciente", id_paciente);
-
-//                context.startActivity(intent);
-            }
-        });
-
     }
 
     @Override

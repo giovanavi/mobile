@@ -2,7 +2,7 @@ package com.example.consultasqx.model;
 
 import java.util.ArrayList;
 
-public class Medico extends Usuario{
+public class Medico{
 
     //private static int CONTADOR = 0;
 

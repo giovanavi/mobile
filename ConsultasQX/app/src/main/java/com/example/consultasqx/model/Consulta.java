@@ -80,11 +80,6 @@ public class Consulta {
     }
 
     public Consulta addConsulta(Medico medico, Paciente paciente, Time horario, Date data, String especialidade){
-//        Medico medico1 = null;
-//        medico1.findMedico(medico);
-//
-//        Paciente paciente1 = null;
-//        paciente1.findPaciente(paciente);
         Consulta consulta = new Consulta(medico, paciente, data, horario, paciente.getConvenio(), especialidade);
 
         consultaArrayList.add(consulta);

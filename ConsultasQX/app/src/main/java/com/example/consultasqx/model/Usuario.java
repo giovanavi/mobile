@@ -1,9 +1,19 @@
 package com.example.consultasqx.model;
 
+import java.util.ArrayList;
+
 public class Usuario {
     private String nome, email, senha, cpf, telefone;
 
     public Usuario() {
+    }
+
+    public Usuario(String nome, String email, String senha, String cpf, String telefone) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.cpf = cpf;
+        this.telefone = telefone;
     }
 
     public String getNome() { return nome; }
@@ -35,4 +45,5 @@ public class Usuario {
     public String getTelefone() { return telefone; }
 
     public void setTelefone(String telefone) { this.telefone = telefone; }
+
 }

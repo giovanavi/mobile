@@ -31,9 +31,6 @@ public class CadastroActivity extends AppCompatActivity {
     FirebaseAuth autenticacao;
     EditText campoNome, campoPhone, campoCpf, campoEmail, campoSenha, campoConfSenha;
 
-    //AutoCompleteTextView autoCompleteTxt;
-    //ArrayAdapter<String> adapterItems;
-
     DAOUsuario dao;
     SharedPreferences sp;
 
@@ -54,18 +51,6 @@ public class CadastroActivity extends AppCompatActivity {
         campoEmail = findViewById(R.id.editTextE_mail);
         campoSenha = findViewById(R.id.editTextSenha);
         campoConfSenha = findViewById(R.id.editTextConfirmarSenha);
-
-        //autoCompleteTxt = (AutoCompleteTextView) findViewById(R.id.auto_complete_txt);
-        //adapterItems = new ArrayAdapter<>(this, R.layout.list_item, items);
-        //autoCompleteTxt.setAdapter(adapterItems);
-
-        /*autoCompleteTxt.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                item = parent.getItemAtPosition(position).toString();
-                Toast.makeText(getApplicationContext(), "Escolha: "+item, Toast.LENGTH_SHORT).show();
-            }
-        });*/
     }
 
     public void validarCampos(View v){
@@ -228,14 +213,5 @@ public class CadastroActivity extends AppCompatActivity {
     public void voltarCadastro(View v){
         finish();
     }
-    /*public void Sign_in(View view){
-        Intent intent = new Intent(this, FormSignin.class);
-        startActivity(intent);
-    }
-
-    public void Sign_up(View view){
-        Intent intent = new Intent(this, FormSignupPaciente.class);
-        startActivity(intent);
-    }*/
 
 }

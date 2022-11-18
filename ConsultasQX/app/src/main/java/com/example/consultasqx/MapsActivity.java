@@ -82,11 +82,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private PlaceInfo mPlace;
     private Marker mMarker;*/
 
-    /*@Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }*/
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,7 +116,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         if (mLocationPermissionsGranted) {
-            //getDeviceLocation();
 
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
@@ -138,27 +132,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             if(id == 0 || id == 1){
                 clinica = new LatLng(-4.970519, -39.017490);
                 mMap.addMarker(new MarkerOptions().position(clinica).title("J. Holanda, Clínica Integrada"));
-                //mMap.moveCamera(CameraUpdateFactory.newLatLng(clinica));
                 moveCamera(clinica, DEFAULT_ZOOM, "J. Holanda, Clínica Integrada");
             }else if(id == 2 || id == 3){
                 clinica = new LatLng(-4.969518, -39.015515);
                 mMap.addMarker(new MarkerOptions().position(clinica).title("Clínica São Rafael Quixadá - Unidade II"));
-                //mMap.moveCamera(CameraUpdateFactory.newLatLng(clinica));
                 moveCamera(clinica, DEFAULT_ZOOM, "Clínica São Rafael Quixadá - Unidade II");
             }else if(id == 4 || id == 5){
                 clinica = new LatLng(-4.970257, -39.019324);
                 mMap.addMarker(new MarkerOptions().position(clinica).title("Clínica São Lucas"));
-                //mMap.moveCamera(CameraUpdateFactory.newLatLng(clinica));
                 moveCamera(clinica, DEFAULT_ZOOM, "Clínica São Lucas");
             }else if(id == 6 || id == 7){
                 clinica = new LatLng(-4.970344, -39.021809);
                 mMap.addMarker(new MarkerOptions().position(clinica).title("Clínica CIAME"));
-                //mMap.moveCamera(CameraUpdateFactory.newLatLng(clinica));
                 moveCamera(clinica, DEFAULT_ZOOM, "Clínica CIAME");
             }else if(id == 8 || id == 9){
                 clinica = new LatLng(-4.971524, -39.016235);
                 mMap.addMarker(new MarkerOptions().position(clinica).title("Clínica Clareira - Psicologia e Saúde"));
-                //mMap.moveCamera(CameraUpdateFactory.newLatLng(clinica));
                 moveCamera(clinica, DEFAULT_ZOOM, "Clínica Clareira - Psicologia e Saúde");
             }
         }
@@ -241,19 +230,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         hideSoftKeyboard();*/
     }
-
-    /*protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PLACE_PICKER_REQUEST) {
-            if (resultCode == RESULT_OK) {
-                Place place = PlacePicker.getPlace(this, data);
-
-                PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi
-                        .getPlaceById(mGoogleApiClient, place.getId());
-                placeResult.setResultCallback(mUpdatePlaceDetailsCallback);
-            }
-        }
-    }*/
 
     private void geoLocate() {
         String searchString = mSearchText.getText().toString();

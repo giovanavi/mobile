@@ -87,30 +87,15 @@ public class AgendarConsulta extends AppCompatActivity {
     public boolean checkRadioButtonHoarios(){
         radioButton = radioGroupHorarios.findViewById(radioGroupHorarios.getCheckedRadioButtonId());
         return radioButton != null;
-
-        /*if(radioButton == null ){
-            return false;
-        }
-        return true;*/
     }
 
     public boolean checkRadioButtonEspecialidades(){
         radioButton1 = radioGroupEspecialidades.findViewById(radioGroupEspecialidades.getCheckedRadioButtonId());
         return radioButton1 != null;
-
-        /*if(radioButton1 == null ){
-            return false;
-        }
-        return true;*/
     }
 
     public boolean checkDate(){
         return data != null;
-
-        /*if(data == null ){
-            return false;
-        }
-        return true;*/
     }
 
     public void marcarConsulta(View view){

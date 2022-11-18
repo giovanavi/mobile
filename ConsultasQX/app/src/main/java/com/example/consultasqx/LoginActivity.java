@@ -65,9 +65,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-
-                    //completarInfo(usuario);
-
                     abrirHome();
                 }else{
                     String excecao;
@@ -87,14 +84,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
-    /*private void completarInfo(Usuario usuario){
-        if(usuario.getEmail().equals("gabriel0603cavalcanti@gmail.com")){
-
-        }else if(usuario.getEmail().equals("giovana.gvi02@gmail.com")){
-
-        }
-    }*/
 
     private void abrirHome() {
         Intent intent = new Intent(this, Home.class);
