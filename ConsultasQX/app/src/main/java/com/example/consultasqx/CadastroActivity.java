@@ -31,7 +31,6 @@ public class CadastroActivity extends AppCompatActivity {
     FirebaseAuth autenticacao;
     EditText campoNome, campoPhone, campoCpf, campoEmail, campoSenha, campoConfSenha;
 
-    String[] items = {"Paciente", "Médico"};
     //AutoCompleteTextView autoCompleteTxt;
     //ArrayAdapter<String> adapterItems;
 
@@ -166,11 +165,13 @@ public class CadastroActivity extends AppCompatActivity {
                         editor.putString("senha", senha);
                         editor.commit();
 
+                        abrirHome();
+
                     }).addOnFailureListener(er -> {
                         Toast.makeText(CadastroActivity.this, ""+er.getMessage(), Toast.LENGTH_SHORT).show();
                     });
 
-                    abrirHome();
+
                 }else{
                     String excecao;
 

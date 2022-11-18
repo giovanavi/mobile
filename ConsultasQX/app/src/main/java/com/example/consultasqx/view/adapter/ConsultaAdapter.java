@@ -109,7 +109,6 @@ public class ConsultaAdapter extends RecyclerView.Adapter<ConsultaAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ConsultaAdapter.ViewHolder holder, int position) {
-//        new Consulta(medico, paciente, data, horario, paciente.getConvenio(), especialidade;
 
         String name = consultaList.get(position).getMedico().getNome();
         String especialidade = consultaList.get(position).getEspecialidade();
@@ -117,8 +116,6 @@ public class ConsultaAdapter extends RecyclerView.Adapter<ConsultaAdapter.ViewHo
         String convenio = consultaList.get(position).getPaciente().getConvenio();
         Time hora = consultaList.get(position).getHorario();
         int id = consultaList.get(position).getId();
-//        int id_medico = consultaList.get(position).getMedico().getId();
-//        int id_paciente = consultaList.get(position).getPaciente().getId();
 
         holder.nome.setText(name);
         holder.especialidade.setText(especialidade);

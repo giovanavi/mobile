@@ -82,15 +82,6 @@ public class MedicoPerfil extends AppCompatActivity {
         txtEspecialidades.setText(medico.getEspecialidade());
         txtConvenios.setText(medico.getConvenio());
 
-//        if (getIntent() != null){
-//            String nome = (String) getIntent().getExtras().get("nome");
-//            String especialidade = (String) getIntent().getExtras().get("especialidade");
-//            String crm = (String) getIntent().getExtras().get("crm");
-//
-//            txtNome.setText(nome);
-//            txtEspecialidade.setText(especialidade);
-//            txtCrm.setText(crm);
-//        }
     }
 
     public void abrirLocal(View view){

@@ -24,9 +24,9 @@ public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.ViewHolder
     ArrayList<Medico> medicosList;
     ArrayList<Medico> medicosListFilter;
 
-    public MedicoAdapter(ArrayList<Medico> dados){
-        this.medicosList = dados;
-        this.medicosListFilter = dados;
+    public MedicoAdapter(ArrayList<Medico> medicosList){
+        this.medicosList = medicosList;
+        this.medicosListFilter = medicosList;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -108,8 +108,6 @@ public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.ViewHolder
                 Context context = view.getContext();
                 Intent intent = new Intent(context, MedicoPerfil.class);
 
-
-                Toast.makeText(context, id+"", Toast.LENGTH_SHORT).show();
                 intent.putExtra("id", id);
 
                 context.startActivity(intent);
