@@ -76,7 +76,7 @@ public class CadastroActivity extends AppCompatActivity {
         senha = campoSenha.getText().toString();
         confSenha = campoConfSenha.getText().toString();
 
-        if(!nome.isEmpty()){
+        if(verNome()){
             if(phone.length() == 11 && verTele(phone)){
                 if(cpf.length() == 14 && verNums(cpf)){
                     if(!email.isEmpty()){
@@ -108,6 +108,35 @@ public class CadastroActivity extends AppCompatActivity {
         }else{
             Toast.makeText(this, "Preencha o campo Nome", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private boolean verNome() {
+        for(int i = 0; i < nome.length(); ++i) {
+            char ch = nome.charAt(i);
+
+            if(i < nome.length()-1){
+                char ch1 = nome.charAt(i + 1);
+
+                if (ch == ' ' && ch1 == ' ') {
+                    return false;
+                }
+            }
+        }
+
+        if (nome.length() == 0) {
+            return false;
+        } else {
+            for (int i = 0; i < nome.length(); ++i) {
+                char ch = nome.charAt(i);
+
+                if (!((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= 'á' && ch <= 'ú') || (ch >= 'Á' && ch <= 'Ú') || ch == 'ã' || ch == 'õ' || ch == ' ') || (i == 0 && ch == ' ')) {
+                    Toast.makeText(this, "Preencha o campo Nome apropriadamente (Verifique espaços indesejados)", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     private boolean verTele(String phone){

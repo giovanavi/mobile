@@ -34,9 +34,11 @@
             android:value="AIzaSyD8r_GHTwMplkxRo3FLtTQyUFT0TBYKuq8" />
         <activity
             android:name=".view.HistoricoConsultas"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".UserProfileActivity"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -49,10 +51,12 @@
         -->
         <activity
             android:name=".MapsActivity"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:label="@string/title_activity_maps" />
         <activity
             android:name=".view.adapter.ConsultaAdapter"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -60,6 +64,7 @@
         </activity>
         <activity
             android:name=".view.AgendarConsulta"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:label="@string/title_activity_agendar_consulta"
             android:theme="@style/Theme.ConsultasQX.NoActionBar">
@@ -69,6 +74,7 @@
         </activity>
         <activity
             android:name=".view.MedicoPerfil"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -76,6 +82,7 @@
         </activity>
         <activity
             android:name=".view.SearchMedicoActivity"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -83,6 +90,7 @@
         </activity>
         <activity
             android:name=".view.Home"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -90,6 +98,7 @@
         </activity>
         <activity
             android:name=".CadastroActivity"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:theme="@style/Theme.ConsultasQX.NoActionBar">
             <meta-data
@@ -98,6 +107,7 @@
         </activity>
         <activity
             android:name=".LoginActivity"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:theme="@style/Theme.ConsultasQX.NoActionBar">
             <intent-filter>
