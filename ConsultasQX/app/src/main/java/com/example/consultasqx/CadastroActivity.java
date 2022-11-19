@@ -167,25 +167,6 @@ public class CadastroActivity extends AppCompatActivity {
                     FirebaseUser user = autenticacao.getCurrentUser();
                     updateUI(user);
 
-                    /*dao.add(usuario).addOnSuccessListener(suc -> {
-                        Toast.makeText(CadastroActivity.this, "Inserindo dados...", Toast.LENGTH_SHORT).show();
-
-                        SharedPreferences.Editor editor = sp.edit();
-
-                        editor.putString("nome", nome);
-                        editor.putString("cpf", cpf);
-                        editor.putString("email", email);
-                        editor.putString("telefone", phone);
-                        editor.putString("senha", senha);
-                        editor.commit();
-
-                        abrirHome();
-
-                    }).addOnFailureListener(er -> {
-                        Toast.makeText(CadastroActivity.this, ""+er.getMessage(), Toast.LENGTH_SHORT).show();
-                    });*/
-
-
                 }else{
                     String excecao;
 
