@@ -150,28 +150,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/editText_senha"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:hint="@string/senha"
-                android:textColorHint="@color/black">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextSenha"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_senha"
-                    android:drawablePadding="10dp"
-                    android:inputType="number"
-                    android:maxLength="16"
-                    android:text="@string/senhaProfile"
-                    android:textColor="@color/black"
-                    tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
             <Button
                 android:id="@+id/button_atualizar"
                 android:layout_width="match_parent"
@@ -183,10 +161,45 @@
                 android:textColorHint="#F6F0F2"
                 tools:ignore="TextContrastCheck,UsingOnClickInXml" />
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editText_senha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="@string/senha"
+                android:textColorHint="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextSenha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_senha"
+                    android:drawablePadding="10dp"
+                    android:inputType="number|numberPassword"
+                    android:maxLength="16"
+                    android:text="@string/senhaProfile"
+                    android:textColor="@color/black"
+                    tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/button_atualizar2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#FF0000"
+                android:onClick="updateSenha"
+                android:text="@string/atualizar_senha"
+                android:textColor="#fff"
+                android:textColorHint="#F6F0F2"
+                tools:ignore="TextContrastCheck,UsingOnClickInXml" />
+
             <Button
                 android:id="@+id/button_apagar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
                 android:backgroundTint="#FF0000"
                 android:onClick="delete"
                 android:text="@string/apagar_conta"

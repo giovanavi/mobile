@@ -65,7 +65,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    abrirHome();
+                    FirebaseUser user = auth.getCurrentUser();
+                    updateUI(user);
+
+                    //abrirHome();
                 }else{
                     String excecao;
 
@@ -80,9 +83,21 @@ public class LoginActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     Toast.makeText(LoginActivity.this, excecao, Toast.LENGTH_SHORT).show();
+                    updateUI(null);
                 }
             }
         });
+    }
+
+    public void updateUI(FirebaseUser account){
+
+        if(account != null){
+            Toast.makeText(this,"Login realizado com sucesso",Toast.LENGTH_LONG).show();
+            abrirHome();
+        }else {
+            Toast.makeText(this,"Login não realizado",Toast.LENGTH_LONG).show();
+        }
+
     }
 
     private void abrirHome() {
