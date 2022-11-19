@@ -50,20 +50,10 @@ public class MedicoPerfil extends AppCompatActivity {
     }
 
     public void verHorarios(View view){
+        Intent intent = new Intent(view.getContext(), AgendarConsulta.class);
 
-        btn_horarios = findViewById(R.id.verHorarios);
-
-        btn_horarios.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), AgendarConsulta.class);
-
-                intent.putExtra("id_medico", id);
-                startActivity(intent);
-
-            }
-        });
-
+        intent.putExtra("id_medico", id);
+        startActivity(intent);
     }
 
     public void initComponentes(){
@@ -82,6 +72,7 @@ public class MedicoPerfil extends AppCompatActivity {
         txtEspecialidades.setText(medico.getEspecialidade());
         txtConvenios.setText(medico.getConvenio());
 
+        btn_horarios = findViewById(R.id.verHorarios);
     }
 
     public void abrirLocal(View view){

@@ -221,19 +221,16 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private boolean verEmail() {
 
-        email = Objects.requireNonNull(campoEmail.getText()).toString();
-        senha = Objects.requireNonNull(campoSenha.getText()).toString();
-
-        /*if (FirebaseAuth.getInstance().getCurrentUser().getEmail().equals(email)) {
+        if (emailU.equals(email)) {
             valido = true;
-        } else {*/
+        } else {
             if(conteudoEmail()){
                 valido = true;
             }else{
                 Toast.makeText(UserProfileActivity.this, "Email inválido", Toast.LENGTH_SHORT).show();
                 valido = false;
             }
-        //}
+        }
 
         return valido;
     }
