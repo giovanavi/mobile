@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 
@@ -164,24 +165,8 @@ public class CadastroActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     Toast.makeText(CadastroActivity.this, "Sucesso ao cadastrar o usuário", Toast.LENGTH_SHORT).show();
 
-                    dao.add(usuario).addOnSuccessListener(suc -> {
-                        Toast.makeText(CadastroActivity.this, "Inserindo dados...", Toast.LENGTH_SHORT).show();
-
-                        SharedPreferences.Editor editor = sp.edit();
-
-                        editor.putString("nome", nome);
-                        editor.putString("cpf", cpf);
-                        editor.putString("email", email);
-                        editor.putString("telefone", phone);
-                        editor.putString("senha", senha);
-                        editor.commit();
-
-                        abrirHome();
-
-                    }).addOnFailureListener(er -> {
-                        Toast.makeText(CadastroActivity.this, ""+er.getMessage(), Toast.LENGTH_SHORT).show();
-                    });
-
+                    FirebaseUser user = autenticacao.getCurrentUser();
+                    updateUI(user);
 
                 }else{
                     String excecao;
@@ -199,9 +184,34 @@ public class CadastroActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     Toast.makeText(CadastroActivity.this, excecao, Toast.LENGTH_SHORT).show();
+                    updateUI(null);
                 }
             }
         });
+    }
+
+    private void updateUI(FirebaseUser user) {
+        if (user != null) {
+            dao.add(usuario).addOnSuccessListener(suc -> {
+                Toast.makeText(CadastroActivity.this, "Inserindo dados...", Toast.LENGTH_SHORT).show();
+
+                SharedPreferences.Editor editor = sp.edit();
+
+                editor.putString("nome", nome);
+                editor.putString("cpf", cpf);
+                editor.putString("email", email);
+                editor.putString("telefone", phone);
+                editor.putString("senha", senha);
+                editor.commit();
+
+                abrirHome();
+
+            }).addOnFailureListener(er -> {
+                Toast.makeText(CadastroActivity.this, ""+er.getMessage(), Toast.LENGTH_SHORT).show();
+            });
+        } else {
+            Toast.makeText(this, "Usuário nulo", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void abrirHome() {

@@ -19,6 +19,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -32,9 +34,10 @@ public class UserProfileActivity extends AppCompatActivity {
     private DAOUsuario dao;
     private static final String USUARIO = "Usuario";
     private String nome, cpf, email, telefone, senha;
-    private String nomeU, cpfU, emailU, telefoneU, senhaU;
+    private String emailU, senhaU;
 
     private FirebaseAuth autenticacao;
+    private FirebaseAuth mAuth;
 
     SharedPreferences sp;
     TextView campoNomeProfile;
@@ -48,6 +51,8 @@ public class UserProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
 
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.white)));
+
+        mAuth = FirebaseAuth.getInstance();
 
         campoNomeProfile = findViewById(R.id.textView_NomeProfile);
         campoNome = findViewById(R.id.editTextNome);
@@ -77,6 +82,16 @@ public class UserProfileActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            currentUser.reload();
+        }
+    }
+
     public void update(View v) {
         nome = Objects.requireNonNull(campoNome.getText()).toString();
         cpf = Objects.requireNonNull(campoCpf.getText()).toString();
@@ -84,55 +99,73 @@ public class UserProfileActivity extends AppCompatActivity {
         telefone = Objects.requireNonNull(campoTelefone.getText()).toString();
         senhaU = Objects.requireNonNull(campoSenha.getText()).toString();
 
-        if (!email.equals(emailU) && !senha.equals(senhaU)) {
-            Toast.makeText(this, "Email e Senha não podem ser alterados juntos. Atualize um e faça login novamente para atualizar o outro.", Toast.LENGTH_SHORT).show();
-        } else {
-            if (verEmail()){
-                if (verNome() && verNums() && verTele() && (senha.length() >= 8)) {
+        if (verEmail()){
+            if (verNome() && verNums() && verTele() && (senha.length() >= 8)) {
 
-                    //FirebaseAuth.getInstance().getCurrentUser().updatePassword(senha);
-                    //FirebaseAuth.getInstance().getCurrentUser().updateEmail(email);
+                updateEmail();
 
-                    autenticacao.getCurrentUser().updateEmail(email);
-                    autenticacao.getCurrentUser().updatePassword(senha);
+                HashMap<String, Object> hashMap = new HashMap<>();
+                hashMap.put("nome", nome);
+                hashMap.put("cpf", cpf);
+                hashMap.put("email", email);
+                hashMap.put("telefone", telefone);
+                hashMap.put("senha", senha);
 
-                    HashMap<String, Object> hashMap = new HashMap<>();
-                    hashMap.put("nome", nome);
-                    hashMap.put("cpf", cpf);
-                    hashMap.put("email", email);
-                    hashMap.put("telefone", telefone);
-                    hashMap.put("senha", senha);
+                dao.update(FirebaseAuth.getInstance().getCurrentUser().getUid(), hashMap).addOnSuccessListener(suc -> {
+                    Toast.makeText(this, "Atualizado", Toast.LENGTH_SHORT).show();
 
-                    dao.update(FirebaseAuth.getInstance().getCurrentUser().getUid(), hashMap).addOnSuccessListener(suc -> {
-                        Toast.makeText(this, "Atualizado", Toast.LENGTH_SHORT).show();
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.clear();
+                    editor.commit();
 
-                        SharedPreferences.Editor editor = sp.edit();
-                        editor.clear();
-                        editor.commit();
+                    editor.putString("nome", nome);
+                    editor.putString("cpf", cpf);
+                    editor.putString("email", email);
+                    editor.putString("telefone", telefone);
+                    editor.putString("senha", senha);
+                    editor.commit();
 
-                        editor.putString("nome", nome);
-                        editor.putString("cpf", cpf);
-                        editor.putString("email", email);
-                        editor.putString("telefone", telefone);
-                        editor.putString("senha", senha);
-                        editor.commit();
+                    campoNomeProfile.setText(nome);
 
-                        campoNomeProfile.setText(nome);
+                }).addOnFailureListener(er -> {
+                    Toast.makeText(this, "" + er.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Falha em atualizar dados", Toast.LENGTH_SHORT).show();
+                });
 
-                        //FirebaseAuth.getInstance().getCurrentUser().updatePassword(senha);
-                        //FirebaseAuth.getInstance().getCurrentUser().updateEmail(email);
-
-                        //autenticacao.getCurrentUser().updateEmail(email);
-                        //autenticacao.getCurrentUser().updatePassword(senha);
-
-                    }).addOnFailureListener(er -> {
-                        Toast.makeText(this, "" + er.getMessage(), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(this, "Falha em atualizar dados", Toast.LENGTH_SHORT).show();
-                    });
-
-                }
             }
         }
+    }
+
+    private void updateEmail(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        user.updateEmail(emailU).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(Task<Void> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(UserProfileActivity.this, "Email atualizado com sucesso", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(UserProfileActivity.this, "Ocorreu um erro em atualizar o email", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    public void updateSenha(View view){
+        senhaU = Objects.requireNonNull(campoSenha.getText()).toString();
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        user.updatePassword(senhaU).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(Task<Void> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(UserProfileActivity.this, "Senha atualizada com sucesso", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(UserProfileActivity.this, "Ocorreu um erro ao atualizar a senha", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     public void delete(View v) {
@@ -187,19 +220,16 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private boolean verEmail() {
 
-        email = Objects.requireNonNull(campoEmail.getText()).toString();
-        senha = Objects.requireNonNull(campoSenha.getText()).toString();
-
-        /*if (FirebaseAuth.getInstance().getCurrentUser().getEmail().equals(email)) {
+        if (emailU.equals(email)) {
             valido = true;
-        } else {*/
+        } else {
             if(conteudoEmail()){
                 valido = true;
             }else{
                 Toast.makeText(UserProfileActivity.this, "Email inválido", Toast.LENGTH_SHORT).show();
                 valido = false;
             }
-        //}
+        }
 
         return valido;
     }

@@ -56,6 +56,7 @@ public class MedicoPerfil extends AppCompatActivity {
         id = (String) getIntent().getExtras().get("id");
 
 
+<<<<<<< HEAD
         //estou pegando o objeto Medico baeado na id vindo da activity anterior
         DatabaseReference dr = FirebaseDatabase.getInstance().getReference();
         dr.child("Medico").child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -100,6 +101,20 @@ public class MedicoPerfil extends AppCompatActivity {
     public void initAdapters(){
         adapterEspecialidades = new ArrayAdapter(this, android.R.layout.simple_list_item_1, medico.getEspecialidades());
         adapterConvenios = new ArrayAdapter(this, android.R.layout.simple_list_item_1, medico.getConvenios());
+=======
+        ArrayList<Medico> lista;// = null;
+        lista = medico.getList();
+        medico = lista.get(id); //xxxxx
+
+        initComponentes();
+    }
+
+    public void verHorarios(View view){
+        Intent intent = new Intent(view.getContext(), AgendarConsulta.class);
+
+        intent.putExtra("id_medico", id);
+        startActivity(intent);
+>>>>>>> 2564a445563ba7b3aeaf55fab391421ebc70e1d9
     }
 
     public void initComponentes(){
@@ -116,6 +131,7 @@ public class MedicoPerfil extends AppCompatActivity {
         txtCrm.setText(medico.getCrm());
 
 
+        btn_horarios = findViewById(R.id.verHorarios);
     }
 
     public void abrirLocal(View view){
