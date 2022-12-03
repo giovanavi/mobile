@@ -17,7 +17,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ConsultasQX"
         tools:targetApi="31">
-
+        <activity
+            android:name=".view.ConsultaGeral"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -32,14 +38,15 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD8r_GHTwMplkxRo3FLtTQyUFT0TBYKuq8" />
+
         <activity
             android:name=".view.HistoricoConsultas"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UserProfileActivity"
-            android:screenOrientation="portrait"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -51,22 +58,22 @@
         -->
         <activity
             android:name=".MapsActivity"
-            android:screenOrientation="portrait"
             android:exported="false"
-            android:label="@string/title_activity_maps" />
+            android:label="@string/title_activity_maps"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.adapter.ConsultaAdapter"
-            android:screenOrientation="portrait"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".view.AgendarConsulta"
-            android:screenOrientation="portrait"
             android:exported="false"
             android:label="@string/title_activity_agendar_consulta"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.ConsultasQX.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
@@ -74,32 +81,32 @@
         </activity>
         <activity
             android:name=".view.MedicoPerfil"
-            android:screenOrientation="portrait"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".view.SearchMedicoActivity"
-            android:screenOrientation="portrait"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".view.Home"
-            android:screenOrientation="portrait"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".CadastroActivity"
-            android:screenOrientation="portrait"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.ConsultasQX.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
@@ -107,8 +114,8 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:screenOrientation="portrait"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.ConsultasQX.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -72,41 +72,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/selecionar_hor_rio"
-            android:textSize="30sp"
             android:textColor="@color/black"
+            android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.198"
+            app:layout_constraintHorizontal_bias="0.095"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/calendarView" />
 
-        <RadioGroup
-            android:id="@+id/radioGroupHorarios"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <Spinner
+            android:id="@+id/spinner_horario"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_marginTop="5dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.075"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/info3">
-
-            <RadioButton
-                android:id="@+id/radioButtonHorario1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:text="@string/_12_00"
-                tools:ignore="TouchTargetSizeCheck" />
-
-            <RadioButton
-                android:id="@+id/radioButtonHorario2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/_15_00" />
-
-            <RadioButton
-                android:id="@+id/radioButtonHorario3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/_20_00" />
-        </RadioGroup>
+            app:layout_constraintTop_toBottomOf="@id/info3" />
 
         <TextView
             android:id="@+id/info5"
@@ -116,36 +98,44 @@
             android:textSize="30sp"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.131"
+            app:layout_constraintHorizontal_bias="0.198"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/radioGroupHorarios" />
+            app:layout_constraintTop_toBottomOf="@id/spinner_horario" />
 
-        <RadioGroup
-            android:id="@+id/radioGroupEspecialidades"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <Spinner
+            android:id="@+id/spinner_especialidade"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_marginTop="5dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.075"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/info5">
+            app:layout_constraintTop_toBottomOf="@id/info5" />
 
-            <RadioButton
-                android:id="@+id/radioButtonEspecialidade1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/especialidade_1" />
+        <TextView
+            android:id="@+id/info6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selecionar o convenio"
+            android:textSize="30sp"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.198"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spinner_especialidade" />
 
-            <RadioButton
-                android:id="@+id/radioButtonEspecialidade2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/especialidade_2" />
+        <Spinner
+            android:id="@+id/spinner_convenio"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.075"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info6" />
 
-            <RadioButton
-                android:id="@+id/radioButtonEspecialidade3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/especialidade_3" />
-        </RadioGroup>
 
         <Button
             android:id="@+id/btn_marcar_consulta"
@@ -155,13 +145,13 @@
             android:layout_marginTop="15dp"
             android:layout_marginRight="50dp"
             android:background="@color/purple_700"
-            android:onClick="marcarConsulta"
+            android:onClick="addConsulta"
             android:text="@string/marcar_consulta_de_agendar_consulta"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroupEspecialidades" />
+            app:layout_constraintTop_toBottomOf="@+id/spinner_convenio" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

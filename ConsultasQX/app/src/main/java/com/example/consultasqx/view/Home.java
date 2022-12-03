@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 //import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 //import android.widget.Toast;
 
 //import com.example.consultasqx.MapsActivity;
@@ -17,8 +18,13 @@ import com.example.consultasqx.UserProfileActivity;
 import com.example.consultasqx.Util.ConfiguraBD;
 //import com.google.android.gms.common.ConnectionResult;
 //import com.google.android.gms.common.GoogleApiAvailability;
+import com.example.consultasqx.model.Consulta;
+import com.example.consultasqx.model.Medico;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Home extends AppCompatActivity{
@@ -32,7 +38,10 @@ public class Home extends AppCompatActivity{
         auth = ConfiguraBD.FirebaseAutenticacao();
 
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.white)));
+
+
     }
+
 
     public void deslogar(View v){
         try{

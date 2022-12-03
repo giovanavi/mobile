@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.consultasqx.Util.ConfiguraBD;
+import com.example.consultasqx.dao.DAOUsuario;
 import com.example.consultasqx.model.Usuario;
 import com.example.consultasqx.view.Home;
 import com.google.android.gms.tasks.OnCompleteListener;

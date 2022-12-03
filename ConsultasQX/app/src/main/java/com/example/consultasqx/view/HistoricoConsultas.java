@@ -1,5 +1,6 @@
 package com.example.consultasqx.view;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,14 +8,31 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.consultasqx.R;
+import com.example.consultasqx.Util.ConfiguraBD;
 import com.example.consultasqx.model.Consulta;
+import com.example.consultasqx.model.Medico;
+import com.example.consultasqx.model.Paciente;
+import com.example.consultasqx.model.Usuario;
 import com.example.consultasqx.view.adapter.ConsultaAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class HistoricoConsultas extends AppCompatActivity {
@@ -23,6 +41,11 @@ public class HistoricoConsultas extends AppCompatActivity {
     ConsultaAdapter adapter;
     SearchView searchView;
     ArrayList<Consulta> listaConsultas = new ArrayList<>();
+    ArrayList<Medico> listaMedicos = new ArrayList<>();
+    Usuario u = new Usuario();
+
+    private FirebaseAuth auth;
+    DatabaseReference   databaseReference = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +54,27 @@ public class HistoricoConsultas extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.white)));
 
-        Consulta consulta = new Consulta();
-        listaConsultas = consulta.getList();
-        adapter = new ConsultaAdapter(listaConsultas);
+        auth = ConfiguraBD.FirebaseAutenticacao();
+//        Consulta consulta = new Consulta();
+//        listaConsultas = consulta.getList();
+//        adapter = new ConsultaAdapter(listaConsultas);
+
+        databaseReference.child("Usuario").child("-NIF5SCnZIbzpCMvdOmb").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if(task.isComplete()){
+                    u = task.getResult().getValue(Usuario.class);
+//                    Log.i("GET AUTH", auth.getUid());
+                    attLista();
+                }else{
+                    Log.i("FIREBASE123", "erro em trazer as informações do médico");
+                }
+            }
+        });
 
         initRecyclerView();
         initSearchView();
+//        attLista();
     }
 
     public void initSearchView(){
@@ -61,6 +99,35 @@ public class HistoricoConsultas extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }
+
+    private void attLista(){
+        List<String> nomes = new ArrayList<>();
+
+        databaseReference.child("Consulta").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listaConsultas.clear();
+                Consulta c = new Consulta();
+                //pegando cada elemento do banco e colocando dentro do listalivros
+                for (DataSnapshot data: snapshot.getChildren()) {
+                    c = data.getValue(Consulta.class);
+                    listaConsultas.add(c);
+                }
+                //colocando a lista dentro do adapterMedicos
+
+                adapter = new ConsultaAdapter(listaConsultas);
+                recyclerView.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+
 
     public void voltarHomePage(View v){
         finish();

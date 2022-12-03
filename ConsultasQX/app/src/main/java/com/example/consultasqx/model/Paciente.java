@@ -6,7 +6,7 @@ public class Paciente extends Usuario{
 
     private static int CONTADOR = 0;
 
-    private int id;
+    private String uid;
     private String nome;
     private String cpf;
     private String email;
@@ -18,37 +18,37 @@ public class Paciente extends Usuario{
 
     public Paciente(){}
 
-    public Paciente(String nome, String cpf, String email, String senha, String telefone, String convenio) {
+    public Paciente(String id, String nome, String cpf, String email, String senha, String telefone, String convenio) {
+        this.uid = id;
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
         this.senha = senha;
         this.telefone = telefone;
         this.convenio = convenio;
-        this.id = CONTADOR ++;
     }
 
-    public ArrayList<Paciente> getList(){
-        pacienteArrayList = new ArrayList<>();
+//    public ArrayList<Paciente> getList(){
+//        pacienteArrayList = new ArrayList<>();
+//
+//        pacienteArrayList.add(new Paciente("Matias", "00000000000", "matias@email.com", "senha01", "09876543213", "HapVida"));
+//
+//        return pacienteArrayList;
+//    }
 
-        pacienteArrayList.add(new Paciente("Matias", "00000000000", "matias@email.com", "senha01", "09876543213", "HapVida"));
+//    public Paciente findPaciente(int id){
+//        Paciente paciente = new Paciente();
+//        pacienteArrayList = paciente.getList();
+//        paciente = pacienteArrayList.get(id);
+//        return paciente;
+//    }
 
-        return pacienteArrayList;
+    public String getId() {
+        return uid;
     }
 
-    public Paciente findPaciente(int id){
-        Paciente paciente = new Paciente();
-        pacienteArrayList = paciente.getList();
-        paciente = pacienteArrayList.get(id);
-        return paciente;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setId(String id) {
+        this.uid = uid;
     }
 
     public String getNome() {
@@ -94,7 +94,7 @@ public class Paciente extends Usuario{
     @Override
     public String toString() {
         return "Paciente{" +
-                "id=" + id +
+                "id=" + uid +
                 ", nome='" + nome + '\'' +
                 ", cpf='" + cpf + '\'' +
                 ", email='" + email + '\'' +
