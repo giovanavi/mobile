@@ -1,19 +1,40 @@
 package com.example.consultasqx;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.consultasqx.Util.ConfiguraBD;
+import com.example.consultasqx.databinding.ActivityUserProfileBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -25,7 +46,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 public class UserProfileActivity extends AppCompatActivity {
@@ -44,16 +68,24 @@ public class UserProfileActivity extends AppCompatActivity {
     TextView campoNomeProfile;
     TextInputEditText campoNome, campoCpf, campoEmail, campoTelefone, campoSenha;
 
+    ImageView photo;
+    ActivityUserProfileBinding binding;
+
     static boolean valido;
+
+    public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_profile);
+        binding = ActivityUserProfileBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.white)));
 
         mAuth = FirebaseAuth.getInstance();
+
+        photo = findViewById(R.id.image_profile);
 
         campoNomeProfile = findViewById(R.id.textView_NomeProfile);
         campoNome = findViewById(R.id.editTextNome);
@@ -81,6 +113,9 @@ public class UserProfileActivity extends AppCompatActivity {
         campoTelefone.setText(telefone);
         campoSenha.setText(senha);
 
+        /*if(checkAndRequestPermissions(UserProfileActivity.this)){
+            chooseImage(UserProfileActivity.this);
+        }*/
     }
 
     @Override
@@ -90,6 +125,112 @@ public class UserProfileActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
             currentUser.reload();
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void mudarFoto(View v){
+        chooseImage(UserProfileActivity.this);
+    }
+
+    public static boolean checkAndRequestPermissions(final Activity context) {
+        int WExtstorePermission = ContextCompat.checkSelfPermission(context,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int cameraPermission = ContextCompat.checkSelfPermission(context,
+                Manifest.permission.CAMERA);
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (cameraPermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.CAMERA);
+        }
+        if (WExtstorePermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded
+                    .add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(context, listPermissionsNeeded
+                            .toArray(new String[listPermissionsNeeded.size()]),
+                    REQUEST_ID_MULTIPLE_PERMISSIONS);
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_ID_MULTIPLE_PERMISSIONS:
+                if (ContextCompat.checkSelfPermission(UserProfileActivity.this,
+                        Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(getApplicationContext(),
+                                    "É necessário permição para usar a câmera.", Toast.LENGTH_SHORT)
+                            .show();
+                } else if (ContextCompat.checkSelfPermission(UserProfileActivity.this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(getApplicationContext(),
+                            "É necessário permissão para acessar arquivos.",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    chooseImage(UserProfileActivity.this);
+                }
+                break;
+        }
+    }
+
+    private void chooseImage(Context context){
+        final CharSequence[] optionsMenu = {"Tirar Foto", "Escolher na Galeria", "Sair" };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+        builder.setItems(optionsMenu, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if(optionsMenu[i].equals("Tirar Foto")){
+
+                    Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(takePicture, 0);
+                }
+                else if(optionsMenu[i].equals("Escolher na Galeria")){
+
+                    Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(pickPhoto , 1);
+                }
+                else if (optionsMenu[i].equals("Sair")) {
+                    dialogInterface.dismiss();
+                }
+            }
+        });
+        builder.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_CANCELED) {
+            switch (requestCode) {
+                case 0:
+                    if (resultCode == RESULT_OK && data != null) {
+                        Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
+                        photo.setImageBitmap(selectedImage);
+                    }
+                    break;
+                case 1:
+                    if (resultCode == RESULT_OK && data != null) {
+                        Uri selectedImage = data.getData();
+                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                        if (selectedImage != null) {
+                            Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                            if (cursor != null) {
+                                cursor.moveToFirst();
+                                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                                String picturePath = cursor.getString(columnIndex);
+                                photo.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                                cursor.close();
+                            }
+                        }
+                    }
+                    break;
+            }
         }
     }
 

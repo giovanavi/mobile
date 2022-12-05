@@ -4,16 +4,24 @@ import java.util.ArrayList;
 
 public class Usuario {
     private String nome, email, senha, cpf, telefone;
+    private int id;
 
     public Usuario() {
     }
 
-    public Usuario(String nome, String email, String senha, String cpf, String telefone) {
+    public Usuario(int id, String nome, String email, String senha, String cpf, String telefone) {
+        this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.cpf = cpf;
         this.telefone = telefone;
+    }
+
+    public int getId() { return id; }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() { return nome; }

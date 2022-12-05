@@ -39,8 +39,11 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_baseline_person_24"
-                android:contentDescription="@string/todoProfile2" />
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/todoProfile2"
+                android:onClick="mudarFoto"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_baseline_person_24" />
 
             <TextView
                 android:id="@+id/textView_NomeProfile"
