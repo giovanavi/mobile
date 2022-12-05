@@ -33,7 +33,7 @@ public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         //    private ImageView img_perfil;
         private TextView nome;
-        private TextView especialidade;
+//        private TextView especialidade;
         private TextView crm;
 
         public ViewHolder(@NonNull View itemView) {
@@ -41,7 +41,7 @@ public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.ViewHolder
             super(itemView);
 
             nome = itemView.findViewById(R.id.nome);
-            especialidade = itemView.findViewById(R.id.especialidade);
+//            especialidade = itemView.findViewById(R.id.especialidade);
             crm = itemView.findViewById(R.id.crm);
         }
     }
@@ -62,7 +62,8 @@ public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.ViewHolder
                     ArrayList<Medico> medicos = new ArrayList<>();
 
                     for (Medico medico: medicosListFilter) {
-                        if(medico.getNome().toLowerCase().contains(search) || medico.getEspecialidade().toLowerCase().contains(search) ){
+                        //editar o filtro da pesquisa
+                        if(medico.getNome().toLowerCase().contains(search)){
                             medicos.add(medico);
                         }
                     }
@@ -95,12 +96,12 @@ public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.ViewHolder
     //exibe as insformações na linha (card)
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String name = medicosList.get(position).getNome();
-        String especialidade = medicosList.get(position).getEspecialidade();
+//        String especialidade = medicosList.get(position).getEspecialidade();
         String crm = medicosList.get(position).getCrm();
-        int id = medicosList.get(position).getId();
+        String id = medicosList.get(position).getId();
 
         holder.nome.setText(name);
-        holder.especialidade.setText(especialidade);
+//        holder.especialidade.setText(especialidade);
         holder.crm.setText(crm);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

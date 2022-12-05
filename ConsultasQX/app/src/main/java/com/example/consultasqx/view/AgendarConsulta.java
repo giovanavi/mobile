@@ -3,80 +3,129 @@ package com.example.consultasqx.view;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.example.consultasqx.R;
+import com.example.consultasqx.dao.DAOConsulta;
+import com.example.consultasqx.model.Consulta;
+import com.example.consultasqx.model.Medico;
+import com.example.consultasqx.model.Paciente;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import java.util.UUID;
 
 public class AgendarConsulta extends AppCompatActivity {
 
     CalendarView calendarView;
     Button btn_marcar_consulta;
 
-    RadioGroup radioGroupHorarios;
-    RadioGroup radioGroupEspecialidades;
+    Spinner spinnerEspecialidades;
+    Spinner spinnerHorarios;
+    Spinner spinnerConvenios;
+    ArrayAdapter<String> adapterEspecialidades;
+    ArrayAdapter<String> adapterHorarios;
+    ArrayAdapter<String> adapterConvenios;
 
-    RadioButton radioButton;
-    RadioButton radioButton1;
-    Date data = null;
+    DatabaseReference dr = FirebaseDatabase.getInstance().getReference();
 
+    DAOConsulta daoConsulta;
+    Medico medico;
+    Paciente paciente;
+
+
+    String date;
+    String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agendar_consulta);
 
-        calendarView = findViewById(R.id.calendarView);
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+        paciente = new Paciente("0", "João", "098.765.432-11", "joao@email.com",
+                "12345678", "88936172222", "HapVida");
+
+        daoConsulta = new DAOConsulta();
+
+        id = (String) getIntent().getExtras().get("id");
+
+        dr.child("Medico").child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
-            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
-                String date = day + "/" + month + "/" + year;
-                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                try {
-                    data = formatter.parse(date);
-                } catch (ParseException e) {
-                    e.printStackTrace();
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if(task.isComplete()){
+                    medico = task.getResult().getValue(Medico.class);
+                    initAdapters();
+                    initSpinners();
+//                    Log.i("FIREBASE123", medico.toString());
+//                    System.out.println("MEDICO -> "+medico.toString());
+//                    System.out.println("MEDICO -> "+medico.getEspecialidades());
+//                    System.out.println("MEDICO -> "+medico.getHorarios());
+                }else{
+                    Log.i("FIREBASE123", "erro em trazer as informações do médico");
                 }
             }
         });
 
-        radioGroupHorarios = findViewById(R.id.radioGroupHorarios);
-        radioGroupHorarios.clearCheck();
-        radioGroupHorarios.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+        calendarView = findViewById(R.id.calendarView);
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                radioButton = radioGroup.findViewById(radioGroup.getCheckedRadioButtonId());
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
+                month++;
+                date = day+"/"+ month+"/"+year;
+                checkDate();
+//                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+//                try {
+//                    data = formatter.parse(date);
+//                } catch (ParseException e) {
+//                    e.printStackTrace();
+//                }
             }
         });
-
-
-        radioGroupEspecialidades = findViewById(R.id.radioGroupEspecialidades);
-        radioGroupEspecialidades.clearCheck();
-        radioGroupEspecialidades.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                radioButton = radioGroup.findViewById(radioGroup.getCheckedRadioButtonId());
-            }
-        });
-
 
         btn_marcar_consulta = findViewById(R.id.btn_marcar_consulta);
-        btn_marcar_consulta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                marcarConsulta(view);
-            }
-        });
+//        btn_marcar_consulta.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                marcarConsulta(view);
+//            }
+//        });
+
+    }
+
+    public void initAdapters(){
+        adapterEspecialidades = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, medico.getEspecialidades());
+        adapterHorarios = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, medico.getHorarios());
+        adapterConvenios = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, medico.getConvenios());
+
+    }
+
+    public void initSpinners(){
+        spinnerEspecialidades = findViewById(R.id.spinner_especialidade);
+        spinnerHorarios = findViewById(R.id.spinner_horario);
+        spinnerConvenios = findViewById(R.id.spinner_convenio);
+
+        //inicializando spinner de especialidades
+        adapterEspecialidades.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerEspecialidades.setAdapter(adapterEspecialidades);
+
+        //inicializando spinner de horarios
+        adapterHorarios.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerHorarios.setAdapter(adapterHorarios);
+
+        spinnerConvenios.setAdapter(adapterConvenios);
 
     }
 
@@ -84,59 +133,105 @@ public class AgendarConsulta extends AppCompatActivity {
         finish();
     }
 
-    public boolean checkRadioButtonHoarios(){
-        radioButton = radioGroupHorarios.findViewById(radioGroupHorarios.getCheckedRadioButtonId());
-        return radioButton != null;
+    public boolean checkSpinnerEspecialidades() {
+        String check;
+        check = (String) spinnerEspecialidades.getSelectedItem();
+
+        if( check !=null ){
+            return true;
+        }else{
+            return false;
+        }
     }
 
-    public boolean checkRadioButtonEspecialidades(){
-        radioButton1 = radioGroupEspecialidades.findViewById(radioGroupEspecialidades.getCheckedRadioButtonId());
-        return radioButton1 != null;
+    public boolean checkSpinnerHorarios(){
+        String check;
+        check = (String) spinnerHorarios.getSelectedItem();
+
+        if( check !=null ){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public boolean checkDate(){
-        return data != null;
+        if(date == null)
+            return false;
+
+//        for (String data: medico.getDatas()) {
+//            if (data == date){
+//                Toast.makeText(this, date+" - "+ data, Toast.LENGTH_SHORT).show();
+//                return true;
+//            }else{
+//                Toast.makeText(this, "invalido "+ date +" + "+ data, Toast.LENGTH_SHORT).show();
+//            }
+//        }
+        return true;
     }
 
-    public void marcarConsulta(View view){
-        if(checkDate()) {
-            if (checkRadioButtonHoarios() && checkRadioButtonEspecialidades()) {
+    public void addConsulta( View view ){
+        if(checkDate()){
+            if (checkSpinnerEspecialidades()){
+                if (checkSpinnerHorarios()){
+                    Consulta consulta = new Consulta();
+                    consulta.setUid(UUID.randomUUID().toString());
+                    consulta.setPaciente(paciente.getId());
+                    consulta.setMedico(medico.getId());
+                    consulta.setNomeMedico(medico.getNome());
+                    consulta.setConvenio((String) spinnerConvenios.getSelectedItem());
+                    consulta.setEspecialidade((String) spinnerEspecialidades.getSelectedItem());
+                    consulta.setHorario((String) spinnerHorarios.getSelectedItem());
+                    consulta.setData((date));
+                    consulta.setCrm(medico.getCrm());
+                    consulta.setLocal("local x");
 
-                Toast.makeText(this, "Consulta Marcada", Toast.LENGTH_SHORT).show();
-                finish();
+                    daoConsulta.add(consulta).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Toast.makeText(AgendarConsulta.this, "Consulta marcada", Toast.LENGTH_SHORT).show();
 
-            }else if (!checkRadioButtonHoarios() || !checkRadioButtonEspecialidades()){
-                Toast.makeText(AgendarConsulta.this, "Selecione um horario e uma especialidade", Toast.LENGTH_SHORT).show();
+                            finish();
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(AgendarConsulta.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AgendarConsulta.this, "Falha em marcar a consulta", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }else{
+                    Toast.makeText(this, "Selecione um horário", Toast.LENGTH_SHORT).show();
+                }
+            }else{
+                Toast.makeText(this, "Selecione uma especialidade", Toast.LENGTH_SHORT).show();
             }
-        }else if (!checkDate()){
-            Toast.makeText(AgendarConsulta.this, "Selecione uma data", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this, "Selecione uma data", Toast.LENGTH_SHORT).show();
         }
 
     }
 
-
-
-//    public void initRadioGroup(){
-//        Medico medico = findMedico(int id);
-//        List<Time> horarios = medico.getHorarios();
 //
-//        RadioButton rb1 = findViewById(R.id.radioButtonHorario1);
-//        RadioButton rb2 = findViewById(R.id.radioButtonHorario2);
-//        RadioButton rb3 = findViewById(R.id.radioButtonHorario3);
+//    public void marcarConsulta(View view){
+//        if(checkDate()) {
+//            if (checkSpinnerHorarios() && checkSpinnerEspecialidades()) {
 //
-//        rb1.setText(horarios.get(0));
-//        rb2.setText(horarios.get(1));
-//        rb3.setText(horarios.get(2));
-
-//        List<String> especialidades = medico.getEspecialidade();
-//        RadioButton rb1 = findViewById(R.id.radioButtonEspecialidade1);
-//        RadioButton rb2 = findViewById(R.id.radioButtonEspecialidade2);
-//        RadioButton rb3 = findViewById(R.id.radioButtonEspecialidade3);
+//                Toast.makeText(this, "Consulta Marcada", Toast.LENGTH_SHORT).show();
+////                finish();
 //
-//        rb1.setText(convenios.get(0));
-//        rb2.setText(convenios.get(1));
-//        rb3.setText(convenios.get(2));
+//            }else if (!checkSpinnerHorarios() || !checkSpinnerEspecialidades()){
+//                Toast.makeText(AgendarConsulta.this, "Selecione um horario e uma especialidade", Toast.LENGTH_SHORT).show();
+//            }
+//        }else if (!checkDate()){
+//            Toast.makeText(AgendarConsulta.this, "Selecione uma data", Toast.LENGTH_SHORT).show();
+//        }
 //    }
+
+
+
 
 //    public Time stringToTime(String horario){
 //        SimpleDateFormat formatador = new SimpleDateFormat("HH:mm");

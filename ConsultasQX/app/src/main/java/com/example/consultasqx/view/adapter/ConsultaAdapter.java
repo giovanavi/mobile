@@ -3,6 +3,9 @@ package com.example.consultasqx.view.adapter;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +15,15 @@ import android.widget.TextView;
 
 import com.example.consultasqx.R;
 import com.example.consultasqx.model.Consulta;
+import com.example.consultasqx.view.ConsultaGeral;
+import com.google.gson.internal.bind.JsonTreeReader;
 
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class ConsultaAdapter extends RecyclerView.Adapter<ConsultaAdapter.ViewHolder> implements Filterable {
 
@@ -64,7 +70,7 @@ public class ConsultaAdapter extends RecyclerView.Adapter<ConsultaAdapter.ViewHo
                     ArrayList<Consulta> consultas = new ArrayList<>();
 
                     for (Consulta consulta: consultasListFilter) {
-                        if(consulta.getMedico().getNome().toLowerCase().contains(search) || consulta.getMedico().getEspecialidade().toLowerCase().contains(search) ){
+                        if(consulta.getNomeMedico().toLowerCase().contains(search) || consulta.getEspecialidade().contains(search) ){
                             consultas.add(consulta);
                         }
                     }
@@ -95,37 +101,45 @@ public class ConsultaAdapter extends RecyclerView.Adapter<ConsultaAdapter.ViewHo
         return new ViewHolder(itemView);
     }
 
-    public Time stringToTime(String horario){
-        SimpleDateFormat formatador = new SimpleDateFormat("HH:mm");
-        Time time = null;
-        try {
-            Date data = formatador.parse(horario);
-            time = new Time(data.getTime());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return time;
-    }
+//    public Time stringToTime(String horario){
+//        SimpleDateFormat formatador = new SimpleDateFormat("HH:mm");
+//        Time time = null;
+//        try {
+//            Date data = formatador.parse(horario);
+//            time = new Time(data.getTime());
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        return time;
+//    }
 
     @Override
     public void onBindViewHolder(@NonNull ConsultaAdapter.ViewHolder holder, int position) {
 
-        String name = consultaList.get(position).getMedico().getNome();
+        String name = consultaList.get(position).getNomeMedico();
         String especialidade = consultaList.get(position).getEspecialidade();
         String tipo_consulta = "Convenio: ";//consultasList.get(position).getTipo_consulta();
-        String convenio = consultaList.get(position).getPaciente().getConvenio();
-        Time hora = consultaList.get(position).getHorario();
-        int id = consultaList.get(position).getId();
+        String conv = "xxxx";
+        String hora = consultaList.get(position).getHorario();
+        String id = consultaList.get(position).getUid();
 
         holder.nome.setText(name);
         holder.especialidade.setText(especialidade);
         holder.tipo_consulta.setText(tipo_consulta);
-        holder.horario.setText(hora.toString());
-        if(tipo_consulta.equals("Convenio: ")) {
-            holder.convenio.setText(convenio);
-        }else{
-            holder.convenio.setText("");
-        }
+        holder.horario.setText(hora);
+        holder.convenio.setText(conv);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = view.getContext();
+                Intent intent = new Intent(context, ConsultaGeral.class);
+
+                intent.putExtra("id", id);
+
+                context.startActivity(intent);
+            }
+        });
 
     }
 

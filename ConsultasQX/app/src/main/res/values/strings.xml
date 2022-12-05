@@ -25,6 +25,7 @@
     <string name="tipo_pagamento">Tipo de pagamento</string>
     <string name="convenio">Convenio</string>
     <string name="agendar_consulta">Agendar Consulta</string>
+    <string name="detalhes_consulta"> Detalhes da Consulta</string>
 
     <string-array name="especialidades_array">
         <item>Oftalmologia</item>

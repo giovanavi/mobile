@@ -1,4 +1,4 @@
-package com.example.consultasqx;
+package com.example.consultasqx.dao;
 
 import com.example.consultasqx.model.Usuario;
 import com.google.android.gms.tasks.Task;
@@ -14,7 +14,7 @@ public class DAOUsuario {
     public DAOUsuario(){
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         databaseReference = db.getReference(Usuario.class.getSimpleName());
-    }
+        }
 
     public Task<Void> add(Usuario usuario){
         return databaseReference.push().setValue(usuario);
