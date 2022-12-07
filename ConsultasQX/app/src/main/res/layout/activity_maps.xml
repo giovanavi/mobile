@@ -11,53 +11,53 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MapsActivity"
-        tools:layout="@layout/activity_maps"/>
+        tools:layout="@layout/activity_maps" />
 
     <RelativeLayout
+        android:id="@+id/relLayout1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:elevation="10dp"
         android:background="@drawable/white_border"
-        android:id="@+id/relLayout1">
+        android:elevation="10dp">
 
         <ImageView
+            android:id="@+id/ic_magnify"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:id="@+id/ic_magnify"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
+            android:contentDescription="@string/todo"
             android:src="@drawable/ic_magnify"
-            tools:ignore="RtlHardcoded"
-            android:contentDescription="@string/todo" />
+            tools:ignore="RtlHardcoded" />
 
         <!--AutoCompleteTextView-->
         <EditText
+            android:id="@+id/input_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toRightOf="@+id/ic_magnify"
             android:layout_centerVertical="true"
-            android:textSize="15sp"
-            android:textColor="#000"
-            android:id="@+id/input_search"
+            android:layout_toRightOf="@+id/ic_magnify"
             android:background="@null"
             android:hint="@string/informe_endere_o_cidade_ou_zip_code"
             android:imeOptions="actionSearch"
+            android:textColor="#000"
+            android:textSize="15sp"
             tools:ignore="Autofill,RtlHardcoded,TextFields" />
 
     </RelativeLayout>
 
     <ImageView
+        android:id="@+id/ic_gps"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_below="@id/relLayout1"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
         android:scaleType="centerCrop"
-        android:id="@+id/ic_gps"
         android:src="@drawable/ic_gps"
         tools:ignore="ContentDescription,RtlHardcoded" />
 
@@ -83,4 +83,3 @@
         android:src="@drawable/ic_info"/>
     -->
 </RelativeLayout>
-

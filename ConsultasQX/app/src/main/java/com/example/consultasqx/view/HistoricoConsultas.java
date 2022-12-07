@@ -41,11 +41,10 @@ public class HistoricoConsultas extends AppCompatActivity {
     ConsultaAdapter adapter;
     SearchView searchView;
     ArrayList<Consulta> listaConsultas = new ArrayList<>();
-    ArrayList<Medico> listaMedicos = new ArrayList<>();
-    Usuario u = new Usuario();
 
     private FirebaseAuth auth;
-    DatabaseReference   databaseReference = FirebaseDatabase.getInstance().getReference();
+
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,26 +54,10 @@ public class HistoricoConsultas extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.white)));
 
         auth = ConfiguraBD.FirebaseAutenticacao();
-//        Consulta consulta = new Consulta();
-//        listaConsultas = consulta.getList();
-//        adapter = new ConsultaAdapter(listaConsultas);
-
-        databaseReference.child("Usuario").child("-NIF5SCnZIbzpCMvdOmb").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if(task.isComplete()){
-                    u = task.getResult().getValue(Usuario.class);
-//                    Log.i("GET AUTH", auth.getUid());
-                    attLista();
-                }else{
-                    Log.i("FIREBASE123", "erro em trazer as informações do médico");
-                }
-            }
-        });
 
         initRecyclerView();
         initSearchView();
-//        attLista();
+        attLista();
     }
 
     public void initSearchView(){
@@ -101,20 +84,20 @@ public class HistoricoConsultas extends AppCompatActivity {
     }
 
     private void attLista(){
-        List<String> nomes = new ArrayList<>();
 
         databaseReference.child("Consulta").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 listaConsultas.clear();
-                Consulta c = new Consulta();
+                Consulta c ;
                 //pegando cada elemento do banco e colocando dentro do listalivros
                 for (DataSnapshot data: snapshot.getChildren()) {
                     c = data.getValue(Consulta.class);
-                    listaConsultas.add(c);
+                    if(c.getPaciente().equals(auth.getUid())) {
+                        listaConsultas.add(c);
+                    }
                 }
                 //colocando a lista dentro do adapterMedicos
-
                 adapter = new ConsultaAdapter(listaConsultas);
                 recyclerView.setAdapter(adapter);
 
@@ -125,6 +108,7 @@ public class HistoricoConsultas extends AppCompatActivity {
 
             }
         });
+
     }
 
 

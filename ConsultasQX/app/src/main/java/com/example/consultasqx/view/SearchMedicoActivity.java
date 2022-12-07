@@ -44,11 +44,6 @@ public class SearchMedicoActivity extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.white)));
 
-//        Medico medico = new Medico();
-//        listaMedicos = medico.getList();
-//        adapter = new MedicoAdapter(listaMedicos);
-
-
         initRecyclerView();
         initSearchView();
         attLista();
