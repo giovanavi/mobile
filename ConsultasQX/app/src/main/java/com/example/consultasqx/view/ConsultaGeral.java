@@ -38,18 +38,11 @@ public class ConsultaGeral extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consulta_geral);
 
-//        Query findConsulta = FirebaseDatabase.getInstance().getReference("Consulta")
-//                        .orderByChild("id").equalTo(id);
-//        findConsulta.addListenerForSingleValueEvent(valueEventListener);
-
-//        id = (String) getIntent().getExtras().get("id_consulta");
-//        Toast.makeText(this, id, Toast.LENGTH_SHORT).show();
-
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.white)));
 
         id = (String) getIntent().getExtras().get("id_consulta");
 
-        //estou pegando o objeto Medico baeado na id vindo da activity anterior
+        //estou pegando o objeto Consulta baeado na id vindo da activity anterior
         DatabaseReference dr = FirebaseDatabase.getInstance().getReference();
         dr.child("Consulta").child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -58,31 +51,13 @@ public class ConsultaGeral extends AppCompatActivity {
                     consulta = task.getResult().getValue(Consulta.class);
                     initComponentes();
                 }else{
-                    Log.i("FIREBASE", "erro em trazer as informações do médico");
+                    Log.i("FIREBASE", "erro em trazer as informações da consulta");
                 }
             }
         });
 
 
     }
-
-//    ValueEventListener valueEventListener = new ValueEventListener() {
-//        @Override
-//        public void onDataChange(@NonNull DataSnapshot snapshot) {
-//            if (snapshot.exists()){
-//                for (DataSnapshot data: snapshot.getChildren()) {
-//                    consulta  = data.getValue(Consulta.class);
-//                    System.out.println("CONSULTA: " +consulta.toString());
-//                    initComponents();
-//                }
-//            }
-//        }
-//
-//        @Override
-//        public void onCancelled(@NonNull DatabaseError error) {
-//
-//        }
-//    };
 
 
     public void initComponentes(){
