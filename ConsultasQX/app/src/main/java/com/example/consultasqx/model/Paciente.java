@@ -43,11 +43,11 @@ public class Paciente extends Usuario{
 //        return paciente;
 //    }
 
-    public String getId() {
+    public String getUid() {
         return uid;
     }
 
-    public void setId(String id) {
+    public void setUid(String id) {
         this.uid = uid;
     }
 

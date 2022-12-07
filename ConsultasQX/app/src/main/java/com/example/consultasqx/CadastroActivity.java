@@ -17,6 +17,7 @@ import com.example.consultasqx.dao.DAOUsuario;
 import com.example.consultasqx.model.Usuario;
 import com.example.consultasqx.view.Home;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,8 +25,12 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 
 public class CadastroActivity extends AppCompatActivity {
 
@@ -36,6 +41,8 @@ public class CadastroActivity extends AppCompatActivity {
     DAOUsuario dao;
     SharedPreferences sp;
 
+    FirebaseFirestore db;
+
     String nome, email, phone, cpf, senha, confSenha;
 
     @SuppressLint("MissingInflatedId")
@@ -45,7 +52,10 @@ public class CadastroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cadastro);
 
         dao = new DAOUsuario();
-        sp = getSharedPreferences("Usuario", Context.MODE_PRIVATE);
+
+        db = FirebaseFirestore.getInstance();
+
+        //sp = getSharedPreferences("Usuario", Context.MODE_PRIVATE);
 
         campoNome = findViewById(R.id.editTextNome);
         campoPhone = findViewById(R.id.editTextPhonePaciente);
@@ -192,30 +202,51 @@ public class CadastroActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            dao.add(usuario).addOnSuccessListener(suc -> {
+            /*dao.add(usuario).addOnSuccessListener(suc -> {
                 Toast.makeText(CadastroActivity.this, "Inserindo dados...", Toast.LENGTH_SHORT).show();
-
-                SharedPreferences.Editor editor = sp.edit();
-
-                editor.putString("nome", nome);
-                editor.putString("cpf", cpf);
-                editor.putString("email", email);
-                editor.putString("telefone", phone);
-                editor.putString("senha", senha);
-                editor.commit();
 
                 abrirHome();
 
             }).addOnFailureListener(er -> {
                 Toast.makeText(CadastroActivity.this, ""+er.getMessage(), Toast.LENGTH_SHORT).show();
-            });
+            });*/
+
+            //String id = UUID.randomUUID().toString();
+
+            Map<String, Object> doc = new HashMap<>();
+            doc.put("id", user.getUid());
+            doc.put("nome", usuario.getNome());
+            doc.put("cpf", usuario.getCpf());
+            doc.put("email", usuario.getEmail());
+            doc.put("telefone", usuario.getTelefone());
+            doc.put("senha", usuario.getSenha());
+
+            db.collection("Usuario").document(user.getUid()).set(doc)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Toast.makeText(CadastroActivity.this, "Dados armazenados...", Toast.LENGTH_SHORT).show();
+                                    abrirHome();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(CadastroActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                    });
         } else {
             Toast.makeText(this, "Usuário nulo", Toast.LENGTH_SHORT).show();
         }
+
+
     }
 
     private void abrirHome() {
         Intent intent = new Intent(this, Home.class);
+        /*intent.putExtra("cadastrar", "cadastrou");
+        intent.putExtra("email", usuario.getEmail());
+        intent.putExtra("senha", usuario.getSenha());*/
+
         startActivity(intent);
 
         finish();

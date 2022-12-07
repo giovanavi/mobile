@@ -176,7 +176,7 @@ public class AgendarConsulta extends AppCompatActivity {
                 if (checkSpinnerHorarios()){
                     Consulta consulta = new Consulta();
                     consulta.setUid(UUID.randomUUID().toString());
-                    consulta.setPaciente(paciente.getId());
+                    consulta.setPaciente(paciente.getUid());
                     consulta.setMedico(medico.getId());
                     consulta.setNomeMedico(medico.getNome());
                     consulta.setConvenio((String) spinnerConvenios.getSelectedItem());

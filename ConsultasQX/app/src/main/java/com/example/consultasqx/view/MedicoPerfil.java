@@ -56,7 +56,6 @@ public class MedicoPerfil extends AppCompatActivity {
         id = (String) getIntent().getExtras().get("id");
 
 
-<<<<<<< HEAD
         //estou pegando o objeto Medico baeado na id vindo da activity anterior
         DatabaseReference dr = FirebaseDatabase.getInstance().getReference();
         dr.child("Medico").child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -66,22 +65,11 @@ public class MedicoPerfil extends AppCompatActivity {
                     medico = task.getResult().getValue(Medico.class);
                     initAdapters();
                     initComponentes();
-                    Log.i("FIREBASE123", medico.toString());
-                    System.out.println("ID EXTRA-> "+id);
-                    System.out.println("MEDICO -> "+medico.getId());
-                    System.out.println("MEDICO -> "+medico.toString());
-                    System.out.println("MEDICO -> "+medico.getEspecialidades());
-                    System.out.println("MEDICO -> "+medico.getHorarios());
                 }else{
                     Log.i("FIREBASE123", "erro em trazer as informações do médico");
                 }
             }
         });
-
-        //antes pegava da lista, agora vai buscar somente o id específico do banco
-//        ArrayList<Medico> lista;// = null;
-//        lista = medico.getList();
-//        medico = lista.get(id); //xxxxx
 
 
     }
@@ -101,20 +89,8 @@ public class MedicoPerfil extends AppCompatActivity {
     public void initAdapters(){
         adapterEspecialidades = new ArrayAdapter(this, android.R.layout.simple_list_item_1, medico.getEspecialidades());
         adapterConvenios = new ArrayAdapter(this, android.R.layout.simple_list_item_1, medico.getConvenios());
-=======
-        ArrayList<Medico> lista;// = null;
-        lista = medico.getList();
-        medico = lista.get(id); //xxxxx
 
         initComponentes();
-    }
-
-    public void verHorarios(View view){
-        Intent intent = new Intent(view.getContext(), AgendarConsulta.class);
-
-        intent.putExtra("id_medico", id);
-        startActivity(intent);
->>>>>>> 2564a445563ba7b3aeaf55fab391421ebc70e1d9
     }
 
     public void initComponentes(){

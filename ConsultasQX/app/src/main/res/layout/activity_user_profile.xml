@@ -43,7 +43,7 @@
                 android:contentDescription="@string/todoProfile2"
                 android:onClick="mudarFoto"
                 android:scaleType="fitXY"
-                android:src="@drawable/ic_baseline_person_24" />
+                android:src="@drawable/ic_img_profile" />
 
             <TextView
                 android:id="@+id/textView_NomeProfile"

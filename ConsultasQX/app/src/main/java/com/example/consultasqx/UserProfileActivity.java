@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,22 +30,42 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.consultasqx.Util.ConfiguraBD;
-import com.example.consultasqx.databinding.ActivityUserProfileBinding;
+//import com.example.consultasqx.databinding.ActivityUserProfileBinding;
 import com.example.consultasqx.dao.DAOUsuario;
+import com.example.consultasqx.databinding.ActivityUserProfileBinding;
+import com.example.consultasqx.model.Medico;
+import com.example.consultasqx.model.Usuario;
+import com.example.consultasqx.view.Home;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.annotations.Nullable;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -63,6 +84,14 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private FirebaseAuth autenticacao;
     private FirebaseAuth mAuth;
+
+    private FirebaseFirestore db;
+
+    private DatabaseReference databaseReference;
+    //private StorageReference storageReference;
+    private Dialog dialog;
+    private Usuario user;
+    private String key;
 
     SharedPreferences sp;
     TextView campoNomeProfile;
@@ -85,6 +114,8 @@ public class UserProfileActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        db = FirebaseFirestore.getInstance();
+
         photo = findViewById(R.id.image_profile);
 
         campoNomeProfile = findViewById(R.id.textView_NomeProfile);
@@ -94,34 +125,52 @@ public class UserProfileActivity extends AppCompatActivity {
         campoTelefone = findViewById(R.id.editTextTelefone);
         campoSenha = findViewById(R.id.editTextSenha);
 
-        dao = new DAOUsuario();
+        getUserData();
 
-        sp = getApplicationContext().getSharedPreferences(USUARIO, Context.MODE_PRIVATE);
+    }
 
-        autenticacao = ConfiguraBD.FirebaseAutenticacao();
+    private void getUserData(){
 
-        nome = sp.getString("nome", "");
-        cpf = sp.getString("cpf", "");
-        email = sp.getString("email", "");
-        telefone = sp.getString("telefone", "");
-        senha = sp.getString("senha", "");
+        Toast.makeText(this, "Carregando seus dados...", Toast.LENGTH_SHORT).show();
 
-        campoNomeProfile.setText(nome);
-        campoNome.setText(nome);
-        campoCpf.setText(cpf);
-        campoEmail.setText(email);
-        campoTelefone.setText(telefone);
-        campoSenha.setText(senha);
+        key = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        /*if(checkAndRequestPermissions(UserProfileActivity.this)){
-            chooseImage(UserProfileActivity.this);
-        }*/
+        db.collection("Usuario").document(key).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()){
+
+                            DocumentSnapshot documentSnapshot = task.getResult();
+
+                            if(documentSnapshot != null && documentSnapshot.exists()){
+                                nome = documentSnapshot.getString("nome");
+                                cpf = documentSnapshot.getString("cpf");
+                                email = documentSnapshot.getString("email");
+                                telefone = documentSnapshot.getString("telefone");
+                                senha = documentSnapshot.getString("senha");
+
+                                campoNomeProfile.setText(documentSnapshot.getString("nome"));
+                                campoNome.setText(documentSnapshot.getString("nome"));
+                                campoCpf.setText(documentSnapshot.getString("cpf"));
+                                campoEmail.setText(documentSnapshot.getString("email"));
+                                campoTelefone.setText(documentSnapshot.getString("telefone"));
+                                campoSenha.setText(documentSnapshot.getString("senha"));
+                            }
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(UserProfileActivity.this, "Erro: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
     }
 
     @Override
     public void onStart() {
         super.onStart();
-
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
             currentUser.reload();
@@ -239,40 +288,26 @@ public class UserProfileActivity extends AppCompatActivity {
         cpf = Objects.requireNonNull(campoCpf.getText()).toString();
         emailU = Objects.requireNonNull(campoEmail.getText()).toString();
         telefone = Objects.requireNonNull(campoTelefone.getText()).toString();
-        senhaU = Objects.requireNonNull(campoSenha.getText()).toString();
+        //senhaU = Objects.requireNonNull(campoSenha.getText()).toString();
 
         if (verEmail()){
-            if (verNome() && verNums() && verTele() && (senha.length() >= 8)) {
+            if (verNome() && verNums() && verTele()) {
 
                 updateEmail();
 
-                HashMap<String, Object> hashMap = new HashMap<>();
-                hashMap.put("nome", nome);
-                hashMap.put("cpf", cpf);
-                hashMap.put("email", email);
-                hashMap.put("telefone", telefone);
-                hashMap.put("senha", senha);
-
-                dao.update(FirebaseAuth.getInstance().getCurrentUser().getUid(), hashMap).addOnSuccessListener(suc -> {
-                    Toast.makeText(this, "Atualizado", Toast.LENGTH_SHORT).show();
-
-                    SharedPreferences.Editor editor = sp.edit();
-                    editor.clear();
-                    editor.commit();
-
-                    editor.putString("nome", nome);
-                    editor.putString("cpf", cpf);
-                    editor.putString("email", email);
-                    editor.putString("telefone", telefone);
-                    editor.putString("senha", senha);
-                    editor.commit();
-
-                    campoNomeProfile.setText(nome);
-
-                }).addOnFailureListener(er -> {
-                    Toast.makeText(this, "" + er.getMessage(), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(this, "Falha em atualizar dados", Toast.LENGTH_SHORT).show();
-                });
+                db.collection("Usuario").document(key)
+                        .update("nome", nome, "cpf", cpf, "email", emailU, "telefone", telefone)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(UserProfileActivity.this, "Dados atualizados", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(UserProfileActivity.this, "Erro: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
             }
         }
@@ -287,7 +322,8 @@ public class UserProfileActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     Toast.makeText(UserProfileActivity.this, "Email atualizado com sucesso", Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(UserProfileActivity.this, "Ocorreu um erro em atualizar o email", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserProfileActivity.this, "Ocorreu um erro em atualizar o email, faça login novamente e tente de novo.", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(UserProfileActivity.this, "Task: "+task.getException(), Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -296,35 +332,56 @@ public class UserProfileActivity extends AppCompatActivity {
     public void updateSenha(View view){
         senhaU = Objects.requireNonNull(campoSenha.getText()).toString();
 
+        Toast.makeText(this, "Senha: "+senhaU, Toast.LENGTH_SHORT).show();
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         user.updatePassword(senhaU).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(Task<Void> task) {
                 if(task.isSuccessful()){
+
+                    atualizarSenhaNoBanco();
+
                     Toast.makeText(UserProfileActivity.this, "Senha atualizada com sucesso", Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(UserProfileActivity.this, "Ocorreu um erro ao atualizar a senha", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserProfileActivity.this, "Ocorreu um erro ao atualizar a senha, tente fazer login de novo e tente novamente", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
+    private void atualizarSenhaNoBanco(){
+        db.collection("Usuario").document(key)
+                .update("senha", senhaU)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(UserProfileActivity.this, "Banco de dados atualizado", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(UserProfileActivity.this, "Erro: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
     public void delete(View v) {
-        dao.remove(Objects.requireNonNull(autenticacao.getCurrentUser()).getUid()).addOnSuccessListener(suc -> {
 
-            Toast.makeText(this, "Conta removida", Toast.LENGTH_SHORT).show();
-
-            SharedPreferences.Editor editor = sp.edit();
-            editor.clear();
-            editor.commit();
-
-            campoNomeProfile.setText("");
-            campoNome.setText("");
-            campoCpf.setText("");
-            campoEmail.setText("");
-            campoTelefone.setText("");
-            campoSenha.setText("");
+        db.collection("Usuario").document(key)
+                        .delete()
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(UserProfileActivity.this, "Conta excluída com sucesso", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(UserProfileActivity.this, "Erro: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
             FirebaseDatabase
                     .getInstance()
@@ -340,9 +397,12 @@ public class UserProfileActivity extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if(task.isSuccessful()){
-                                                Log.d(TAG, "Deletado com sucesso");
+                                                Log.d(TAG, "Conta deletada com sucesso");
+
                                                 Intent intent= new Intent(UserProfileActivity.this, LoginActivity.class);
                                                 startActivity(intent);
+
+                                                finish();
                                             }else{
                                                 Log.d(TAG, "Erro em deletar");
                                             }
@@ -350,13 +410,6 @@ public class UserProfileActivity extends AppCompatActivity {
                                     });
                         }
                     });
-
-            finish();
-
-        }).addOnFailureListener(er -> {
-            Toast.makeText(this, "" + er.getMessage(), Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, "Falha em deletar conta", Toast.LENGTH_SHORT).show();
-        });
 
     }
 
@@ -379,25 +432,25 @@ public class UserProfileActivity extends AppCompatActivity {
     private boolean conteudoEmail(){
         int numTiposContas = 0;
 
-        if(email.contains("@gmail.com")){
+        if(emailU.contains("@gmail.com")){
             ++numTiposContas;
         }
 
-        if(email.contains("@alu.ufc.br")){
+        if(emailU.contains("@alu.ufc.br")){
             ++numTiposContas;
         }
 
-        if(email.contains("@hotmail.com")){
+        if(emailU.contains("@hotmail.com")){
             ++numTiposContas;
         }
 
-        if(numTiposContas > 1 || email.contains(" ")){
+        if(numTiposContas > 1 || emailU.contains(" ")){
             return false;
         }else{
             StringBuilder ultimasLetras = new StringBuilder();
 
-            for(int i = email.length() - 12; i < email.length(); ++i){
-                char ch = email.charAt(i);
+            for(int i = emailU.length() - 12; i < emailU.length(); ++i){
+                char ch = emailU.charAt(i);
                 ultimasLetras.append(ch);
             }
 
