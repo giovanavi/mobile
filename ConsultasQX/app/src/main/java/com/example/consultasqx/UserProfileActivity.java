@@ -66,11 +66,19 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.google.type.Date;
 
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class UserProfileActivity extends AppCompatActivity {
@@ -86,6 +94,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     private FirebaseFirestore db;
+    private StorageReference storageReference;
 
     private DatabaseReference databaseReference;
     //private StorageReference storageReference;
@@ -179,7 +188,19 @@ public class UserProfileActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void mudarFoto(View v){
-        chooseImage(UserProfileActivity.this);
+
+        /*SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_HH_ss", Locale.CANADA);
+        //Date now = new Date();
+        Calendar now = Calendar.getInstance();
+        String filename = DateFormat.getDateInstance(DateFormat.FULL).format(now.getTime());
+        //formatter.format(now);*/
+
+        //storageReference = FirebaseStorage.getInstance().getReference();
+
+        if(checkAndRequestPermissions(UserProfileActivity.this)){
+            chooseImage(UserProfileActivity.this);
+        }
+
     }
 
     public static boolean checkAndRequestPermissions(final Activity context) {
@@ -270,11 +291,31 @@ public class UserProfileActivity extends AppCompatActivity {
                         if (selectedImage != null) {
                             Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
                             if (cursor != null) {
+
                                 cursor.moveToFirst();
                                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                                 String picturePath = cursor.getString(columnIndex);
                                 photo.setImageBitmap(BitmapFactory.decodeFile(picturePath));
                                 cursor.close();
+
+
+                                /*storageReference.putFile(selectedImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+
+                                    }
+                                });*/
+
+                                /*cursor.moveToFirst();
+                                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                                String picturePath = cursor.getString(columnIndex);
+                                photo.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                                cursor.close();*/
                             }
                         }
                     }
