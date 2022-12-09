@@ -111,11 +111,10 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginTop="28dp"
         android:background="?actionBarDivider"
-        app:layout_constraintBottom_toTopOf="@+id/textViewData"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/crm"
-        app:layout_constraintVertical_bias="0.35" />
+        app:layout_constraintTop_toBottomOf="@+id/crm" />
 
     <TextView
         android:id="@+id/textView"
@@ -131,7 +130,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
     <TextView
-        android:id="@+id/textViewData"
+        android:id="@+id/data"
         android:layout_width="300dp"
         android:layout_height="35dp"
         android:layout_marginTop="16dp"
@@ -143,53 +142,54 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+    <!--    <TextView-->
+<!--        android:id="@+id/textViewLocal"-->
+<!--        android:layout_width="300dp"-->
+<!--        android:layout_height="35dp"-->
+<!--        android:layout_marginTop="50dp"-->
+<!--        android:text="Como chegar"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="24sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/data" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView"-->
+<!--        android:layout_width="300dp"-->
+<!--        android:layout_height="184dp"-->
+<!--        android:layout_marginTop="12dp"-->
+<!--        app:circularflow_radiusInDP="@string/_12_00"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textViewLocal"-->
+<!--        app:srcCompat="@android:drawable/ic_menu_mapmode" />-->
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginTop="20dp"
         android:background="?actionBarDivider"
-        app:layout_constraintBottom_toTopOf="@+id/textViewLocal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewData"
+        app:layout_constraintTop_toBottomOf="@+id/data"
         app:layout_constraintVertical_bias="0.541" />
-
-    <TextView
-        android:id="@+id/textViewLocal"
-        android:layout_width="300dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="50dp"
-        android:text="Como chegar"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewData" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="300dp"
-        android:layout_height="184dp"
-        android:layout_marginTop="12dp"
-        app:circularflow_radiusInDP="@string/_12_00"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewLocal"
-        app:srcCompat="@android:drawable/ic_menu_mapmode" />
 
     <Button
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="244dp"
         android:background="@color/white"
         android:gravity="center"
+        android:onClick="abrirLocal"
         android:text="Ver localização"
         android:textColor="@color/purple_700"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.32" />
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

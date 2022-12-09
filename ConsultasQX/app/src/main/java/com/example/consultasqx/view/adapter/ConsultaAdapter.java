@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.consultasqx.R;
 import com.example.consultasqx.model.Consulta;
@@ -101,27 +102,17 @@ public class ConsultaAdapter extends RecyclerView.Adapter<ConsultaAdapter.ViewHo
         return new ViewHolder(itemView);
     }
 
-//    public Time stringToTime(String horario){
-//        SimpleDateFormat formatador = new SimpleDateFormat("HH:mm");
-//        Time time = null;
-//        try {
-//            Date data = formatador.parse(horario);
-//            time = new Time(data.getTime());
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//        return time;
-//    }
-
     @Override
     public void onBindViewHolder(@NonNull ConsultaAdapter.ViewHolder holder, int position) {
 
         String name = consultaList.get(position).getNomeMedico();
         String especialidade = consultaList.get(position).getEspecialidade();
         String tipo_consulta = "Convenio: ";//consultasList.get(position).getTipo_consulta();
-        String conv = "xxxx";
+        String conv = consultaList.get(position).getConvenio();
         String hora = consultaList.get(position).getHorario();
-        String id = consultaList.get(position).getUid();
+        String id_consulta = consultaList.get(position).getUid();
+
+        String id_medico = consultaList.get(position).getMedico();
 
         holder.nome.setText(name);
         holder.especialidade.setText(especialidade);
@@ -135,7 +126,10 @@ public class ConsultaAdapter extends RecyclerView.Adapter<ConsultaAdapter.ViewHo
                 Context context = view.getContext();
                 Intent intent = new Intent(context, ConsultaGeral.class);
 
-                intent.putExtra("id", id);
+                Toast.makeText(context, id_consulta+"", Toast.LENGTH_SHORT).show();
+
+                intent.putExtra("id_medico", id_medico);
+                intent.putExtra("id_consulta", id_consulta);
 
                 context.startActivity(intent);
             }

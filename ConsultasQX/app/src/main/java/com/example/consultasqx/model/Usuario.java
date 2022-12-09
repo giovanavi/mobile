@@ -2,13 +2,12 @@ package com.example.consultasqx.model;
 
 import com.google.firebase.database.Exclude;
 
-import java.util.ArrayList;
 
 public class Usuario {
     @Exclude
     private String key;
     private String nome, email, senha, cpf, telefone;
-    private int id;
+    private String id;
 
     public Usuario(int id, String nome, String email, String senha, String cpf, String telefone) {
         //this.id = id;
@@ -30,9 +29,9 @@ public class Usuario {
         this.key = key;
     }
 
-    public int getId() { return id; }
+    public String getId() { return id; }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

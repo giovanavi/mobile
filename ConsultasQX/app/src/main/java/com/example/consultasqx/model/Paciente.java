@@ -1,7 +1,5 @@
 package com.example.consultasqx.model;
 
-import java.util.ArrayList;
-
 public class Paciente extends Usuario{
 
     private static int CONTADOR = 0;
@@ -14,7 +12,6 @@ public class Paciente extends Usuario{
     private String telefone;
     private String convenio;
 
-    ArrayList<Paciente> pacienteArrayList = new ArrayList<>();
 
     public Paciente(){}
 
@@ -27,21 +24,6 @@ public class Paciente extends Usuario{
         this.telefone = telefone;
         this.convenio = convenio;
     }
-
-//    public ArrayList<Paciente> getList(){
-//        pacienteArrayList = new ArrayList<>();
-//
-//        pacienteArrayList.add(new Paciente("Matias", "00000000000", "matias@email.com", "senha01", "09876543213", "HapVida"));
-//
-//        return pacienteArrayList;
-//    }
-
-//    public Paciente findPaciente(int id){
-//        Paciente paciente = new Paciente();
-//        pacienteArrayList = paciente.getList();
-//        paciente = pacienteArrayList.get(id);
-//        return paciente;
-//    }
 
     public String getUid() {
         return uid;
