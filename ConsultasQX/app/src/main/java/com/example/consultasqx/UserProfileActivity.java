@@ -66,11 +66,15 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.google.type.Date;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -108,6 +112,8 @@ public class UserProfileActivity extends AppCompatActivity {
 
     ImageView photo;
     ActivityUserProfileBinding binding;
+
+    Uri imageUri;
 
     static boolean valido;
 
@@ -165,6 +171,12 @@ public class UserProfileActivity extends AppCompatActivity {
                                 campoEmail.setText(documentSnapshot.getString("email"));
                                 campoTelefone.setText(documentSnapshot.getString("telefone"));
                                 campoSenha.setText(documentSnapshot.getString("senha"));
+
+                                try {
+                                    getUserProfile();
+                                } catch (IOException e) {
+                                    Toast.makeText(UserProfileActivity.this, "Usuário sem imagem ou com falha em carregar. No segundo caso, erro: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
                             }
                         }
                     }
@@ -175,6 +187,25 @@ public class UserProfileActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    private void getUserProfile() throws IOException {
+        storageReference = FirebaseStorage.getInstance().getReference("Usuario/"+key+".jpg");
+
+        File localFile = File.createTempFile("tempImage", "jpg");
+
+        storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                binding.imageProfile.setImageBitmap(bitmap);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(UserProfileActivity.this, "Falha em carregar imagem", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -188,14 +219,6 @@ public class UserProfileActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void mudarFoto(View v){
-
-        /*SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_HH_ss", Locale.CANADA);
-        //Date now = new Date();
-        Calendar now = Calendar.getInstance();
-        String filename = DateFormat.getDateInstance(DateFormat.FULL).format(now.getTime());
-        //formatter.format(now);*/
-
-        //storageReference = FirebaseStorage.getInstance().getReference();
 
         if(checkAndRequestPermissions(UserProfileActivity.this)){
             chooseImage(UserProfileActivity.this);
@@ -276,12 +299,59 @@ public class UserProfileActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        storageReference = FirebaseStorage.getInstance().getReference("Usuario/"+key+".jpg");
+
+        Log.d(String.valueOf(UserProfileActivity.this), "Data: "+data.getData());
+
+        //imageUri = data.getData();
+
         if (resultCode != RESULT_CANCELED) {
             switch (requestCode) {
                 case 0:
                     if (resultCode == RESULT_OK && data != null) {
                         Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
                         photo.setImageBitmap(selectedImage);
+
+                        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                        selectedImage.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+                        byte bb[] = bytes.toByteArray();
+
+                        storageReference.putBytes(bb).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                Toast.makeText(UserProfileActivity.this, "Imagem de perfil salva com sucesso", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(UserProfileActivity.this, "Erro: "+e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        });
+
+                        //storageReference = FirebaseStorage.getInstance().getReference("Usuario/"+key+".jpg");
+
+                        /*File getImage = getCacheDir();//getExternalCacheDir();
+
+                        if(getImage != null){
+                            imageUri = Uri.fromFile(new File(getImage.getPath(), "profileImages"));
+                        }
+
+                        Toast.makeText(this, "getImage: "+getImage, Toast.LENGTH_LONG).show();*/
+
+                        //imageUri = data.getData();
+
+                        /*storageReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                Toast.makeText(UserProfileActivity.this, "Image salva no banco com sucesso", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(UserProfileActivity.this, "Falha em salvar imagem no banco", Toast.LENGTH_SHORT).show();
+                            }
+                        });*/
                     }
                     break;
                 case 1:
@@ -296,31 +366,40 @@ public class UserProfileActivity extends AppCompatActivity {
                                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                                 String picturePath = cursor.getString(columnIndex);
                                 photo.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-                                cursor.close();
 
+                                imageUri = data.getData();
 
-                                /*storageReference.putFile(selectedImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                storageReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                     @Override
                                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
+                                        Toast.makeText(UserProfileActivity.this, "Image salva no banco com sucesso", Toast.LENGTH_SHORT).show();
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-
+                                        Toast.makeText(UserProfileActivity.this, "Falha em salvar imagem no banco", Toast.LENGTH_SHORT).show();
                                     }
-                                });*/
+                                });
 
-                                /*cursor.moveToFirst();
-                                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                                String picturePath = cursor.getString(columnIndex);
-                                photo.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-                                cursor.close();*/
+                                cursor.close();
                             }
                         }
                     }
                     break;
             }
+
+            /*storageReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(UserProfileActivity.this, "Image salva no banco com sucesso", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(UserProfileActivity.this, "Falha em salvar imagem no banco", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserProfileActivity.this, "Erro: "+e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });*/
         }
     }
 
