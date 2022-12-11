@@ -38,6 +38,8 @@ import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
+//    49:85:CE:1E:6C:7A:29:AA:D3:D0:F0:08:CA:82:14:09:A9:D1:AD:93
+
     private GoogleMap mMap;
 
     private static final String TAG = "MapsActivity";

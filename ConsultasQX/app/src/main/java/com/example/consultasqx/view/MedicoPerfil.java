@@ -89,8 +89,8 @@ public class MedicoPerfil extends AppCompatActivity {
     }
 
     public void initAdapters(){
-        adapterEspecialidades = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, especialidades);
-        adapterConvenios = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, convenios);
+        adapterEspecialidades = new ArrayAdapter<>(this, R.layout.list_item_layout, especialidades);
+        adapterConvenios = new ArrayAdapter<>(this, R.layout.list_item_layout, convenios);
 
     }
 
