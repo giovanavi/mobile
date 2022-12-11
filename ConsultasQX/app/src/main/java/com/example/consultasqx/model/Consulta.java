@@ -16,20 +16,16 @@ public class Consulta {
     private String especialidade;
     private String crm;
 
-    ArrayList<Consulta> consultaArrayList = new ArrayList<>();
 
     public Consulta(){}
 
-    public Consulta(String medico, String nomeMedico, String paciente, String data, String horario, String convenio, String especialidade) {
-        this.medico = medico;
-        this.nomeMedico = nomeMedico;
-        this.paciente = paciente;
+    public Consulta(String id, String nome, String especialidade, String convenio, String data, String horario) {
+        this.uid = id;
+        this.nomeMedico = nome;
         this.horario = horario;
         this.data = data;
-        this.convenio = convenio;
         this.especialidade = especialidade;
-        this.crm = crm;
-//        this.uid = CONTADOR ++;
+        this.convenio = convenio;
     }
 
     public String getMedico() {

@@ -1,6 +1,5 @@
 package com.example.consultasqx.view;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,31 +7,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.consultasqx.R;
 import com.example.consultasqx.Util.ConfiguraBD;
 import com.example.consultasqx.model.Consulta;
-import com.example.consultasqx.model.Medico;
-import com.example.consultasqx.model.Paciente;
-import com.example.consultasqx.model.Usuario;
 import com.example.consultasqx.view.adapter.ConsultaAdapter;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class HistoricoConsultas extends AppCompatActivity {
@@ -43,8 +30,7 @@ public class HistoricoConsultas extends AppCompatActivity {
     ArrayList<Consulta> listaConsultas = new ArrayList<>();
 
     private FirebaseAuth auth;
-
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,29 +71,24 @@ public class HistoricoConsultas extends AppCompatActivity {
 
     private void attLista(){
 
-        databaseReference.child("Consulta").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                listaConsultas.clear();
-                Consulta c ;
-                //pegando cada elemento do banco e colocando dentro do listalivros
-                for (DataSnapshot data: snapshot.getChildren()) {
-                    c = data.getValue(Consulta.class);
-                    if(c.getPaciente().equals(auth.getUid())) {
-                        listaConsultas.add(c);
-                    }
+        db.collection("Consulta").whereEqualTo("id_paciente", auth.getUid()).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String id = (String) document.get("id");
+                    String nome = (String) document.get("nome_medico");
+                    String especialidade = (String) document.get("especialidade");
+                    String convenio = (String) document.get("convenio");
+                    String data = (String) document.get("data");
+                    String horario = (String) document.get("horario");
+
+                    Consulta consulta = new Consulta(id, nome, especialidade, convenio, data, horario);
+                    listaConsultas.add(consulta);
                 }
-                //colocando a lista dentro do adapterMedicos
                 adapter = new ConsultaAdapter(listaConsultas);
                 recyclerView.setAdapter(adapter);
-
             }
+        }).addOnFailureListener(e -> Toast.makeText(HistoricoConsultas.this, "Erro: "+e.getMessage(), Toast.LENGTH_SHORT).show());
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
     }
 

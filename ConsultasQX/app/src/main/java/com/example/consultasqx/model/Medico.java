@@ -17,7 +17,11 @@ public class Medico{
     private String latitute;
 
 
-    public Medico(){}
+    public Medico(String id, String nome, String crm){
+        this.id = id;
+        this.nome = nome;
+        this.crm = crm;
+    }
 
     public Medico(String id, String nome, String crm, String cpf, String telefone, List<String> especialidade, List<String> convenio, String latitute, String longitude) {
         this.id = id;

@@ -3,28 +3,19 @@ package com.example.consultasqx.view.adapter;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.consultasqx.R;
 import com.example.consultasqx.model.Consulta;
 import com.example.consultasqx.view.ConsultaGeral;
-import com.google.gson.internal.bind.JsonTreeReader;
 
-import java.sql.Time;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class ConsultaAdapter extends RecyclerView.Adapter<ConsultaAdapter.ViewHolder> implements Filterable {
 
@@ -38,11 +29,12 @@ public class ConsultaAdapter extends RecyclerView.Adapter<ConsultaAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView nome;
-        private TextView especialidade;
-        private TextView tipo_consulta;
-        private TextView convenio;
-        private TextView horario;
+        private final TextView nome;
+        private final TextView especialidade;
+        private final TextView tipo_consulta;
+        private final TextView convenio;
+        private final TextView horario;
+        private final TextView data;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -52,13 +44,14 @@ public class ConsultaAdapter extends RecyclerView.Adapter<ConsultaAdapter.ViewHo
             tipo_consulta = itemView.findViewById(R.id.tipo_consulta);
             convenio = itemView.findViewById(R.id.convenio);
             horario = itemView.findViewById(R.id.horario);
+            data = itemView.findViewById(R.id.data);
         }
     }
 
     @Override
     public Filter getFilter() {
 
-        Filter filter = new Filter() {
+        return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
                 FilterResults filterResults = new FilterResults();
@@ -90,7 +83,6 @@ public class ConsultaAdapter extends RecyclerView.Adapter<ConsultaAdapter.ViewHo
             }
         };
 
-        return filter;
     }
 
     @NonNull
@@ -105,34 +97,22 @@ public class ConsultaAdapter extends RecyclerView.Adapter<ConsultaAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ConsultaAdapter.ViewHolder holder, int position) {
 
-        String name = consultaList.get(position).getNomeMedico();
-        String especialidade = consultaList.get(position).getEspecialidade();
-        String tipo_consulta = "Convenio: ";//consultasList.get(position).getTipo_consulta();
-        String conv = consultaList.get(position).getConvenio();
-        String hora = consultaList.get(position).getHorario();
-        String id_consulta = consultaList.get(position).getUid();
+        holder.nome.setText(consultaList.get(position).getNomeMedico());
+        holder.especialidade.setText(consultaList.get(position).getEspecialidade());
+        holder.tipo_consulta.setText("Convenio: ");
+        holder.convenio.setText(consultaList.get(position).getConvenio());
+        holder.data.setText(consultaList.get(position).getData());
+        holder.horario.setText(consultaList.get(position).getHorario());
 
-        String id_medico = consultaList.get(position).getMedico();
+        holder.itemView.setOnClickListener(view -> {
+            Consulta consulta = consultaList.get(holder.getAdapterPosition());
 
-        holder.nome.setText(name);
-        holder.especialidade.setText(especialidade);
-        holder.tipo_consulta.setText(tipo_consulta);
-        holder.horario.setText(hora);
-        holder.convenio.setText(conv);
+            Intent intent = new Intent(view.getContext(), ConsultaGeral.class);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Context context = view.getContext();
-                Intent intent = new Intent(context, ConsultaGeral.class);
+            intent.putExtra("id_medico", consulta.getMedico());
+            intent.putExtra("id_consulta", consulta.getUid());
 
-                Toast.makeText(context, id_consulta+"", Toast.LENGTH_SHORT).show();
-
-                intent.putExtra("id_medico", id_medico);
-                intent.putExtra("id_consulta", id_consulta);
-
-                context.startActivity(intent);
-            }
+            view.getContext().startActivity(intent);
         });
 
     }
