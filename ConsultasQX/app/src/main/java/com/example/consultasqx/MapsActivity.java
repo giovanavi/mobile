@@ -77,6 +77,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ImageView mGps; /*, mInfo, mPlacePicker;*/
 
     String id;
+    Double latitude;
+    Double longitude;
+    String nomeClinica;
 
     /*private GoogleApiClient mGoogleApiClient;
     private PlaceInfo mPlace;
@@ -97,6 +100,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mPlacePicker = (ImageView) findViewById(R.id.place_picker);*/
 
         id = (String) getIntent().getExtras().get("id_medico");
+        latitude = getIntent().getExtras().getDouble("latitude");
+        longitude = getIntent().getExtras().getDouble("longitude");
+        nomeClinica = (String) getIntent().getExtras().get("nome_clinica");
 
         getLocationPermission();
     }
@@ -110,6 +116,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
@@ -129,9 +136,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             LatLng clinica;
 
-            clinica = new LatLng(-4.970519, -39.017490);
-            mMap.addMarker(new MarkerOptions().position(clinica).title("J. Holanda, Clínica Integrada"));
-            moveCamera(clinica, DEFAULT_ZOOM, "J. Holanda, Clínica Integrada");
+            Log.i("LATITUDE//LONGITUDE", latitude+"/"+longitude);
+//            Log.i("LATITUDE/LONGITUDE", latitude+"/"+Double.parseDouble(longitude));
+            clinica = new LatLng(latitude, longitude);
+            mMap.addMarker(new MarkerOptions().position(clinica).title(nomeClinica));
+            Log.i("NOME CLINICA ", nomeClinica+" ");
+            moveCamera(clinica, DEFAULT_ZOOM, nomeClinica);
 
             /*if(id.equals("0") || id.equals("1")){
                 clinica = new LatLng(-4.970519, -39.017490);

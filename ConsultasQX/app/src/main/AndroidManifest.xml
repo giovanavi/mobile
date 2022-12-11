@@ -35,6 +35,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD8r_GHTwMplkxRo3FLtTQyUFT0TBYKuq8" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
 
         <activity
             android:name=".MapsActivity"
@@ -59,11 +62,8 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <!--
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version"/>
-        -->
+
+
         <activity
             android:name=".view.adapter.ConsultaAdapter"
             android:exported="false"

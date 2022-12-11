@@ -81,6 +81,7 @@ public class HistoricoConsultas extends AppCompatActivity {
                     String data = (String) document.get("data");
                     String horario = (String) document.get("horario");
 
+
                     Consulta consulta = new Consulta(id, nome, especialidade, convenio, data, horario);
                     listaConsultas.add(consulta);
                 }

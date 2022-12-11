@@ -15,6 +15,9 @@ public class Consulta {
     private String convenio;
     private String especialidade;
     private String crm;
+    private String nome_clinica;
+    private Double latitude;
+    private Double longitude;
 
 
     public Consulta(){}
@@ -99,6 +102,30 @@ public class Consulta {
 
     public void setCrm(String crm) {
         this.crm = crm;
+    }
+
+    public String getNome_clinica() {
+        return nome_clinica;
+    }
+
+    public void setNome_clinica(String nome_clinica) {
+        this.nome_clinica = nome_clinica;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
     @Override

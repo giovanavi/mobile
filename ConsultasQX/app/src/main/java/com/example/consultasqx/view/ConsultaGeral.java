@@ -26,7 +26,8 @@ public class ConsultaGeral extends AppCompatActivity {
 
     String id;
     String id_medico;
-    String nome, especialidade, crm, data, horario, convenio;
+    String nome, especialidade, crm, data, horario, convenio, nomeClinica;
+    Double latitude, longitude;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
@@ -38,6 +39,7 @@ public class ConsultaGeral extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.white)));
 
         id = (String) getIntent().getExtras().get("id_consulta");
+
 
         getConsultaData();
 
@@ -60,6 +62,10 @@ public class ConsultaGeral extends AppCompatActivity {
                     convenio = documentSnapshot.getString("convenio");
                     data = documentSnapshot.getString("data");
                     horario = documentSnapshot.getString("horario");
+                    latitude = documentSnapshot.getDouble("latitude");
+                    longitude = documentSnapshot.getDouble("longitude");
+                    nomeClinica = documentSnapshot.getString("nome_clinica");
+
 
                     initComponentes();
                 }
@@ -89,6 +95,9 @@ public class ConsultaGeral extends AppCompatActivity {
         Intent intent = new Intent(view.getContext(), MapsActivity.class);
 
         intent.putExtra("id_medico", id_medico);
+        intent.putExtra("latitude", latitude);
+        intent.putExtra("longitude", longitude);
+        intent.putExtra("nome_clinica", nomeClinica);
 
         startActivity(intent);
     }

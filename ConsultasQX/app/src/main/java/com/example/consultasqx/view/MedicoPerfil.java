@@ -29,7 +29,8 @@ public class MedicoPerfil extends AppCompatActivity {
     private ListView lista_especialidades;
     private ListView lista_convenios;
 
-    private String nome, crm;
+    private String nome, crm, nomeClinica;
+    private Double latitude, longitude;
     private ArrayList<Object> especialidades;
     private ArrayList<Object> convenios;
 
@@ -63,6 +64,9 @@ public class MedicoPerfil extends AppCompatActivity {
 
                     nome = documentSnapshot.getString("nome");
                     crm = documentSnapshot.getString("crm");
+                    latitude = documentSnapshot.getDouble("latitude");
+                    longitude = documentSnapshot.getDouble("longitude");
+                    nomeClinica = documentSnapshot.getString("nome_clinica");
                     convenios = (ArrayList<Object>) documentSnapshot.get("convenios");
                     especialidades = (ArrayList<Object>) documentSnapshot.get("especialidades");
 
@@ -79,6 +83,7 @@ public class MedicoPerfil extends AppCompatActivity {
         Intent intent = new Intent(view.getContext(), AgendarConsulta.class);
 
         intent.putExtra("id_medico", id);
+
 
         startActivity(intent);
 
@@ -102,13 +107,15 @@ public class MedicoPerfil extends AppCompatActivity {
         lista_especialidades.setAdapter(adapterEspecialidades);
         lista_convenios.setAdapter(adapterConvenios);
         txtCrm.setText(crm);
-
     }
 
     public void abrirLocal(View view){
         Intent intent = new Intent(view.getContext(), MapsActivity.class);
 
         intent.putExtra("id_medico", id);
+        intent.putExtra("latitude", latitude);
+        intent.putExtra("longitude", longitude);
+        intent.putExtra("nome_clinica", nomeClinica);
 
         startActivity(intent);
     }

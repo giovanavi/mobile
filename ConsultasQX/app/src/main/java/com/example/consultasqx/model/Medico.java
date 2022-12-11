@@ -8,7 +8,7 @@ public class Medico{
     private String crm;
     private String nome;
     private String cpf;
-    private String telefone;
+    private String nome_clinica;
     private List<String> especialidades;
     private List<String> convenios;
     private List<String> datas;
@@ -23,12 +23,12 @@ public class Medico{
         this.crm = crm;
     }
 
-    public Medico(String id, String nome, String crm, String cpf, String telefone, List<String> especialidade, List<String> convenio, String latitute, String longitude) {
+    public Medico(String id, String nome, String crm, String cpf, String nome_clinica, List<String> especialidade, List<String> convenio, String latitute, String longitude) {
         this.id = id;
         this.crm = crm;
         this.nome = nome;
         this.cpf = cpf;
-        this.telefone = telefone;
+        this.nome_clinica = nome_clinica;
         this.convenios= convenio;
         this.especialidades = especialidade;
         this.latitute = latitute;
@@ -67,12 +67,12 @@ public class Medico{
         this.cpf = cpf;
     }
 
-    public String getTelefone() {
-        return telefone;
+    public String getNome_clinica() {
+        return nome_clinica;
     }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setNome_clinica(String nome_clinica) {
+        this.nome_clinica = nome_clinica;
     }
 
     public List<String> getEspecialidades() {
@@ -130,7 +130,7 @@ public class Medico{
                 ", crm='" + crm + '\'' +
                 ", nome='" + nome + '\'' +
                 ", cpf='" + cpf + '\'' +
-                ", telefone='" + telefone + '\'' +
+                ", telefone='" + nome_clinica + '\'' +
                 ", convenio='" + convenios + '\'' +
                 ", especialidade='" + especialidades + '\'' +
                 '}';

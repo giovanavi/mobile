@@ -40,17 +40,12 @@ public class AgendarConsulta extends AppCompatActivity {
     ArrayAdapter<Object> adapterHorarios;
     ArrayAdapter<Object> adapterConvenios;
     ArrayAdapter<Object> adapterDatas;
-    String nome;
-    String crm;
-    String id;
+    String nome, nome_clinica, crm, id;
+    Double latitude, longitude;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth auth;
     DAOConsulta daoConsulta;
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,10 +75,14 @@ public class AgendarConsulta extends AppCompatActivity {
 
                     nome = (String) documentSnapshot.get("nome");
                     crm = (String) documentSnapshot.get("crm");
+                    nome_clinica = (String) documentSnapshot.get("nome_clinica");
+                    latitude = documentSnapshot.getDouble("latitude");
+                    longitude = documentSnapshot.getDouble("longitude");
                     datas = (ArrayList<Object>) documentSnapshot.get("datas");
                     horarios = (ArrayList<Object>) documentSnapshot.get("horarios");
                     convenios = (ArrayList<Object>) documentSnapshot.get("convenios");
                     especialidades = (ArrayList<Object>) documentSnapshot.get("especialidades");
+
 
                     initAdapters();
                     initSpinners();
@@ -164,6 +163,9 @@ public class AgendarConsulta extends AppCompatActivity {
                     consulta.setHorario((String) spinnerHorarios.getSelectedItem());
                     consulta.setData(((String) spinnerDatas.getSelectedItem()));
                     consulta.setCrm(crm);
+                    consulta.setNome_clinica(nome_clinica);
+                    consulta.setLatitude(latitude);
+                    consulta.setLongitude(longitude);
 
                     Map<String, Object> doc = new HashMap<>();
                     doc.put("id", uid);
@@ -175,6 +177,9 @@ public class AgendarConsulta extends AppCompatActivity {
                     doc.put("nome_medico", consulta.getNomeMedico());
                     doc.put("crm", consulta.getCrm());
                     doc.put("data", consulta.getData());
+                    doc.put("nome_clinica", consulta.getNome_clinica());
+                    doc.put("latitude", consulta.getLatitude());
+                    doc.put("longitude", consulta.getLongitude());
 
                     db.collection("Consulta").document(consulta.getUid()).set(doc)
                             .addOnCompleteListener(task -> {
