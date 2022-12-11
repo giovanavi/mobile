@@ -45,8 +45,6 @@ public class MedicoPerfil extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medico_perfil);
 
-        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.white)));
-
         id = (String) getIntent().getExtras().get("id");
 
         getMedicoData();

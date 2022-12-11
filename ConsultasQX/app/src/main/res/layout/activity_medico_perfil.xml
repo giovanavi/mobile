@@ -19,7 +19,7 @@
             android:contentDescription="@string/todoProfile"
             android:onClick="voltarMedicoPerfil"
             android:padding="15dp"
-            android:src="@drawable/ic_back_arrow_perfil_medico"
+            android:src="@drawable/ic_white_back_arrow_perfil_medico"
             app:layout_constraintBottom_toTopOf="@+id/perfil"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -144,7 +144,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.075"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3"/>
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
 
         <ImageView
@@ -177,7 +177,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.075"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView7"/>
+            app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
 
         <Button

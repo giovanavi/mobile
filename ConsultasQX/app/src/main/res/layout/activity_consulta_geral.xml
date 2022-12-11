@@ -15,7 +15,7 @@
         android:contentDescription="@string/todoProfile"
         android:onClick="voltarMedicoPerfil"
         android:padding="15dp"
-        android:src="@drawable/ic_back_arrow_perfil_medico"
+        android:src="@drawable/ic_white_back_arrow_perfil_medico"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

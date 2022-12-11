@@ -129,7 +129,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             LatLng clinica;
 
-            if(id.equals("0") || id.equals("1")){
+            clinica = new LatLng(-4.970519, -39.017490);
+            mMap.addMarker(new MarkerOptions().position(clinica).title("J. Holanda, Clínica Integrada"));
+            moveCamera(clinica, DEFAULT_ZOOM, "J. Holanda, Clínica Integrada");
+
+            /*if(id.equals("0") || id.equals("1")){
                 clinica = new LatLng(-4.970519, -39.017490);
                 mMap.addMarker(new MarkerOptions().position(clinica).title("J. Holanda, Clínica Integrada"));
                 moveCamera(clinica, DEFAULT_ZOOM, "J. Holanda, Clínica Integrada");
@@ -149,7 +153,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 clinica = new LatLng(-4.971524, -39.016235);
                 mMap.addMarker(new MarkerOptions().position(clinica).title("Clínica Clareira - Psicologia e Saúde"));
                 moveCamera(clinica, DEFAULT_ZOOM, "Clínica Clareira - Psicologia e Saúde");
-            }
+            }*/
         }
 
         Toast.makeText(this, "O mapa está pronto", Toast.LENGTH_SHORT).show();
