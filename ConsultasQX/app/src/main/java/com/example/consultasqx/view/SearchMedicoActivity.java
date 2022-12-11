@@ -1,6 +1,5 @@
 package com.example.consultasqx.view;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.appcompat.widget.SearchView;
@@ -12,20 +11,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.consultasqx.dao.DAOMedico;
 import com.example.consultasqx.view.adapter.MedicoAdapter;
 import com.example.consultasqx.R;
 import com.example.consultasqx.model.Medico;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
-import java.io.StringBufferInputStream;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class SearchMedicoActivity extends AppCompatActivity {
@@ -35,8 +27,7 @@ public class SearchMedicoActivity extends AppCompatActivity {
     SearchView searchView;
     ArrayList<Medico> listaMedicos = new ArrayList<>();
 
-
-    DatabaseReference databaseReference;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,27 +63,24 @@ public class SearchMedicoActivity extends AppCompatActivity {
     }
 
     private void attLista(){
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("Medico").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                listaMedicos.clear();
-                //pegando cada elemento do banco e colocando dentro do listalivros
-                for (DataSnapshot data: snapshot.getChildren()) {
-                    Medico medico = data.getValue(Medico.class);
+
+        db.collection("Medico").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()){
+                for (QueryDocumentSnapshot document: task.getResult()) {
+                    String id = (String) document.get("id");
+                    String nome = (String) document.get("nome");
+                    String crm = (String) document.get("crm");
+
+                    Medico medico = new Medico(id, nome, crm);
                     listaMedicos.add(medico);
                 }
-                //colocando a lista dentro do adapterMedicos
                 adapter = new MedicoAdapter(listaMedicos);
                 recyclerView.setAdapter(adapter);
             }
+        }).addOnFailureListener(e -> Toast.makeText(SearchMedicoActivity.this, "Erro: "+e.getMessage(), Toast.LENGTH_SHORT).show());
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
+
 
     public void voltarHomePage(View view){
         finish();

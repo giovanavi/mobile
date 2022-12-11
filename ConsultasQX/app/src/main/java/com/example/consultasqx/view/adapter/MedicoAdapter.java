@@ -1,7 +1,5 @@
 package com.example.consultasqx.view.adapter;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,11 +28,10 @@ public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        //    private ImageView img_perfil;
-        private TextView nome;
-        private TextView crm;
+        private final TextView nome;
+        private final TextView crm;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(View itemView) {
 
             super(itemView);
 
@@ -73,7 +69,6 @@ public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.ViewHolder
                 return filterResults;
             }
 
-            @SuppressLint("NotifyDataSetChanged")
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults results) {
                 medicosList = (ArrayList<Medico>) results.values;
@@ -83,7 +78,6 @@ public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.ViewHolder
     }
 
     //cria o layout de cada linha (card)
-    @NonNull
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.activity_medico_adapter, parent, false);
@@ -93,23 +87,18 @@ public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.ViewHolder
 
     //exibe as insformações na linha (card)
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String name = medicosList.get(position).getNome();
-        String crm = medicosList.get(position).getCrm();
-        String id = medicosList.get(position).getId();
 
-        holder.nome.setText(name);
-        holder.crm.setText(crm);
+        holder.nome.setText(medicosList.get(position).getNome());
+        holder.crm.setText(medicosList.get(position).getCrm());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Context context = view.getContext();
-                Intent intent = new Intent(context, MedicoPerfil.class);
+        holder.itemView.setOnClickListener(view -> {
+            Medico medico = medicosList.get( holder.getAdapterPosition() );
 
-                intent.putExtra("id", id);
+            Intent intent = new Intent(view.getContext(), MedicoPerfil.class);
 
-                context.startActivity(intent);
-            }
+            intent.putExtra("id", medico.getId());
+
+            view.getContext().startActivity(intent);
         });
 
     }

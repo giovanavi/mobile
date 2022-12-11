@@ -1,23 +1,18 @@
 package com.example.consultasqx.view;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.consultasqx.MapsActivity;
 import com.example.consultasqx.R;
-import com.example.consultasqx.model.Consulta;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
 
@@ -27,11 +22,13 @@ public class ConsultaGeral extends AppCompatActivity {
     TextView txtEspecialidade;
     TextView txtCrm;
     TextView txtData;
-
-    Consulta consulta;
+    TextView txtConvenio;
 
     String id;
     String id_medico;
+    String nome, especialidade, crm, data, horario, convenio;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,35 +39,50 @@ public class ConsultaGeral extends AppCompatActivity {
 
         id = (String) getIntent().getExtras().get("id_consulta");
 
-        //estou pegando o objeto Consulta baeado na id vindo da activity anterior
-        DatabaseReference dr = FirebaseDatabase.getInstance().getReference();
-        dr.child("Consulta").child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if(task.isComplete()){
-                    consulta = task.getResult().getValue(Consulta.class);
-                    initComponentes();
-                }else{
-                    Log.i("FIREBASE", "erro em trazer as informações da consulta");
-                }
-            }
-        });
-
+        getConsultaData();
 
     }
 
+    private void getConsultaData(){
+
+        Toast.makeText(this, "Carregando dados da consulta...", Toast.LENGTH_SHORT).show();
+
+        db.collection("Consulta").document(id).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()){
+                DocumentSnapshot documentSnapshot = task.getResult();
+
+                if (documentSnapshot != null && documentSnapshot.exists()){
+                    //nome ; especialidade ; crm ; data e hora;
+
+                    nome = documentSnapshot.getString("nome_medico");
+                    crm = documentSnapshot.getString("crm");
+                    especialidade = documentSnapshot.getString("especialidade");
+                    convenio = documentSnapshot.getString("convenio");
+                    data = documentSnapshot.getString("data");
+                    horario = documentSnapshot.getString("horario");
+
+                    initComponentes();
+                }
+
+            }
+        }).addOnFailureListener(e -> Toast.makeText(ConsultaGeral.this, "Erro: "+e.getMessage(), Toast.LENGTH_SHORT).show());
+
+    }
 
     public void initComponentes(){
         txtNome = findViewById(R.id.nomeMedico);
         txtEspecialidade = findViewById(R.id.especialidade);
         txtCrm= findViewById(R.id.crm);
         txtData = findViewById(R.id.data);
+        txtConvenio = findViewById(R.id.convenio);
 
-        txtNome.setText(consulta.getNomeMedico());
-        txtEspecialidade.setText(consulta.getEspecialidade());
-        txtCrm.setText(consulta.getCrm());
-        String data = consulta.getData()+" "+consulta.getHorario();
-        txtData.setText(data);
+
+        txtNome.setText(nome);
+        txtEspecialidade.setText(especialidade);
+        txtCrm.setText(crm);
+        String date = data+" - "+horario;
+        txtData.setText(date);
+        txtConvenio.setText(convenio);
     }
 
     public void abrirLocal(View view){

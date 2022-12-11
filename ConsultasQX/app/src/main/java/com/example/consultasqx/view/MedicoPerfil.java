@@ -1,32 +1,27 @@
 package com.example.consultasqx.view;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.consultasqx.MapsActivity;
 import com.example.consultasqx.R;
-import com.example.consultasqx.model.Medico;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class MedicoPerfil extends AppCompatActivity {
 
-    //    private ImageView img_perfil;
     private TextView txtNome;
     private TextView txtCrm;
     private Button btn_horarios;
@@ -34,11 +29,16 @@ public class MedicoPerfil extends AppCompatActivity {
     private ListView lista_especialidades;
     private ListView lista_convenios;
 
-    ArrayAdapter adapterEspecialidades;
-    ArrayAdapter adapterConvenios;
+    private String nome, crm;
+    private ArrayList<Object> especialidades;
+    private ArrayList<Object> convenios;
+
+    ArrayAdapter<Object> adapterEspecialidades;
+    ArrayAdapter<Object> adapterConvenios;
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     String id;
-    Medico medico;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,21 +49,31 @@ public class MedicoPerfil extends AppCompatActivity {
 
         id = (String) getIntent().getExtras().get("id");
 
-        //estou pegando o objeto Medico baeado na id vindo da activity anterior
-        DatabaseReference dr = FirebaseDatabase.getInstance().getReference();
-        dr.child("Medico").child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if(task.isComplete()){
-                    medico = task.getResult().getValue(Medico.class);
+        getMedicoData();
+    }
+
+    private void getMedicoData(){
+
+        Toast.makeText(this, "Carregando dados do médico...", Toast.LENGTH_SHORT).show();
+
+        db.collection("Medico").document(id).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()){
+                DocumentSnapshot documentSnapshot = task.getResult();
+
+                if (documentSnapshot != null && documentSnapshot.exists()){
+                    //nome ; especialidade ; crm ; especialidades ; convenios.
+
+                    nome = documentSnapshot.getString("nome");
+                    crm = documentSnapshot.getString("crm");
+                    convenios = (ArrayList<Object>) documentSnapshot.get("convenios");
+                    especialidades = (ArrayList<Object>) documentSnapshot.get("especialidades");
+
                     initAdapters();
                     initComponentes();
-                }else{
-                    Log.i("FIREBASE", "erro em trazer as informações do médico");
                 }
-            }
-        });
 
+            }
+        }).addOnFailureListener(e -> Toast.makeText(MedicoPerfil.this, "Erro: "+e.getMessage(), Toast.LENGTH_SHORT).show());
 
     }
 
@@ -77,26 +87,24 @@ public class MedicoPerfil extends AppCompatActivity {
     }
 
     public void initAdapters(){
-        adapterEspecialidades = new ArrayAdapter(this, android.R.layout.simple_list_item_1, medico.getEspecialidades());
-        adapterConvenios = new ArrayAdapter(this, android.R.layout.simple_list_item_1, medico.getConvenios());
+        adapterEspecialidades = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, especialidades);
+        adapterConvenios = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, convenios);
 
     }
 
     public void initComponentes(){
-
         txtNome = findViewById(R.id.nome);
         txtCrm = findViewById(R.id.crm);
-
         lista_especialidades = findViewById(R.id.list_especialidades);
         lista_convenios = findViewById(R.id.list_convenios);
+        btn_horarios = findViewById(R.id.verHorarios);
 
-        txtNome.setText(medico.getNome());
+
+        txtNome.setText(nome);
         lista_especialidades.setAdapter(adapterEspecialidades);
         lista_convenios.setAdapter(adapterConvenios);
-        txtCrm.setText(medico.getCrm());
+        txtCrm.setText(crm);
 
-
-        btn_horarios = findViewById(R.id.verHorarios);
     }
 
     public void abrirLocal(View view){
