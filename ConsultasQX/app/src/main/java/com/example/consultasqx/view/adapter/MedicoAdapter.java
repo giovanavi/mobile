@@ -56,7 +56,6 @@ public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.ViewHolder
                     ArrayList<Medico> medicos = new ArrayList<>();
 
                     for (Medico medico: medicosListFilter) {
-                        //editar o filtro da pesquisa
                         if(medico.getNome().toLowerCase().contains(search)){
                             medicos.add(medico);
                         }

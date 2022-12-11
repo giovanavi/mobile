@@ -4,9 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -30,7 +28,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.UUID;
 
 public class CadastroActivity extends AppCompatActivity {
 
@@ -39,7 +36,6 @@ public class CadastroActivity extends AppCompatActivity {
     EditText campoNome, campoPhone, campoCpf, campoEmail, campoSenha, campoConfSenha;
 
     DAOUsuario dao;
-    SharedPreferences sp;
 
     FirebaseFirestore db;
 
@@ -54,8 +50,6 @@ public class CadastroActivity extends AppCompatActivity {
         dao = new DAOUsuario();
 
         db = FirebaseFirestore.getInstance();
-
-        //sp = getSharedPreferences("Usuario", Context.MODE_PRIVATE);
 
         campoNome = findViewById(R.id.editTextNome);
         campoPhone = findViewById(R.id.editTextPhonePaciente);
@@ -202,16 +196,6 @@ public class CadastroActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            /*dao.add(usuario).addOnSuccessListener(suc -> {
-                Toast.makeText(CadastroActivity.this, "Inserindo dados...", Toast.LENGTH_SHORT).show();
-
-                abrirHome();
-
-            }).addOnFailureListener(er -> {
-                Toast.makeText(CadastroActivity.this, ""+er.getMessage(), Toast.LENGTH_SHORT).show();
-            });*/
-
-            //String id = UUID.randomUUID().toString();
 
             Map<String, Object> doc = new HashMap<>();
             doc.put("id", user.getUid());
@@ -243,9 +227,6 @@ public class CadastroActivity extends AppCompatActivity {
 
     private void abrirHome() {
         Intent intent = new Intent(this, Home.class);
-        /*intent.putExtra("cadastrar", "cadastrou");
-        intent.putExtra("email", usuario.getEmail());
-        intent.putExtra("senha", usuario.getSenha());*/
 
         startActivity(intent);
 

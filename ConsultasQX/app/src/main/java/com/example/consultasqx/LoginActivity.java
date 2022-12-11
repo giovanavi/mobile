@@ -67,8 +67,6 @@ public class LoginActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     FirebaseUser user = auth.getCurrentUser();
                     updateUI(user);
-
-                    //abrirHome();
                 }else{
                     String excecao;
 

@@ -60,7 +60,6 @@ public class MedicoPerfil extends AppCompatActivity {
                 DocumentSnapshot documentSnapshot = task.getResult();
 
                 if (documentSnapshot != null && documentSnapshot.exists()){
-                    //nome ; especialidade ; crm ; especialidades ; convenios.
 
                     nome = documentSnapshot.getString("nome");
                     crm = documentSnapshot.getString("crm");

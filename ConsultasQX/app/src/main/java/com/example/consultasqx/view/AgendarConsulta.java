@@ -71,7 +71,6 @@ public class AgendarConsulta extends AppCompatActivity {
                 DocumentSnapshot documentSnapshot = task.getResult();
 
                 if (documentSnapshot != null && documentSnapshot.exists()){
-                    //data, horario, especialidade, convenio
 
                     nome = (String) documentSnapshot.get("nome");
                     crm = (String) documentSnapshot.get("crm");

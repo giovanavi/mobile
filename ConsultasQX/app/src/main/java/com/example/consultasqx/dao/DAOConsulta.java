@@ -22,10 +22,6 @@ public class DAOConsulta {
         return databaseReference.push().setValue(consulta);
     }
 
-//    public void add(Consulta consulta){
-//        databaseReference.child("Consulta").child(consulta.getUid()).setValue(consulta);
-//    }
-
     public Task<Void> update(String key, HashMap<String, Object> hashMap){
         return databaseReference.child(key).updateChildren(hashMap);
     }

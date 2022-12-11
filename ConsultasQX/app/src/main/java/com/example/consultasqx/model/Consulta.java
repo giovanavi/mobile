@@ -7,11 +7,11 @@ public class Consulta {
     private static int CONTADOR = 0;
 
     private String uid;
-    private String medico; // id_medico
+    private String medico;
     private String nomeMedico;
-    private String paciente; //id_paciente
-    private String data; //String
-    private String horario; //String
+    private String paciente;
+    private String data;
+    private String horario;
     private String convenio;
     private String especialidade;
     private String crm;

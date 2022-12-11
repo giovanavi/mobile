@@ -54,7 +54,6 @@ public class ConsultaGeral extends AppCompatActivity {
                 DocumentSnapshot documentSnapshot = task.getResult();
 
                 if (documentSnapshot != null && documentSnapshot.exists()){
-                    //nome ; especialidade ; crm ; data e hora;
 
                     nome = documentSnapshot.getString("nome_medico");
                     crm = documentSnapshot.getString("crm");

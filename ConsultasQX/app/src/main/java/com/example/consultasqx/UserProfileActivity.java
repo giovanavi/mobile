@@ -1,10 +1,6 @@
 package com.example.consultasqx;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
-import androidx.activity.result.contract.ActivityResultContracts;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
@@ -14,7 +10,6 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,87 +18,54 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.ColorDrawable;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.consultasqx.Util.ConfiguraBD;
-//import com.example.consultasqx.databinding.ActivityUserProfileBinding;
-import com.example.consultasqx.dao.DAOUsuario;
 import com.example.consultasqx.databinding.ActivityUserProfileBinding;
-import com.example.consultasqx.model.Medico;
-import com.example.consultasqx.model.Usuario;
-import com.example.consultasqx.view.Home;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.annotations.Nullable;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.google.type.Date;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 public class UserProfileActivity extends AppCompatActivity {
 
     private static final String TAG = "ViewDatabase";
 
-    private DAOUsuario dao;
-    private static final String USUARIO = "Usuario";
     private String nome, cpf, email, telefone, senha;
     private String emailU, senhaU;
 
-    private FirebaseAuth autenticacao;
     private FirebaseAuth mAuth;
 
     private FirebaseFirestore db;
     private StorageReference storageReference;
 
-    private DatabaseReference databaseReference;
-    //private StorageReference storageReference;
-    private Dialog dialog;
-    private Usuario user;
     private String key;
 
     SharedPreferences sp;
@@ -199,6 +161,7 @@ public class UserProfileActivity extends AppCompatActivity {
             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                 Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
                 binding.imageProfile.setImageBitmap(bitmap);
+                binding.imageProfile.setRotation(getCameraPhotoOrientation(localFile.getAbsolutePath()));
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -304,14 +267,18 @@ public class UserProfileActivity extends AppCompatActivity {
 
         Log.d(String.valueOf(UserProfileActivity.this), "Data: "+data.getData());
 
-        //imageUri = data.getData();
-
         if (resultCode != RESULT_CANCELED) {
             switch (requestCode) {
                 case 0:
                     if (resultCode == RESULT_OK && data != null) {
                         Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
-                        photo.setImageBitmap(selectedImage);
+
+                        Matrix mat = new Matrix();
+                        mat.postRotate(0);
+
+                        Bitmap selectedImageRotate = Bitmap.createBitmap(selectedImage, 0, 0,selectedImage.getWidth(),selectedImage.getHeight(), mat, true);
+
+                        photo.setImageBitmap(selectedImageRotate);
 
                         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                         selectedImage.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
@@ -328,30 +295,6 @@ public class UserProfileActivity extends AppCompatActivity {
                                 Toast.makeText(UserProfileActivity.this, "Erro: "+e.getMessage(), Toast.LENGTH_LONG).show();
                             }
                         });
-
-                        //storageReference = FirebaseStorage.getInstance().getReference("Usuario/"+key+".jpg");
-
-                        /*File getImage = getCacheDir();//getExternalCacheDir();
-
-                        if(getImage != null){
-                            imageUri = Uri.fromFile(new File(getImage.getPath(), "profileImages"));
-                        }
-
-                        Toast.makeText(this, "getImage: "+getImage, Toast.LENGTH_LONG).show();*/
-
-                        //imageUri = data.getData();
-
-                        /*storageReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                Toast.makeText(UserProfileActivity.this, "Image salva no banco com sucesso", Toast.LENGTH_SHORT).show();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(UserProfileActivity.this, "Falha em salvar imagem no banco", Toast.LENGTH_SHORT).show();
-                            }
-                        });*/
                     }
                     break;
                 case 1:
@@ -365,7 +308,9 @@ public class UserProfileActivity extends AppCompatActivity {
                                 cursor.moveToFirst();
                                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                                 String picturePath = cursor.getString(columnIndex);
+
                                 photo.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                                photo.setRotation(getCameraPhotoOrientation(picturePath));
 
                                 imageUri = data.getData();
 
@@ -387,20 +332,39 @@ public class UserProfileActivity extends AppCompatActivity {
                     }
                     break;
             }
-
-            /*storageReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(UserProfileActivity.this, "Image salva no banco com sucesso", Toast.LENGTH_SHORT).show();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(UserProfileActivity.this, "Falha em salvar imagem no banco", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(UserProfileActivity.this, "Erro: "+e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            });*/
         }
+    }
+
+    public static int getCameraPhotoOrientation(String imagePath) {
+        int rotate = 0;
+        try {
+            ExifInterface exif  = null;
+            try {
+                exif = new ExifInterface(imagePath);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            int orientation = exif.getAttributeInt(
+                    ExifInterface.TAG_ORIENTATION, 0);
+            switch (orientation) {
+
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    rotate = 180;
+                    break;
+
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    rotate = 90;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    rotate = 90;
+                    break;
+                default:
+                    rotate = 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rotate;
     }
 
     public void update(View v) {
@@ -408,7 +372,6 @@ public class UserProfileActivity extends AppCompatActivity {
         cpf = Objects.requireNonNull(campoCpf.getText()).toString();
         emailU = Objects.requireNonNull(campoEmail.getText()).toString();
         telefone = Objects.requireNonNull(campoTelefone.getText()).toString();
-        //senhaU = Objects.requireNonNull(campoSenha.getText()).toString();
 
         if (verEmail()){
             if (verNome() && verNums() && verTele()) {
@@ -443,7 +406,7 @@ public class UserProfileActivity extends AppCompatActivity {
                     Toast.makeText(UserProfileActivity.this, "Email atualizado com sucesso", Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(UserProfileActivity.this, "Ocorreu um erro em atualizar o email, faça login novamente e tente de novo.", Toast.LENGTH_SHORT).show();
-                    //Toast.makeText(UserProfileActivity.this, "Task: "+task.getException(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(UserProfileActivity.this, "Task: "+task.getException(), Toast.LENGTH_LONG).show();
                 }
             }
         });
